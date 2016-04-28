@@ -19,6 +19,5 @@
 @property (strong,nonatomic) UIImage *image;
 @property (strong,nonatomic) UIImage *thumbnailImage;
 
-+ (instancetype)PictureFromDictionary:(NSDictionary *)pictureDetails baseURLAsStringForImage:(NSString *)baseURLAsString;
 
 @end
