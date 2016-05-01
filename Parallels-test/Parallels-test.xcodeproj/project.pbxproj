@@ -14,7 +14,6 @@
 		C79B7AFF1CD074D400F6D64B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C79B7AFD1CD074D400F6D64B /* LaunchScreen.storyboard */; };
 		C79B7B0A1CD074D400F6D64B /* Parallels_testTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B091CD074D400F6D64B /* Parallels_testTests.m */; };
 		C79B7B1A1CD0758A00F6D64B /* PMOPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B191CD0758A00F6D64B /* PMOPicture.m */; };
-		C79B7B1D1CD075CE00F6D64B /* PMOPictureStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B1C1CD075CE00F6D64B /* PMOPictureStore.m */; };
 		C79B7B211CD0760E00F6D64B /* PMODownloadTaskQueues.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B201CD0760E00F6D64B /* PMODownloadTaskQueues.m */; };
 		C79B7B581CD297DA00F6D64B /* PMOPictureModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B571CD297DA00F6D64B /* PMOPictureModelController.m */; };
 		C79B7B5B1CD29D2D00F6D64B /* PMOPictureDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B5A1CD29D2D00F6D64B /* PMOPictureDownloader.m */; };
@@ -45,8 +44,6 @@
 		C79B7B0B1CD074D400F6D64B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C79B7B181CD0758A00F6D64B /* PMOPicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOPicture.h; sourceTree = "<group>"; };
 		C79B7B191CD0758A00F6D64B /* PMOPicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOPicture.m; sourceTree = "<group>"; };
-		C79B7B1B1CD075CE00F6D64B /* PMOPictureStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOPictureStore.h; sourceTree = "<group>"; };
-		C79B7B1C1CD075CE00F6D64B /* PMOPictureStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOPictureStore.m; sourceTree = "<group>"; };
 		C79B7B1F1CD0760E00F6D64B /* PMODownloadTaskQueues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMODownloadTaskQueues.h; sourceTree = "<group>"; };
 		C79B7B201CD0760E00F6D64B /* PMODownloadTaskQueues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMODownloadTaskQueues.m; sourceTree = "<group>"; };
 		C79B7B561CD297DA00F6D64B /* PMOPictureModelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOPictureModelController.h; sourceTree = "<group>"; };
@@ -135,8 +132,6 @@
 			children = (
 				C79B7B181CD0758A00F6D64B /* PMOPicture.h */,
 				C79B7B191CD0758A00F6D64B /* PMOPicture.m */,
-				C79B7B1B1CD075CE00F6D64B /* PMOPictureStore.h */,
-				C79B7B1C1CD075CE00F6D64B /* PMOPictureStore.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -286,7 +281,6 @@
 			files = (
 				C79B7B1A1CD0758A00F6D64B /* PMOPicture.m in Sources */,
 				C79B7B5E1CD2AAD200F6D64B /* PMOViewController.m in Sources */,
-				C79B7B1D1CD075CE00F6D64B /* PMOPictureStore.m in Sources */,
 				C79B7AF41CD074D400F6D64B /* AppDelegate.m in Sources */,
 				C79B7AF11CD074D400F6D64B /* main.m in Sources */,
 				C79B7B5B1CD29D2D00F6D64B /* PMOPictureDownloader.m in Sources */,
