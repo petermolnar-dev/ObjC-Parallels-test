@@ -13,7 +13,6 @@
 @property (strong, nonatomic) NSMutableArray *normalPriorityQueue;
 @property (strong, nonatomic) NSMutableArray *highPriorityQueue;
 
-
 @end
 
 @implementation PMODownloadTaskQueues
@@ -69,6 +68,14 @@
     [self suspendQueue:self.normalPriorityQueue];
 }
 
+
+- (void)changeDownloadTaskToHighPriorityQueueFromURL:(NSURL *)downloadURL {
+    NSURLSessionTask *foundTask = [self findTaskByURL:downloadURL inQueue:self.normalPriorityQueue];
+    if (foundTask) {
+        [self addDownloadTaskToHighPriorityQueue:foundTask];
+    }
+}
+
 - (void)removeAllTasksFromHighPriorityQueue
 {
     [self suspendQueue:self.highPriorityQueue];
@@ -99,27 +106,38 @@
     
 }
 
-- (NSURLSessionTask *) addTask: (NSURLSessionTask *)task toQueue: (NSMutableArray *)queue
+- (NSURLSessionTask *)addTask: (NSURLSessionTask *)task toQueue: (NSMutableArray *)queue
 {
     [queue addObject:task];
     [self resumeQueue:queue];
     return task;
 }
 
-- (NSURLSessionTask *)findTask:(NSURLSessionTask *)task inQueue:(NSMutableArray *)queue
-{
-    NSURLSessionTask *resultTask = task;
+
+- (NSURLSessionTask *)findTaskByURL:(NSURL *)url inQueue:(NSMutableArray *)queue {
     for (NSURLSessionTask *currentTask in queue) {
-        if ([currentTask.currentRequest.URL isEqual:task.currentRequest.URL]) {
-            // Previous task has been found, cancel it and return with the original task
-            [task cancel];
-            resultTask = currentTask;
+        if ([currentTask.currentRequest.URL isEqual:url]) {
+            return currentTask;
             break;
         }
     }
-    
-    return resultTask;
+    return nil;
 }
+
+// Search for a task in the queue
+- (NSURLSessionTask *)findTask:(NSURLSessionTask *)task inQueue:(NSMutableArray *)queue
+{
+    NSURLSessionTask *foundTaskByURL = [self findTaskByURL:task.currentRequest.URL inQueue:queue];
+    if (foundTaskByURL) {
+        // Previous task has been found. Cancel the current one and return with the found task
+        [task cancel];
+        return foundTaskByURL;
+    } else {
+        return task;
+    }
+}
+
+
 
 
 #pragma mark - Queue operations

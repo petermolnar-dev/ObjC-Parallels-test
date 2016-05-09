@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "PMOPicture.h"
+#import "PMODownloadTaskQueues.h"
 
 @interface PMOPictureModelController : NSObject
 
-@property (strong, nonatomic) NSString *baseURLAsString;
+@property (copy, nonatomic) NSString *baseURLAsString;
+@property (strong, nonatomic) PMOPicture *picture;
+@property (weak, nonatomic) PMODownloadTaskQueues *downloadQueues;
 
-- (instancetype)initWithPictureFromDictionary:(NSDictionary *)pictureDetails baseURLAsStringForImage:(NSString *)baseURLAsString; // Designated initializer
-
+- (void)createPictureFromDictionary:(NSDictionary *)pictureDetails baseURLAsStringForImage:(NSString *)baseURLAsString;
 
 @end

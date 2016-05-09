@@ -18,6 +18,10 @@
 		C79B7B581CD297DA00F6D64B /* PMOPictureModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B571CD297DA00F6D64B /* PMOPictureModelController.m */; };
 		C79B7B5B1CD29D2D00F6D64B /* PMOPictureDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B5A1CD29D2D00F6D64B /* PMOPictureDownloader.m */; };
 		C79B7B5E1CD2AAD200F6D64B /* PMOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B5D1CD2AAD200F6D64B /* PMOViewController.m */; };
+		C7C4ACBB1CDC6FE9004F515A /* PMONotificationConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACBA1CDC6FE9004F515A /* PMONotificationConstants.m */; };
+		C7C4ACBF1CDCF76D004F515A /* PMODataDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACBE1CDCF76D004F515A /* PMODataDownloader.m */; };
+		C7C4ACC21CE06D26004F515A /* PMOPictureDownloaderWithQueues.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACC11CE06D26004F515A /* PMOPictureDownloaderWithQueues.m */; };
+		C7C4ACC61CE0B387004F515A /* PMODataDownloaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACC51CE0B387004F515A /* PMODataDownloaderTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +56,13 @@
 		C79B7B5A1CD29D2D00F6D64B /* PMOPictureDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOPictureDownloader.m; sourceTree = "<group>"; };
 		C79B7B5C1CD2AAD200F6D64B /* PMOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOViewController.h; sourceTree = "<group>"; };
 		C79B7B5D1CD2AAD200F6D64B /* PMOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOViewController.m; sourceTree = "<group>"; };
+		C7C4ACBA1CDC6FE9004F515A /* PMONotificationConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMONotificationConstants.m; sourceTree = "<group>"; };
+		C7C4ACBD1CDCF76D004F515A /* PMODataDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMODataDownloader.h; sourceTree = "<group>"; };
+		C7C4ACBE1CDCF76D004F515A /* PMODataDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMODataDownloader.m; sourceTree = "<group>"; };
+		C7C4ACC01CE06D26004F515A /* PMOPictureDownloaderWithQueues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOPictureDownloaderWithQueues.h; sourceTree = "<group>"; };
+		C7C4ACC11CE06D26004F515A /* PMOPictureDownloaderWithQueues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOPictureDownloaderWithQueues.m; sourceTree = "<group>"; };
+		C7C4ACC41CE06FCF004F515A /* PMODownloadNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PMODownloadNotifier.h; path = ../PMODownloadNotifier.h; sourceTree = "<group>"; };
+		C7C4ACC51CE0B387004F515A /* PMODataDownloaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMODataDownloaderTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +124,7 @@
 		C79B7AEF1CD074D400F6D64B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C7C4ACBA1CDC6FE9004F515A /* PMONotificationConstants.m */,
 				C79B7AF01CD074D400F6D64B /* main.m */,
 			);
 			name = "Supporting Files";
@@ -122,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				C79B7B091CD074D400F6D64B /* Parallels_testTests.m */,
+				C7C4ACC51CE0B387004F515A /* PMODataDownloaderTest.m */,
 				C79B7B0B1CD074D400F6D64B /* Info.plist */,
 			);
 			path = "Parallels-testTests";
@@ -155,6 +168,7 @@
 		C79B7B171CD0756C00F6D64B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				C7C4ACC41CE06FCF004F515A /* PMODownloadNotifier.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -173,8 +187,12 @@
 			children = (
 				C79B7B1F1CD0760E00F6D64B /* PMODownloadTaskQueues.h */,
 				C79B7B201CD0760E00F6D64B /* PMODownloadTaskQueues.m */,
+				C7C4ACC01CE06D26004F515A /* PMOPictureDownloaderWithQueues.h */,
+				C7C4ACC11CE06D26004F515A /* PMOPictureDownloaderWithQueues.m */,
 				C79B7B591CD29D2D00F6D64B /* PMOPictureDownloader.h */,
 				C79B7B5A1CD29D2D00F6D64B /* PMOPictureDownloader.m */,
+				C7C4ACBD1CDCF76D004F515A /* PMODataDownloader.h */,
+				C7C4ACBE1CDCF76D004F515A /* PMODataDownloader.m */,
 			);
 			name = "Network operations";
 			sourceTree = "<group>";
@@ -282,9 +300,12 @@
 				C79B7B1A1CD0758A00F6D64B /* PMOPicture.m in Sources */,
 				C79B7B5E1CD2AAD200F6D64B /* PMOViewController.m in Sources */,
 				C79B7AF41CD074D400F6D64B /* AppDelegate.m in Sources */,
+				C7C4ACBF1CDCF76D004F515A /* PMODataDownloader.m in Sources */,
 				C79B7AF11CD074D400F6D64B /* main.m in Sources */,
 				C79B7B5B1CD29D2D00F6D64B /* PMOPictureDownloader.m in Sources */,
+				C7C4ACBB1CDC6FE9004F515A /* PMONotificationConstants.m in Sources */,
 				C79B7B211CD0760E00F6D64B /* PMODownloadTaskQueues.m in Sources */,
+				C7C4ACC21CE06D26004F515A /* PMOPictureDownloaderWithQueues.m in Sources */,
 				C79B7B581CD297DA00F6D64B /* PMOPictureModelController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C79B7B0A1CD074D400F6D64B /* Parallels_testTests.m in Sources */,
+				C7C4ACC61CE0B387004F515A /* PMODataDownloaderTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

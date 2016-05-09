@@ -7,12 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PMOPicture.h"
+#import "PMODataDownloader.h"
 
-@interface PMOPictureDownloader : NSObject
+static NSString *const PMOPictureDownloaderImageDidDownloaded = @"PMOPictureDownloaderImageDidDownloaded";
 
-@property (weak, nonatomic) PMOPicture *picture;
-
--(void)downloadPictureImage;
+@interface PMOPictureDownloader : PMODataDownloader
 
 @end

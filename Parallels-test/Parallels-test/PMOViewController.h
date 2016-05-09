@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PMODownloadTaskQueues.h"
 
 @interface PMOViewController : UIViewController
-
+@property (strong, nonatomic) PMODownloadTaskQueues *downloadQueues;
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "PMOPictureModelController.h"
+#import "PMOPictureDownloaderWithQueues.h"
+
 
 @interface PMOPictureModelController()
 
@@ -17,52 +19,73 @@
 
 @implementation PMOPictureModelController
 
-- (instancetype)initWithPictureFromDictionary:(NSDictionary *)pictureDetails baseURLAsStringForImage:(NSString *)baseURLAsString {
+
+-(void)observerForDownloadNotification: (NSNotification *) notification {
     
-    self = [super init];
-    if (self && baseURLAsString) {
-        [self setBaseURLAsString:baseURLAsString];
+    // Update the model with KVO compliant mode
+    [self.picture setValue:[UIImage imageWithData:[notification.userInfo valueForKey:@"data"]]
+                    forKey:@"image"];
+    
+    [self createThumbnailImageFromImage:self.picture.image];
+}
+
+-(void)observerForImageTransformationNotification: (NSNotification *) notification {
+    
+    // Update the model with KVO compliant mode
+    [self.picture setValue:[UIImage imageWithData:[notification.userInfo valueForKey:@"data"]]
+                    forKey:@"thumbnailImage"];
+    
+    
+}
+
+
+- (void)createPictureFromDictionary:(NSDictionary *)pictureDetails baseURLAsStringForImage:(NSString *)baseURLAsString {
+    
+    self.picture = [self setupPictureDetailsFromDictionary:pictureDetails
+                                   baseURLAsStringForImage:baseURLAsString];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(observerForDownloadNotification:)
+                                                 name:PMOPictureDownloaderImageDidDownloaded
+                                               object:nil];
+    PMOPictureDownloaderWithQueues *downloader = [[PMOPictureDownloaderWithQueues alloc] init];
+    
+    // Start to download the image
+    [downloader setQueues:self.downloadQueues];
+    [downloader downloadDataFromURL:self.picture.imageURL];
+    
+    
+}
+
+- (NSString *)updateURLAsStringWithTrailingHash:(NSString *)URLstring {
+    
+    // Check if the URL ends with slash (/) character.
+    if (![[URLstring substringFromIndex:[URLstring length]-1] isEqual:@"/"]) {
+        URLstring= [URLstring stringByAppendingString:@"/"];
     }
-    return self;
+    return URLstring;
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    
-}
-
-
-- (void)addPictureFromDictionary:(NSDictionary *)pictureDetails baseURLAsStringForImage:(NSString *)baseURLAsString {
+-(PMOPicture *)setupPictureDetailsFromDictionary:(NSDictionary *)pictureDetails  baseURLAsStringForImage:(NSString *)baseURLAsString {
     
     PMOPicture *picture = [[PMOPicture alloc] init];
-    
     [picture setImageDescription:[pictureDetails objectForKey:@"description"]];
     [picture setImageFileName:[pictureDetails objectForKey:@"image"]];
     [picture setImageTitle:[pictureDetails objectForKey:@"name"]];
-    // Check if the URL ends with slash (/) character.
-    if (![[baseURLAsString substringFromIndex:[baseURLAsString length]-1] isEqual:@"/"]) {
-        baseURLAsString= [baseURLAsString stringByAppendingString:@"/"];
-    }
-    [picture setImageURL:[NSURL URLWithString:[baseURLAsString stringByAppendingString:picture.imageFileName]]];
+    [picture setImageURL:[NSURL URLWithString:[[self updateURLAsStringWithTrailingHash:baseURLAsString] stringByAppendingString:picture.imageFileName]]];
     
-    
-    // Start to download the image
-    
-    // add to pictures array
-    [self.pictures addObject:picture];
-    
-    // Tune to the image change
-    [picture addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-    
+    return picture;
 }
 
--(NSMutableArray *)pictures {
-    
-    if (!_pictures) {
-        _pictures =[[NSMutableArray alloc] init];
-    }
-    
-    return _pictures;
+-(void) createThumbnailImageFromImage:(UIImage *)image {
+    // Add an observer
+    // call the class to make the transform
 }
 
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PMODataDownloaderDidDownloadEnded
+                                                  object:nil];
+}
 
 @end
