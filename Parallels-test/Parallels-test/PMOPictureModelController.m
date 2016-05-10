@@ -8,17 +8,31 @@
 
 #import "PMOPictureModelController.h"
 #import "PMOPictureDownloaderWithQueues.h"
+#import "PMOThumbnailCreator.h"
 
-
-@interface PMOPictureModelController()
-
-@property (strong, nonatomic) NSMutableArray *pictures;
-
-
-@end
 
 @implementation PMOPictureModelController
 
+#pragma mark - Accessors
+
+- (UIImage *)image {
+    // Small trick: returns back the picture's image or triggers the download
+    if (!self.picture.image) {
+        [self requestDownloadOfThePictureImage];
+    }
+    return self.picture.image;
+}
+
+- (UIImage *)thumbnailImage {
+    // Small trick: returns back the picture's thumbnailImage or triggers the download
+    if (!self.picture.image) {
+        [self requestDownloadOfThePictureImage];
+    }
+    return self.picture.thumbnailImage;
+}
+
+
+#pragma mark - Observer triggers
 
 -(void)observerForDownloadNotification: (NSNotification *) notification {
     
@@ -26,24 +40,36 @@
     [self.picture setValue:[UIImage imageWithData:[notification.userInfo valueForKey:@"data"]]
                     forKey:@"image"];
     
-    [self createThumbnailImageFromImage:self.picture.image];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PMODataDownloaderDidDownloadEnded
+                                                  object:nil];
+    
+    [self requestThumbnailImageFromImage:self.picture.image];
 }
 
 -(void)observerForImageTransformationNotification: (NSNotification *) notification {
     
     // Update the model with KVO compliant mode
-    [self.picture setValue:[UIImage imageWithData:[notification.userInfo valueForKey:@"data"]]
+    [self.picture setValue:[notification.userInfo valueForKey:@"image"]
                     forKey:@"thumbnailImage"];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PMOThumbnailImageGenerated
+                                                  object:nil];
     
     
 }
 
+#pragma mark - Creation and dynamic image retrieving
 
 - (void)createPictureFromDictionary:(NSDictionary *)pictureDetails baseURLAsStringForImage:(NSString *)baseURLAsString {
     
     self.picture = [self setupPictureDetailsFromDictionary:pictureDetails
                                    baseURLAsStringForImage:baseURLAsString];
     
+}
+
+- (void)requestDownloadOfThePictureImage {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(observerForDownloadNotification:)
                                                  name:PMOPictureDownloaderImageDidDownloaded
@@ -53,10 +79,22 @@
     // Start to download the image
     [downloader setQueues:self.downloadQueues];
     [downloader downloadDataFromURL:self.picture.imageURL];
+}
+
+
+-(void)requestThumbnailImageFromImage:(UIImage *)image {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(observerForImageTransformationNotification:)
+                                                 name:PMOThumbnailImageGenerated
+                                               object:nil];
+    PMOThumbnailCreator *thumbnailCreator = [[PMOThumbnailCreator alloc] init];
+    [thumbnailCreator resizeImageWithFixedValues:self.image size:CGSizeMake(20.0, 20.0)];
     
     
 }
 
+
+#pragma mark - Helper functions
 - (NSString *)updateURLAsStringWithTrailingHash:(NSString *)URLstring {
     
     // Check if the URL ends with slash (/) character.
@@ -77,15 +115,5 @@
     return picture;
 }
 
--(void) createThumbnailImageFromImage:(UIImage *)image {
-    // Add an observer
-    // call the class to make the transform
-}
-
--(void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:PMODataDownloaderDidDownloadEnded
-                                                  object:nil];
-}
 
 @end

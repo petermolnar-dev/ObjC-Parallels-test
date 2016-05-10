@@ -35,12 +35,18 @@
     [self.modelController createPictureFromDictionary:firstPicture baseURLAsStringForImage:@"http://93.175.29.76/web/wwdc/"];
     
     [self.modelController addObserver:self
-                           forKeyPath:@"picture.image"
+                           forKeyPath:@"picture.thumbnailImage"
                               options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew
                               context:nil ];
     self.loadingActivity = [self addSpinnerToView:self.view];
     
     
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.imageView.image = self.modelController.thumbnailImage;
 }
 
 - (UIActivityIndicatorView *)addSpinnerToView:(UIView *)parentView {
