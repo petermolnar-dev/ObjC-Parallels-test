@@ -8,6 +8,7 @@
 
 #import "PMOViewController.h"
 #import "PMOPictureModelController.h"
+#import "PMOPIctureStorageModellController.h"
 
 
 @interface PMOViewController ()
@@ -29,10 +30,11 @@
                                      @"name" : @"WWDC'05",
                                      @"description" : @"Image for WWDC 2005"};
 
-//    [self.modelController createPictureFromDictionary:smallPicture baseURLAsStringForImage:@"http://i2.wp.com/petermolnar.hu/wp-content/uploads/2014/04/"];
     [self.modelController setDownloadQueues:self.downloadQueues];
+
+    [self.modelController createPictureFromDictionary:smallPicture baseURLAsStringForImage:@"http://i2.wp.com/petermolnar.hu/wp-content/uploads/2014/04/"];
     
-    [self.modelController createPictureFromDictionary:firstPicture baseURLAsStringForImage:@"http://93.175.29.76/web/wwdc/"];
+//    [self.modelController createPictureFromDictionary:firstPicture baseURLAsStringForImage:@"http://93.175.29.76/web/wwdc/"];
     
     [self.modelController addObserver:self
                            forKeyPath:@"picture.thumbnailImage"
@@ -40,6 +42,9 @@
                               context:nil ];
     self.loadingActivity = [self addSpinnerToView:self.view];
     
+    NSURL *jsonURL = [NSURL URLWithString:@"http://93.175.29.76/web/wwdc/items.json"];
+    
+    PMOPictureStorageModellController *storageMC = [[PMOPictureStorageModellController alloc] initFromJSONFileatURL:jsonURL];
     
 }
 

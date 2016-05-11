@@ -18,14 +18,14 @@
         UIImage *newThumbnail = UIGraphicsGetImageFromCurrentImageContext();
         // pop the context
         UIGraphicsEndImageContext();
-        [self notifyObserversWithTranfromedData:newThumbnail];
+        [self notifyObserversWithTransfromedData:newThumbnail];
     }];
    
     [self.sharedQueue addOperation:transformBlockOP];
 }
 
 
--(void)notifyObserversWithTranfromedData:(UIImage *)data {
+-(void)notifyObserversWithTransfromedData:(UIImage *)data {
     NSDictionary *userInfo = @{@"image" : data };
     [[NSNotificationCenter defaultCenter] postNotificationName:PMOThumbnailImageGenerated
                                                         object:self

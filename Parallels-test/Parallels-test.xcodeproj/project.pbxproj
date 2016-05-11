@@ -18,11 +18,12 @@
 		C79B7B581CD297DA00F6D64B /* PMOPictureModelController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B571CD297DA00F6D64B /* PMOPictureModelController.m */; };
 		C79B7B5B1CD29D2D00F6D64B /* PMOPictureDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B5A1CD29D2D00F6D64B /* PMOPictureDownloader.m */; };
 		C79B7B5E1CD2AAD200F6D64B /* PMOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B5D1CD2AAD200F6D64B /* PMOViewController.m */; };
-		C7C4ACBB1CDC6FE9004F515A /* PMONotificationConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACBA1CDC6FE9004F515A /* PMONotificationConstants.m */; };
 		C7C4ACBF1CDCF76D004F515A /* PMODataDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACBE1CDCF76D004F515A /* PMODataDownloader.m */; };
 		C7C4ACC21CE06D26004F515A /* PMOPictureDownloaderWithQueues.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACC11CE06D26004F515A /* PMOPictureDownloaderWithQueues.m */; };
 		C7C4ACC61CE0B387004F515A /* PMODataDownloaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACC51CE0B387004F515A /* PMODataDownloaderTest.m */; };
 		C7C4ACCA1CE1DADB004F515A /* PMOThumbnailCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACC91CE1DADB004F515A /* PMOThumbnailCreator.m */; };
+		C7C4ACD01CE2736E004F515A /* PMOPictureStorageModellController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACCF1CE2736E004F515A /* PMOPictureStorageModellController.m */; };
+		C7C4ACD41CE2761D004F515A /* PMOPictureJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACD31CE2761D004F515A /* PMOPictureJSONParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +58,6 @@
 		C79B7B5A1CD29D2D00F6D64B /* PMOPictureDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOPictureDownloader.m; sourceTree = "<group>"; };
 		C79B7B5C1CD2AAD200F6D64B /* PMOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOViewController.h; sourceTree = "<group>"; };
 		C79B7B5D1CD2AAD200F6D64B /* PMOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOViewController.m; sourceTree = "<group>"; };
-		C7C4ACBA1CDC6FE9004F515A /* PMONotificationConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMONotificationConstants.m; sourceTree = "<group>"; };
 		C7C4ACBD1CDCF76D004F515A /* PMODataDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMODataDownloader.h; sourceTree = "<group>"; };
 		C7C4ACBE1CDCF76D004F515A /* PMODataDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMODataDownloader.m; sourceTree = "<group>"; };
 		C7C4ACC01CE06D26004F515A /* PMOPictureDownloaderWithQueues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOPictureDownloaderWithQueues.h; sourceTree = "<group>"; };
@@ -66,6 +66,10 @@
 		C7C4ACC51CE0B387004F515A /* PMODataDownloaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMODataDownloaderTest.m; sourceTree = "<group>"; };
 		C7C4ACC81CE1DADB004F515A /* PMOThumbnailCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOThumbnailCreator.h; sourceTree = "<group>"; };
 		C7C4ACC91CE1DADB004F515A /* PMOThumbnailCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOThumbnailCreator.m; sourceTree = "<group>"; };
+		C7C4ACCE1CE2736E004F515A /* PMOPictureStorageModellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOPictureStorageModellController.h; sourceTree = "<group>"; };
+		C7C4ACCF1CE2736E004F515A /* PMOPictureStorageModellController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOPictureStorageModellController.m; sourceTree = "<group>"; };
+		C7C4ACD21CE2761D004F515A /* PMOPictureJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOPictureJSONParser.h; sourceTree = "<group>"; };
+		C7C4ACD31CE2761D004F515A /* PMOPictureJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOPictureJSONParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,13 +111,13 @@
 		C79B7AEE1CD074D400F6D64B /* Parallels-test */ = {
 			isa = PBXGroup;
 			children = (
+				C7C4ACD11CE275F7004F515A /* Parsers */,
 				C7C4ACC71CE13957004F515A /* Image transformator */,
 				C79B7B551CD2979E00F6D64B /* Network operations */,
 				C79B7B1E1CD075EC00F6D64B /* ModelControllers */,
 				C79B7B171CD0756C00F6D64B /* Protocols */,
 				C79B7B161CD0756500F6D64B /* Delegates */,
 				C79B7B151CD0750E00F6D64B /* ViewControllers */,
-				C79B7B141CD0750400F6D64B /* Models */,
 				C79B7AF21CD074D400F6D64B /* AppDelegate.h */,
 				C79B7AF31CD074D400F6D64B /* AppDelegate.m */,
 				C79B7AF81CD074D400F6D64B /* Main.storyboard */,
@@ -128,7 +132,6 @@
 		C79B7AEF1CD074D400F6D64B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C7C4ACBA1CDC6FE9004F515A /* PMONotificationConstants.m */,
 				C79B7AF01CD074D400F6D64B /* main.m */,
 			);
 			name = "Supporting Files";
@@ -158,6 +161,7 @@
 			children = (
 				C79B7B5C1CD2AAD200F6D64B /* PMOViewController.h */,
 				C79B7B5D1CD2AAD200F6D64B /* PMOViewController.m */,
+				C79B7B141CD0750400F6D64B /* Models */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -182,6 +186,8 @@
 			children = (
 				C79B7B561CD297DA00F6D64B /* PMOPictureModelController.h */,
 				C79B7B571CD297DA00F6D64B /* PMOPictureModelController.m */,
+				C7C4ACCE1CE2736E004F515A /* PMOPictureStorageModellController.h */,
+				C7C4ACCF1CE2736E004F515A /* PMOPictureStorageModellController.m */,
 			);
 			name = ModelControllers;
 			sourceTree = "<group>";
@@ -208,6 +214,15 @@
 				C7C4ACC91CE1DADB004F515A /* PMOThumbnailCreator.m */,
 			);
 			name = "Image transformator";
+			sourceTree = "<group>";
+		};
+		C7C4ACD11CE275F7004F515A /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				C7C4ACD21CE2761D004F515A /* PMOPictureJSONParser.h */,
+				C7C4ACD31CE2761D004F515A /* PMOPictureJSONParser.m */,
+			);
+			name = Parsers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,13 +325,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7C4ACD01CE2736E004F515A /* PMOPictureStorageModellController.m in Sources */,
 				C79B7B1A1CD0758A00F6D64B /* PMOPicture.m in Sources */,
 				C79B7B5E1CD2AAD200F6D64B /* PMOViewController.m in Sources */,
 				C79B7AF41CD074D400F6D64B /* AppDelegate.m in Sources */,
+				C7C4ACD41CE2761D004F515A /* PMOPictureJSONParser.m in Sources */,
 				C7C4ACBF1CDCF76D004F515A /* PMODataDownloader.m in Sources */,
 				C79B7AF11CD074D400F6D64B /* main.m in Sources */,
 				C79B7B5B1CD29D2D00F6D64B /* PMOPictureDownloader.m in Sources */,
-				C7C4ACBB1CDC6FE9004F515A /* PMONotificationConstants.m in Sources */,
 				C7C4ACCA1CE1DADB004F515A /* PMOThumbnailCreator.m in Sources */,
 				C79B7B211CD0760E00F6D64B /* PMODownloadTaskQueues.m in Sources */,
 				C7C4ACC21CE06D26004F515A /* PMOPictureDownloaderWithQueues.m in Sources */,
