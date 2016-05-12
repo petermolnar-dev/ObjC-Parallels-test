@@ -8,31 +8,55 @@
 
 #import "PMOPictureStorageModellController.h"
 #import "PMOPictureJSONParser.h"
+#import "PMODataDownloader.h"
 
 @implementation PMOPictureStorageModellController
 
--(instancetype)initFromJSONFileatURL:(NSURL *)url {
-    
-    self = [super init];
-    
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(observerForJSONParser:)
-                                                     name:PMOPictureJSONParsed
-                                                   object:nil];
-        
-        PMOPictureJSONParser *parser = [[PMOPictureJSONParser alloc] init];
-        [parser downloadDataFromURL:url];
-    }
-    
-    return self;
+-(void)observerForDownloadedData:(NSNotification *) notification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PMODataDownloaderDidDownloadEnded
+                                                  object:nil];
+    NSData *jsonData =[notification.userInfo objectForKey:@"data"];
+    [self parseData:jsonData];
 }
 
--(void)observerForJSONParser:(NSDictionary *) userInfo {
+
+-(void)setupFromJSONFileatURL:(NSURL *)url {
+    
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(observerForDownloadedData:)
+                                                     name:PMODataDownloaderDidDownloadEnded
+                                                   object:nil];
+        PMODataDownloader *downloader = [[PMODataDownloader alloc] init];
+        [downloader downloadDataFromURL:url];
+
+        
+
+
+}
+
+-(void)observerForJSONParser:(NSNotification *) notification {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:PMOPictureJSONParsed
                                                   object:nil];
-    NSLog(@"UserInfo: %@", userInfo);
+    self.pictures = [notification.userInfo objectForKey:@"json"];
+    NSLog(@"pictureList: %@", self.pictures);
 }
+
+
+-(void)parseData:(NSData *)data {
+    
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(observerForJSONParser:)
+                                                         name:PMOPictureJSONParsed
+                                                       object:nil];
+
+            PMOPictureJSONParser *parser = [[PMOPictureJSONParser alloc] init];
+            [parser parseData:data];
+    
+}
+
+
+
 
 @end

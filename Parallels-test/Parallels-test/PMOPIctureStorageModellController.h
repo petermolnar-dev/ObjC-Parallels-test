@@ -13,6 +13,6 @@
 
 @property (strong, nonatomic) NSArray *pictures;
 
--(instancetype)initFromJSONFileatURL:(NSURL *)url; // designated initializer
+-(void)setupFromJSONFileatURL:(NSURL *)url;
 
 @end

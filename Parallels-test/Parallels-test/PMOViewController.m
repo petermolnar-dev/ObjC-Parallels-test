@@ -9,15 +9,17 @@
 #import "PMOViewController.h"
 #import "PMOPictureModelController.h"
 #import "PMOPIctureStorageModellController.h"
-
+#import "PMODataDownloader.h"
 
 @interface PMOViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) PMOPictureModelController *modelController;
+@property (strong, nonatomic) PMOPictureStorageModellController *storageController;
 @property (weak, nonatomic)UIActivityIndicatorView *loadingActivity;
 @end
 
 @implementation PMOViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,7 +34,7 @@
 
     [self.modelController setDownloadQueues:self.downloadQueues];
 
-    [self.modelController createPictureFromDictionary:smallPicture baseURLAsStringForImage:@"http://i2.wp.com/petermolnar.hu/wp-content/uploads/2014/04/"];
+//    [self.modelController createPictureFromDictionary:smallPicture baseURLAsStringForImage:@"http://i2.wp.com/petermolnar.hu/wp-content/uploads/2014/04/"];
     
 //    [self.modelController createPictureFromDictionary:firstPicture baseURLAsStringForImage:@"http://93.175.29.76/web/wwdc/"];
     
@@ -44,14 +46,14 @@
     
     NSURL *jsonURL = [NSURL URLWithString:@"http://93.175.29.76/web/wwdc/items.json"];
     
-    PMOPictureStorageModellController *storageMC = [[PMOPictureStorageModellController alloc] initFromJSONFileatURL:jsonURL];
+    [self.storageController setupFromJSONFileatURL:jsonURL];
     
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.imageView.image = self.modelController.thumbnailImage;
+//    self.imageView.image = self.modelController.thumbnailImage;
 }
 
 - (UIActivityIndicatorView *)addSpinnerToView:(UIView *)parentView {
@@ -86,11 +88,21 @@
 }
 
 - (PMOPictureModelController *)modelController {
+
     if (!_modelController) {
         _modelController = [[PMOPictureModelController alloc] init];
 
     }
     
     return _modelController;
+}
+
+- (PMOPictureStorageModellController *)storageController {
+    
+    if (!_storageController) {
+        _storageController = [[PMOPictureStorageModellController alloc] init];
+    }
+    
+    return _storageController;
 }
 @end
