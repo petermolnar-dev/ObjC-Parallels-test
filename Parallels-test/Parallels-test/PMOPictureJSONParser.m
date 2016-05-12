@@ -11,41 +11,27 @@
 
 @implementation PMOPictureJSONParser
 
--(void)downloadDataFromURL:(NSURL *)url {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(observerForDowloadedData:)
-                                                 name:PMODataDownloaderDidDownloadEnded
-                                               object:nil];
-    PMODataDownloader *downloader = [[PMODataDownloader alloc] init];
-    [downloader downloadDataFromURL:url];
-    
-}
 
 
 -(void)parseData:(NSData *)data {
     NSOperationQueue *opQueue = [[NSOperationQueue alloc] init];
     
     NSBlockOperation *parsingOperation = [NSBlockOperation blockOperationWithBlock:^{
+        NSError *jsonError;
         NSArray *JSONData = [NSJSONSerialization JSONObjectWithData:data
-                                                           options:0
-                                                             error:nil];
+                                                            options:0
+                                                              error:&jsonError];
+        
         [self notifyObserversWithParsedData:JSONData];
+        
     }];
     
     [opQueue addOperation:parsingOperation];
 }
 
--(void)observerForDowloadedData:(NSData *)data {
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:PMODataDownloaderDidDownloadEnded
-                                                      object:nil];
-    
-    [self parseData:data];
-}
 
 -(void)notifyObserversWithParsedData:(NSArray *)data {
-    NSDictionary *userInfo = @{@"data" : data };
+    NSDictionary *userInfo = @{@"json" : data };
     [[NSNotificationCenter defaultCenter] postNotificationName:PMOPictureJSONParsed
                                                         object:self
                                                       userInfo:userInfo];

@@ -12,5 +12,5 @@
 static NSString *const PMOPictureJSONParsed = @"PMOPictureJSONParsed";
 
 @interface PMOPictureJSONParser : NSObject
--(void)downloadDataFromURL:(NSURL *)url;
+-(void)parseData:(NSData *)data;
 @end

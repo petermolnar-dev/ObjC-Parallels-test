@@ -117,6 +117,7 @@
 				C79B7B1E1CD075EC00F6D64B /* ModelControllers */,
 				C79B7B171CD0756C00F6D64B /* Protocols */,
 				C79B7B161CD0756500F6D64B /* Delegates */,
+				C79B7B141CD0750400F6D64B /* Models */,
 				C79B7B151CD0750E00F6D64B /* ViewControllers */,
 				C79B7AF21CD074D400F6D64B /* AppDelegate.h */,
 				C79B7AF31CD074D400F6D64B /* AppDelegate.m */,
@@ -161,7 +162,6 @@
 			children = (
 				C79B7B5C1CD2AAD200F6D64B /* PMOViewController.h */,
 				C79B7B5D1CD2AAD200F6D64B /* PMOViewController.m */,
-				C79B7B141CD0750400F6D64B /* Models */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
