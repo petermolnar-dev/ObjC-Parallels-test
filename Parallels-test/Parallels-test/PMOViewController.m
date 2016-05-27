@@ -36,15 +36,15 @@
 
 //    [self.modelController createPictureFromDictionary:smallPicture baseURLAsStringForImage:@"http://i2.wp.com/petermolnar.hu/wp-content/uploads/2014/04/"];
     
-//    [self.modelController createPictureFromDictionary:firstPicture baseURLAsStringForImage:@"http://93.175.29.76/web/wwdc/"];
+    [self.modelController createPictureFromDictionary:firstPicture baseURLAsStringForImage:@"http://93.175.29.76/web/wwdc/"];
     
     [self.modelController addObserver:self
-                           forKeyPath:@"picture.thumbnailImage"
+                           forKeyPath:@"picture.image"
                               options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew
                               context:nil ];
     self.loadingActivity = [self addSpinnerToView:self.view];
     
-    NSURL *jsonURL = [NSURL URLWithString:@"http://93.175.29.76/web/wwdc/items.json"];
+    NSURL *jsonURL = [NSURL URLWithString:@"http://localhost/items.json"];
     
     [self.storageController setupFromJSONFileatURL:jsonURL];
     
@@ -53,7 +53,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-//    self.imageView.image = self.modelController.thumbnailImage;
+    self.imageView.image = self.modelController.image;
 }
 
 - (UIActivityIndicatorView *)addSpinnerToView:(UIView *)parentView {

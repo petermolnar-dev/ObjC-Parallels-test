@@ -31,23 +31,44 @@
     return self.picture.thumbnailImage;
 }
 
+#pragma mark - observer helpers
+
+-(void)addDownloadObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceiveDownloadNotification:)
+                                                 name:PMOPictureDownloaderImageDidDownloaded
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceiveDownloadErrorNotification:) name:PMODataDownloaderError
+                                               object:nil];
+  
+}
+
+-(void)removeDownloadObservers {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PMODataDownloaderDidDownloadEnded
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PMODataDownloaderError
+                                                  object:nil];
+
+}
 
 #pragma mark - Observer triggers
 
--(void)observerForDownloadNotification: (NSNotification *) notification {
+-(void)didReceiveDownloadNotification:(NSNotification *) notification {
+    
+    [self removeDownloadObservers];
     
     // Update the model with KVO compliant mode
     [self.picture setValue:[UIImage imageWithData:[notification.userInfo valueForKey:@"data"]]
                     forKey:@"image"];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:PMODataDownloaderDidDownloadEnded
-                                                  object:nil];
-    
     [self requestThumbnailImageFromImage:self.picture.image];
 }
 
--(void)observerForImageTransformationNotification: (NSNotification *) notification {
+-(void)didReceiveImageTransformationNotification:(NSNotification *) notification {
     
     // Update the model with KVO compliant mode
     [self.picture setValue:[notification.userInfo valueForKey:@"image"]
@@ -57,7 +78,13 @@
                                                     name:PMOThumbnailImageGenerated
                                                   object:nil];
     
-    
+}
+
+-(void)didReceiveDownloadErrorNotification:(NSNotification *)notification {
+
+    [self removeDownloadObservers];
+    NSError *error = [notification.userInfo objectForKey:@"error"];
+    NSLog(@"Image downlad failed: %@",[error localizedDescription]);
 }
 
 #pragma mark - Creation and dynamic image retrieving
@@ -70,13 +97,10 @@
 }
 
 - (void)requestDownloadOfThePictureImage {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(observerForDownloadNotification:)
-                                                 name:PMOPictureDownloaderImageDidDownloaded
-                                               object:nil];
+
+    [self addDownloadObservers];
     PMOPictureDownloaderWithQueues *downloader = [[PMOPictureDownloaderWithQueues alloc] init];
     
-    // Start to download the image
     [downloader setQueues:self.downloadQueues];
     [downloader downloadDataFromURL:self.picture.imageURL];
 }
@@ -84,11 +108,12 @@
 
 -(void)requestThumbnailImageFromImage:(UIImage *)image {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(observerForImageTransformationNotification:)
+                                             selector:@selector(didReceiveImageTransformationNotification:)
                                                  name:PMOThumbnailImageGenerated
                                                object:nil];
     PMOThumbnailCreator *thumbnailCreator = [[PMOThumbnailCreator alloc] init];
-    [thumbnailCreator resizeImageWithFixedValues:self.image size:CGSizeMake(20.0, 20.0)];
+    thumbnailCreator.size = CGSizeMake(20.0, 20.0);
+    [thumbnailCreator processData:self.image withOptions:nil];
     
     
 }

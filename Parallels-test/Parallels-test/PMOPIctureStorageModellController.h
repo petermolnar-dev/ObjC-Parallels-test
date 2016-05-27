@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "PMOPictureModelController.h"
 
+// Controller for holding and manipulating the main set of Picture Modell Controllers
+//
 @interface PMOPictureStorageModellController : NSObject
 
-@property (strong, nonatomic) NSArray *pictures;
+@property (unsafe_unretained, nonatomic, readonly) NSUInteger countOfPictures;
+@property (weak, nonatomic, readonly) NSArray *pictureList;
 
+-(PMOPictureModelController *)pictureModelAtIndex:(NSUInteger)index;
 -(void)setupFromJSONFileatURL:(NSURL *)url;
+
 
 @end

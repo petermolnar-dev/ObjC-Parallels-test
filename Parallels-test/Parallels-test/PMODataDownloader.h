@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PMODownloadNotifier.h"
+#import "PMOExecutionNotifier.h"
+#import "PMODataDownloadNotifications.h"
 
-// String constant for the NSNotificationCenter notification
-static NSString *const PMODataDownloaderDidDownloadEnded = @"PMODataDownloaderDidDownloadEnded";
-
-@interface PMODataDownloader : UIViewController <PMODownloadNotifier>
+@interface PMODataDownloader : UIViewController <PMOExecutionNotifier>
 
 @property (strong, nonatomic) NSURLSession *session;
 

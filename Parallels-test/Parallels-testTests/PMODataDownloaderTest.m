@@ -11,7 +11,6 @@
 
 @interface PMODataDownloaderTest : XCTestCase
 @property (strong, nonatomic) PMODataDownloader *downloader;
-@property (strong, nonatomic) XCTestExpectation *expectation;
 @end
 
 @implementation PMODataDownloaderTest
@@ -19,31 +18,51 @@
 - (void)setUp {
     [super setUp];
     self.downloader =[[PMODataDownloader alloc] init];
-    self.expectation = [self expectationWithDescription:@"Notification at the end of the "];
     
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+-(void)tearDown {
     [super tearDown];
-}
-
--(void)observerForNotification {
-    [self.expectation fulfill];
+    _downloader = nil;
 }
 
 - (void)testDownloadCompleted {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(observerForNotification)
-                                                 name:PMODataDownloaderDidDownloadEnded
-                                               object:nil];
-    [self.downloader downloadDataFromURL:[NSURL URLWithString:@""]];
- 
+    [self.downloader downloadDataFromURL:[NSURL URLWithString:@"http://93.175.29.76/web/wwdc/items.json"]];
+    XCTestExpectation *expectation = [self expectationForNotification:PMODataDownloaderDidDownloadEnded
+                                                               object:self.downloader
+                                                              handler:^BOOL(NSNotification * _Nonnull notification) {
+                                                                  NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:[notification.userInfo objectForKey:@"data"]
+                                                              options:0
+                                                                                                                         error:nil];
+                                                                  if (jsonArray &&[jsonArray count] == 10) {
+                                                                      [expectation fulfill];
+                                                                      return true;
+                                                                      
+                                                                  } else {
+                                                                      return false;
+                                                                  }
+                                                              }];
 
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
-- (void)testDownloadNotNil {
+- (void)testDownloadFailure {
+    [self.downloader downloadDataFromURL:[NSURL URLWithString:@"http://fdafdsafdsa.ji/web/wwdc/items.json"]];
+    XCTestExpectation *expectation = [self expectationForNotification:PMODataDownloaderError
+                                                               object:self.downloader
+                                                              handler:^BOOL(NSNotification * _Nonnull notification) {
+                                                                  NSError *error = [notification.userInfo objectForKey:@"error"];
+                                                                  if (error && [error localizedDescription]) {
+                                                                      [expectation fulfill];
+                                                                      return true;
+                                                                      
+                                                                  } else {
+                                                                      return false;
+                                                                  }
+                                                              }];
     
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 }
+
 
 @end

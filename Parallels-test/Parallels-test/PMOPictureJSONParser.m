@@ -11,9 +11,8 @@
 
 @implementation PMOPictureJSONParser
 
-
-
--(void)parseData:(NSData *)data {
+// Main data processing method
+-(void)processData:(id)data withOptions:(NSDictionary *)options {
     NSOperationQueue *opQueue = [[NSOperationQueue alloc] init];
     
     NSBlockOperation *parsingOperation = [NSBlockOperation blockOperationWithBlock:^{
@@ -22,18 +21,22 @@
                                                             options:0
                                                               error:&jsonError];
         
-        [self notifyObserversWithParsedData:JSONData];
+        [self notifyObserverWithProcessedData:JSONData];
         
     }];
     
     [opQueue addOperation:parsingOperation];
+
 }
 
 
--(void)notifyObserversWithParsedData:(NSArray *)data {
+-(void)notifyObserverWithProcessedData:(id)data {
     NSDictionary *userInfo = @{@"json" : data };
     [[NSNotificationCenter defaultCenter] postNotificationName:PMOPictureJSONParsed
                                                         object:self
                                                       userInfo:userInfo];
 }
+
+
+
 @end

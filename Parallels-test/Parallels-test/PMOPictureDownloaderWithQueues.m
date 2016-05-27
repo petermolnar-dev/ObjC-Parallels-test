@@ -16,7 +16,11 @@
     
     NSURLSessionDataTask *downloadTask = [self.session dataTaskWithRequest:request completionHandler:
                                           ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                              [self notifyObserversWithDownloadedData:data];
+                                                  if (error) {
+                                                      [self notifyObserverWithError:error];
+                                                  } else {
+                                              [self notifyObserverWithProcessedData:data];
+                                                  }
                                           }];
     if (self.queues) {
         [self.queues addDownloadTaskToNormalPriorityQueue:downloadTask];

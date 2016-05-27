@@ -6,8 +6,9 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-@protocol PMODownloadNotifier <NSObject>
+@protocol PMOExecutionNotifier <NSObject>
 
--(void)notifyObserversWithDownloadedData:(NSData *)data;
-
+-(void)notifyObserverWithProcessedData:(id)data;
+@optional
+-(void)notifyObserverWithError:(NSError *)error;
 @end

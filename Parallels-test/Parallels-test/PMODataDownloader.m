@@ -17,8 +17,11 @@
     
     NSURLSessionDataTask *downloadTask = [self.session dataTaskWithRequest:request completionHandler:
                                           ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                              
-                                              [self notifyObserversWithDownloadedData:data];
+                                              if (error) {
+                                                  [self notifyObserverWithError:error];
+                                              } else {
+                                                  [self notifyObserverWithProcessedData:data];
+                                              }
                                           }];
     [downloadTask resume];
     
@@ -29,18 +32,29 @@
     // Session can be injected, but if not initialized a default config is provided.
     if (!_session) {
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        [sessionConfiguration setTimeoutIntervalForRequest:PMODownloaderRequestTimeout];
+        [sessionConfiguration setTimeoutIntervalForResource:PMODownloaderResourceTimeout];
         _session = [NSURLSession sessionWithConfiguration:sessionConfiguration
                                                  delegate:nil
                                             delegateQueue:nil];
+
     }
+    
     return _session;
 }
 
--(void)notifyObserversWithDownloadedData:(NSData *)data {
+-(void)notifyObserverWithProcessedData:(NSData *)data {
     NSDictionary *userInfo = @{@"data" : data };
     [[NSNotificationCenter defaultCenter] postNotificationName:PMODataDownloaderDidDownloadEnded
                                                         object:self
                                                       userInfo:userInfo];
 }
 
+
+-(void)notifyObserverWithError:(NSError *)error {
+    NSDictionary *userInfo = @{@"error" : error };
+    [[NSNotificationCenter defaultCenter] postNotificationName:PMODataDownloaderError
+                                                        object:self
+                                                      userInfo:userInfo];
+}
 @end

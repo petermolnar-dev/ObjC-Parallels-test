@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PMODataDownloader.h"
-
-static NSString *const PMOPictureDownloaderImageDidDownloaded = @"PMOPictureDownloaderImageDidDownloaded";
+#import "PMOPictureDownloaderNotifications.h"
 
 @interface PMOPictureDownloader : PMODataDownloader
 

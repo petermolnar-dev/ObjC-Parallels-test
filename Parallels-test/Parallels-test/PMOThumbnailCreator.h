@@ -8,15 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "PMOBackgroundTaskExecutable.h"
+#import "PMOOperationWithQueue.h"
 
+// Image resizer, using NSOperationQueue
+//
 // String constant for the NSNotificationCenter notification
 static NSString *const PMOThumbnailImageGenerated = @"PMOThumbnailImageGenerated";
 
-@interface PMOThumbnailCreator : NSObject
+@interface PMOThumbnailCreator : PMOOperationWithQueue <PMOBackgroundTaskExecutable>
 
-@property (retain, nonatomic) NSOperationQueue *sharedQueue;
-
--(void) resizeImageWithFixedValues:(UIImage *)image size:(CGSize)size;
+// The required new size of the image.
+// If any of the width or height values are 0.0, image won't be produced.
+@property (unsafe_unretained, nonatomic) CGSize size;
 
 
 @end

@@ -8,20 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "PMOPicture.h"
-
 #import "PMODownloadTaskQueues.h"
 
+// Class to hold and manipulate the data modell of PMOPicture
+//
 @interface PMOPictureModelController : NSObject
 
 @property (copy, nonatomic) NSString *baseURLAsString;
 @property (strong, nonatomic) PMOPicture *picture;
-
 @property (weak, nonatomic) PMODownloadTaskQueues *downloadQueues;
-
 @property (weak, nonatomic, readonly) UIImage *image;
 @property (weak, nonatomic, readonly) UIImage *thumbnailImage;
 
 - (void)createPictureFromDictionary:(NSDictionary *)pictureDetails baseURLAsStringForImage:(NSString *)baseURLAsString;
-- (void)requestDownloadOfThePictureImage;
 
 @end

@@ -12,10 +12,14 @@
 
 @property (assign, nonatomic) BOOL isDebug;
 
-- (void)addDownloadTaskToNormalPriorityQueue: (NSURLSessionTask *)task;
-- (void)addDownloadTaskToHighPriorityQueue: (NSURLSessionTask *)task;
+@property (unsafe_unretained, nonatomic, readonly) NSUInteger normalQueueTaskCount;
+@property (unsafe_unretained, nonatomic, readonly) NSUInteger priorityQueueTaskCount;
+
+- (void)addDownloadTaskToNormalPriorityQueue:(NSURLSessionTask *)task;
+- (void)addDownloadTaskToHighPriorityQueue:(NSURLSessionTask *)task;
 - (void)changeDownloadTaskToHighPriorityQueueFromURL:(NSURL *)downloadURL;
-- (void)removeDownloadTask:(NSURLSessionTask *)task;
+- (void)changeDownloadTaskToNormalPriorityQueueFromURL:(NSURL *)downloadURL;
+- (void)removeDownloadTaskFromAllQueues:(NSURLSessionTask *)task;
 - (void)removeAllTasksFromHighPriorityQueue;
 
 
