@@ -31,9 +31,33 @@
     return self.picture.thumbnailImage;
 }
 
+- (NSString *)imageFileName {
+    if (self.picture) {
+        return self.picture.imageFileName;
+    } else {
+        return nil;
+    }
+}
+
+- (NSString *)imageTitle {
+    if (self.picture) {
+        return self.picture.imageTitle;
+    } else {
+        return nil;
+    }
+}
+
+- (NSString *)imageDescription {
+    if (self.picture) {
+        return self.picture.imageDescription;
+    } else {
+        return nil;
+    }
+}
+
 #pragma mark - observer helpers
 
--(void)addDownloadObservers {
+- (void)addDownloadObservers {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveDownloadNotification:)
                                                  name:PMOPictureDownloaderImageDidDownloaded
@@ -44,7 +68,7 @@
   
 }
 
--(void)removeDownloadObservers {
+- (void)removeDownloadObservers {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:PMODataDownloaderDidDownloadEnded
@@ -57,7 +81,7 @@
 
 #pragma mark - Observer triggers
 
--(void)didReceiveDownloadNotification:(NSNotification *) notification {
+- (void)didReceiveDownloadNotification:(NSNotification *) notification {
     
     [self removeDownloadObservers];
     
@@ -68,7 +92,7 @@
     [self requestThumbnailImageFromImage:self.picture.image];
 }
 
--(void)didReceiveImageTransformationNotification:(NSNotification *) notification {
+- (void)didReceiveImageTransformationNotification:(NSNotification *) notification {
     
     // Update the model with KVO compliant mode
     [self.picture setValue:[notification.userInfo valueForKey:@"image"]
@@ -80,7 +104,7 @@
     
 }
 
--(void)didReceiveDownloadErrorNotification:(NSNotification *)notification {
+- (void)didReceiveDownloadErrorNotification:(NSNotification *)notification {
 
     [self removeDownloadObservers];
     NSError *error = [notification.userInfo objectForKey:@"error"];
@@ -106,7 +130,7 @@
 }
 
 
--(void)requestThumbnailImageFromImage:(UIImage *)image {
+- (void)requestThumbnailImageFromImage:(UIImage *)image {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveImageTransformationNotification:)
                                                  name:PMOThumbnailImageGenerated
@@ -129,7 +153,7 @@
     return URLstring;
 }
 
--(PMOPicture *)setupPictureDetailsFromDictionary:(NSDictionary *)pictureDetails  baseURLAsStringForImage:(NSString *)baseURLAsString {
+- (PMOPicture *)setupPictureDetailsFromDictionary:(NSDictionary *)pictureDetails  baseURLAsStringForImage:(NSString *)baseURLAsString {
     
     PMOPicture *picture = [[PMOPicture alloc] init];
     [picture setImageDescription:[pictureDetails objectForKey:@"description"]];
@@ -140,5 +164,12 @@
     return picture;
 }
 
+- (void)changePictureDownloadPriorityToHigh {
+    [self.downloadQueues changeDownloadTaskToHighPriorityQueueFromURL:self.picture.imageURL];
+}
+
+-(void)changePictureDownloadPriorityToDefault {
+    [self.downloadQueues changeDownloadTaskToNormalPriorityQueueFromURL:self.picture.imageURL];
+}
 
 @end

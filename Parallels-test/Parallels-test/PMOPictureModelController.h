@@ -19,7 +19,16 @@
 @property (weak, nonatomic) PMODownloadTaskQueues *downloadQueues;
 @property (weak, nonatomic, readonly) UIImage *image;
 @property (weak, nonatomic, readonly) UIImage *thumbnailImage;
+@property (copy, nonatomic, readonly) NSString *imageTitle;
+@property (copy, nonatomic, readonly) NSString *imageFileName;
+@property (copy, nonatomic, readonly) NSString *imageDescription;
+
+
 
 - (void)createPictureFromDictionary:(NSDictionary *)pictureDetails baseURLAsStringForImage:(NSString *)baseURLAsString;
+
+- (void)changePictureDownloadPriorityToHigh;
+- (void)changePictureDownloadPriorityToDefault;
+
 
 @end

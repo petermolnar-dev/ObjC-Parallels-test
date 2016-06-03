@@ -11,15 +11,25 @@
 #import "PMOPIctureStorageModellController.h"
 #import "PMODataDownloader.h"
 
+
 @interface PMOViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) PMOPictureModelController *modelController;
 @property (strong, nonatomic) PMOPictureStorageModellController *storageController;
-@property (weak, nonatomic)UIActivityIndicatorView *loadingActivity;
+
+-(void)didReceiveDownloadErrorNotification:(NSNotification *)notification ;
+
 @end
 
 @implementation PMOViewController
+@dynamic view;
 
+
+-(void)loadView {
+    [super loadView];
+    self.view = [[PMOViewWithIndicator alloc] initWithFrame:[UIScreen mainScreen].bounds];
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,11 +52,16 @@
                            forKeyPath:@"picture.image"
                               options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew
                               context:nil ];
-    self.loadingActivity = [self addSpinnerToView:self.view];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceiveDownloadErrorNotification:) name:PMODataDownloaderError
+                                               object:nil];
     
     NSURL *jsonURL = [NSURL URLWithString:@"http://localhost/items.json"];
     
     [self.storageController setupFromJSONFileatURL:jsonURL];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view startSpinner];
+    [self.view addSubview:self.imageView];
     
 }
 
@@ -56,30 +71,35 @@
     self.imageView.image = self.modelController.image;
 }
 
-- (UIActivityIndicatorView *)addSpinnerToView:(UIView *)parentView {
-    UIActivityIndicatorView *loadingActivity = [[UIActivityIndicatorView alloc]
-                                                initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    [loadingActivity setColor:[UIColor blackColor]];
-    [parentView addSubview:loadingActivity];
-    [parentView bringSubviewToFront:loadingActivity];
-    loadingActivity.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
-    loadingActivity.center = parentView.center;
-    [loadingActivity startAnimating];
-    
-    return loadingActivity;
-}
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
 
     // Update the UI from the main Queue
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         self.imageView.image = [change valueForKey:@"new"];
-        [self.loadingActivity stopAnimating];
-        [self.loadingActivity removeFromSuperview];
-
+        NSLog(@"Picture downloaded, imageview hidden? %d", self.imageView.isHidden);
+        
+        self.imageView.image = self.modelController.image;
+        [self.view stopSpinner];
         [self.view setNeedsDisplay];
+        [self.imageView setNeedsDisplay];
     }];
 
+}
+
+-(void)didReceiveDownloadErrorNotification:(NSNotification *)notification  {
+     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+         [self.view stopSpinner];
+         
+    UILabel *errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+         errorLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
+         errorLabel.center = self.view.center;
+    NSError *error = [notification.userInfo objectForKey:@"error"];
+
+    errorLabel.text = [error localizedDescription];
+         errorLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:errorLabel];
+     }];
 }
 
 - (void)didReceiveMemoryWarning {
