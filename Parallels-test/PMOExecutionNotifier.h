@@ -8,7 +8,7 @@
 
 @protocol PMOExecutionNotifier <NSObject>
 
--(void)notifyObserverWithProcessedData:(id)data;
+- (void)notifyObserverWithProcessedData:(id)data;
 @optional
--(void)notifyObserverWithError:(NSError *)error;
+- (void)notifyObserverWithError:(NSError *)error;
 @end

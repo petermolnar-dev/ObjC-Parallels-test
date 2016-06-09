@@ -10,15 +10,17 @@
 
 @implementation PMOThumbnailCreator
 
--(BOOL)isImageValid:(id)image {
+#pragma mark - Data validation
+- (BOOL)isImageValid:(id)image {
     return image && [image isMemberOfClass:[UIImage class]];
 }
 
--(BOOL)isSizeValid {
+- (BOOL)isSizeValid {
     return self.size.height != 0 && self.size.width != 0;
 }
 
--(void)processData:(UIImage *)image withOptions:(id)options {
+#pragma mark - Main function
+- (void)processData:(UIImage *)image withOptions:(id)options {
     if ( [self isSizeValid] && [self isImageValid:image]) {
         NSBlockOperation *transformBlockOP =[NSBlockOperation blockOperationWithBlock:^{
             UIGraphicsBeginImageContextWithOptions(self.size, NO, 0);
@@ -34,8 +36,8 @@
     }
 }
 
-
--(void)notifyObserverWithProcessedData:(UIImage *)data {
+#pragma mark - Notification
+- (void)notifyObserverWithProcessedData:(UIImage *)data {
     NSDictionary *userInfo = @{@"image" : data };
     [[NSNotificationCenter defaultCenter] postNotificationName:PMOThumbnailImageGenerated
                                                         object:self

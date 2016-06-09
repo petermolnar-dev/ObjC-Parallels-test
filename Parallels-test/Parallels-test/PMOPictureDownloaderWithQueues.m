@@ -10,7 +10,7 @@
 
 @implementation PMOPictureDownloaderWithQueues
 
--(void)downloadDataFromURL:(NSURL *)sourceURL {
+- (void)downloadDataFromURL:(NSURL *)sourceURL {
     
     NSURLRequest *request = [NSURLRequest requestWithURL:sourceURL];
     
@@ -28,4 +28,5 @@
         [downloadTask resume];
     }
 }
+
 @end

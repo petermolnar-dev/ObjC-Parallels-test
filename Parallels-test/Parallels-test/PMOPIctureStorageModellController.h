@@ -17,8 +17,8 @@
 @property (weak, nonatomic, readonly) NSArray *pictureList;
 @property (copy, nonatomic) NSString *baseURLAsString;
 
--(PMOPictureModellController *)pictureModellAtIndex:(NSUInteger)index;
--(void)setupFromJSONFileatURL:(NSURL *)url baseURLStringForImages:(NSString *)baseURLString;
+- (PMOPictureModellController *)pictureModellAtIndex:(NSUInteger)index;
+- (void)setupFromJSONFileatURL:(NSURL *)url baseURLStringForImages:(NSString *)baseURLString;
 
 
 

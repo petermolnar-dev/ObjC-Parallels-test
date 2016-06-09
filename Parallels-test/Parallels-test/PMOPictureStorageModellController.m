@@ -30,7 +30,7 @@
 
 
 #pragma mark - Public API
--(void)setupFromJSONFileatURL:(NSURL *)url baseURLStringForImages:(NSString *)baseURLString {
+- (void)setupFromJSONFileatURL:(NSURL *)url baseURLStringForImages:(NSString *)baseURLString {
     
     [self addObserversForDownloadData];
     self.baseURLAsString = [PMOPictureModellControllerFactory updateURLAsStringWithTrailingHash:baseURLString];
@@ -40,7 +40,7 @@
 }
 
 
--(NSArray *)pictureList {
+- (NSArray *)pictureList {
    return [NSArray arrayWithArray:self.pictures];
 }
 
@@ -66,7 +66,7 @@
 
 }
 
--(void)removeObserversForDownloadData {
+- (void)removeObserversForDownloadData {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:PMODataDownloaderDidDownloadEnded
                                                   object:nil];
@@ -75,7 +75,7 @@
                                                   object:nil];
 }
 
--(void)didReceiveDownloadNotification:(NSNotification *) notification {
+- (void)didReceiveDownloadNotification:(NSNotification *) notification {
 
     [self removeObserversForDownloadData];
     
@@ -87,6 +87,7 @@
     }
 }
 
+#pragma mark - Observer triggers
 -(void)didReceiveDownloadFailureNotification:(NSNotification *) notification {
     NSError *downloadError = [notification.userInfo objectForKey:@"error"];
     NSLog(@"Error while retrieveing the data: %@", [downloadError localizedDescription]);
@@ -94,25 +95,23 @@
 }
 
 
--(void)didReceiveJSONParserNotification:(NSNotification *) notification {
+- (void)didReceiveJSONParserNotification:(NSNotification *) notification {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:PMOPictureJSONParsed
                                                   object:nil];
     // Make the count of the list KVO compliant
     [self willChangeValueForKey:@"countOfPictures"];
-    // TODO: Need to create real, controller objects from the json 
     NSArray *pictureDetails = [notification.userInfo objectForKey:@"json"];
     for (NSDictionary *currentPictureDetails in pictureDetails) {
         PMOPictureModellController *currentController = [PMOPictureModellControllerFactory modellControllerFromDictionary:currentPictureDetails
                                                                                               baseURLAsStringForImage:self.baseURLAsString];
         [self.pictures addObject:currentController];
     }
-    
     [self didChangeValueForKey:@"countOfPictures"];
 }
 
-
--(void)parseData:(NSData *)data {
+#pragma  mark - Helper functions
+- (void)parseData:(NSData *)data {
     
             [[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(didReceiveJSONParserNotification:)
@@ -121,7 +120,6 @@
 
             PMOPictureJSONParser *parser = [[PMOPictureJSONParser alloc] init];
             [parser processData:data withOptions:nil];
-    
 }
 
 

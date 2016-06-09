@@ -40,7 +40,7 @@
     }];
 }
 
--(void)stopSpinner {
+- (void)stopSpinner {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.loadingActivity stopAnimating];
         [self.loadingActivity removeFromSuperview];

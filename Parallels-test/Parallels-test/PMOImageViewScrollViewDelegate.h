@@ -11,8 +11,6 @@
 
 @interface PMOImageViewScrollViewDelegate : NSObject <UIScrollViewDelegate>
 @property (weak, nonatomic) UIView *scrollDestinationView;
-@property (weak, nonatomic) UIView *parentView;
 
-- (UIScrollView *)scrollviewFactory;
 
 @end

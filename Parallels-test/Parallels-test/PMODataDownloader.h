@@ -14,6 +14,6 @@
 
 @property (strong, nonatomic) NSURLSession *session;
 
--(void)downloadDataFromURL:(NSURL *)sourceURL;
+- (void)downloadDataFromURL:(NSURL *)sourceURL;
 
 @end

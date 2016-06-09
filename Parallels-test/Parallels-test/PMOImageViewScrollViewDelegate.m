@@ -10,18 +10,6 @@
 
 @implementation PMOImageViewScrollViewDelegate
 
-- (UIScrollView *)scrollviewFactory {
-    UIScrollView *scrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0,0,self.parentView.frame.size.height,self.parentView.frame.size.height)];
-    scrollView.showsVerticalScrollIndicator=YES;
-    scrollView.scrollEnabled=YES;
-    scrollView.userInteractionEnabled=YES;
-    scrollView.zoomScale = 1.0;
-    scrollView.minimumZoomScale = 0.02;
-    scrollView.maximumZoomScale = 2.0;
-    [self.parentView addSubview:scrollView];
-    return scrollView;
-    
-}
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
         scrollView.contentSize = CGSizeMake(self.scrollDestinationView.frame.size.width * scrollView.zoomScale, self.scrollDestinationView.frame.size.height * scrollView.zoomScale);

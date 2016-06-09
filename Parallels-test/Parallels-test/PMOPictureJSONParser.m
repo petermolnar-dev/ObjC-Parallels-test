@@ -11,8 +11,8 @@
 
 @implementation PMOPictureJSONParser
 
-// Main data processing method
--(void)processData:(id)data withOptions:(NSDictionary *)options {
+#pragma mark - Main function
+- (void)processData:(id)data withOptions:(NSDictionary *)options {
     NSOperationQueue *opQueue = [[NSOperationQueue alloc] init];
     
     NSBlockOperation *parsingOperation = [NSBlockOperation blockOperationWithBlock:^{
@@ -29,8 +29,8 @@
 
 }
 
-
--(void)notifyObserverWithProcessedData:(id)data {
+#pragma mark - Notification
+- (void)notifyObserverWithProcessedData:(id)data {
     NSDictionary *userInfo = @{@"json" : data };
     [[NSNotificationCenter defaultCenter] postNotificationName:PMOPictureJSONParsed
                                                         object:self

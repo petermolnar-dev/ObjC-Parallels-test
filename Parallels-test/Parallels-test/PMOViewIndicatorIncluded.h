@@ -10,8 +10,8 @@
 
 @protocol PMOViewIndicatorIncluded <NSObject>
 
--(void)startSpinner;
--(void)stopSpinner;
+- (void)startSpinner;
+- (void)stopSpinner;
 
 - (UIActivityIndicatorView *)addSpinnerToView:(UIView *)parentView;
 - (void)displayErrorMessage:(NSError *)error;

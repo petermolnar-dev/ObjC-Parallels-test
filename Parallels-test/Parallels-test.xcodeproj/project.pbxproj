@@ -19,6 +19,8 @@
 		C778EDA11CE9D34A0047CF87 /* PMOOperationWithQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C778EDA01CE9D34A0047CF87 /* PMOOperationWithQueue.m */; };
 		C778EDA41CEA52BF0047CF87 /* PMOPictureStorageModellController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = C778EDA31CEA52BF0047CF87 /* PMOPictureStorageModellController-test.m */; };
 		C77D22891D04C54A005952C2 /* PMOPictureModellControllerFactory.h in Sources */ = {isa = PBXBuildFile; fileRef = C7B84D3A1D04BCDF00534DDF /* PMOPictureModellControllerFactory.h */; };
+		C77D228D1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = C77D228B1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.h */; };
+		C77D228E1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D228C1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.m */; };
 		C79B7AF11CD074D400F6D64B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7AF01CD074D400F6D64B /* main.m */; };
 		C79B7AF41CD074D400F6D64B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7AF31CD074D400F6D64B /* AppDelegate.m */; };
 		C79B7AFA1CD074D400F6D64B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C79B7AF81CD074D400F6D64B /* Main.storyboard */; };
@@ -70,6 +72,8 @@
 		C778EDA01CE9D34A0047CF87 /* PMOOperationWithQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOOperationWithQueue.m; sourceTree = "<group>"; };
 		C778EDA31CEA52BF0047CF87 /* PMOPictureStorageModellController-test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PMOPictureStorageModellController-test.m"; sourceTree = "<group>"; };
 		C77D228A1D09E936005952C2 /* PMOPictureJSONParserNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMOPictureJSONParserNotification.h; sourceTree = "<group>"; };
+		C77D228B1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOImageViewScrollViewFactory.h; sourceTree = "<group>"; };
+		C77D228C1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOImageViewScrollViewFactory.m; sourceTree = "<group>"; };
 		C79B7AEC1CD074D400F6D64B /* Parallels-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parallels-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79B7AF01CD074D400F6D64B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C79B7AF21CD074D400F6D64B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -272,6 +276,8 @@
 		C7B84D391D04BCC000534DDF /* Factories */ = {
 			isa = PBXGroup;
 			children = (
+				C77D228B1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.h */,
+				C77D228C1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.m */,
 				C7B84D3A1D04BCDF00534DDF /* PMOPictureModellControllerFactory.h */,
 				C7B84D3B1D04BCDF00534DDF /* PMOPictureModellControllerFactory.m */,
 			);
@@ -303,6 +309,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C77D228D1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +431,7 @@
 				C7C4ACCA1CE1DADB004F515A /* PMOThumbnailCreator.m in Sources */,
 				C79B7B211CD0760E00F6D64B /* PMODownloadTaskQueues.m in Sources */,
 				C72ED2831CFCC7DC00AA3284 /* PMOImageTableViewDataSource.m in Sources */,
+				C77D228E1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.m in Sources */,
 				C7C4ACC21CE06D26004F515A /* PMOPictureDownloaderWithQueues.m in Sources */,
 				C79B7B581CD297DA00F6D64B /* PMOPictureModellController.m in Sources */,
 				C72ED2891CFF34B400AA3284 /* PMOImageViewScrollViewDelegate.m in Sources */,

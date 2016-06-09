@@ -14,7 +14,6 @@
 @implementation PMOPictureModellController
 
 #pragma mark - Accessors
-
 - (UIImage *)image {
     // Small trick: returns back the picture's image or triggers the download
     if (!self.picture.image) {
@@ -56,7 +55,6 @@
 }
 
 #pragma mark - observer helpers
-
 - (void)addDownloadObservers {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveDownloadNotification:)
@@ -80,15 +78,12 @@
 }
 
 #pragma mark - Observer triggers
-
-- (void)didReceiveDownloadNotification:(NSNotification *) notification {
+- (void)didReceiveDownloadNotification:(NSNotification *)notification {
     
     [self removeDownloadObservers];
-    
     // Update the model with KVO compliant mode
     [self.picture setValue:[UIImage imageWithData:[notification.userInfo valueForKey:@"data"]]
                     forKey:@"image"];
-    
     [self requestThumbnailImageFromImage:self.picture.image];
 }
 
@@ -134,13 +129,11 @@
     
 }
 
-
-
 - (void)changePictureDownloadPriorityToHigh {
     [self.downloadQueues changeDownloadTaskToHighPriorityQueueFromURL:self.picture.imageURL];
 }
 
--(void)changePictureDownloadPriorityToDefault {
+- (void)changePictureDownloadPriorityToDefault {
     [self.downloadQueues changeDownloadTaskToNormalPriorityQueueFromURL:self.picture.imageURL];
 }
 

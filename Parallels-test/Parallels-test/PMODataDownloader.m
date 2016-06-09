@@ -11,7 +11,8 @@
 
 @implementation PMODataDownloader
 
--(void)downloadDataFromURL:(NSURL *)sourceURL {
+#pragma mark - Main function
+- (void)downloadDataFromURL:(NSURL *)sourceURL {
     
     NSURLRequest *request = [NSURLRequest requestWithURL:sourceURL];
     
@@ -27,7 +28,8 @@
     
 }
 
--(NSURLSession *)session {
+#pragma mark - Accessors
+- (NSURLSession *)session {
     
     // Session can be injected, but if not initialized a default config is provided.
     if (!_session) {
@@ -43,7 +45,8 @@
     return _session;
 }
 
--(void)notifyObserverWithProcessedData:(NSData *)data {
+#pragma mark - Notifications
+- (void)notifyObserverWithProcessedData:(NSData *)data {
     NSDictionary *userInfo = @{@"data" : data };
     [[NSNotificationCenter defaultCenter] postNotificationName:PMODataDownloaderDidDownloadEnded
                                                         object:self
@@ -51,7 +54,7 @@
 }
 
 
--(void)notifyObserverWithError:(NSError *)error {
+- (void)notifyObserverWithError:(NSError *)error {
     NSDictionary *userInfo = @{@"error" : error };
     [[NSNotificationCenter defaultCenter] postNotificationName:PMODataDownloaderError
                                                         object:self

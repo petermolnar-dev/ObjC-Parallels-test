@@ -11,5 +11,4 @@
 
 @interface PMOViewWithIndicator : UIView <PMOViewIndicatorIncluded>
 
-
 @end

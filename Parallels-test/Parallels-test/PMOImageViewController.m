@@ -9,8 +9,10 @@
 #import "PMOImageViewController.h"
 #import "PMODataDownloader.h"
 #import "PMOImageViewScrollViewDelegate.h"
+#import "PMOImageViewScrollViewFactory.h"
 
 @interface PMOImageViewController()
+
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) PMOImageViewScrollViewDelegate *scrollViewDelegate;
@@ -18,18 +20,16 @@
 @end
 
 @implementation PMOImageViewController
+
 @dynamic view;
 
-
 #pragma mark - LifeCycle
--(void)loadView {
+- (void)loadView {
     [super loadView];
     self.view = [[PMOViewWithIndicator alloc] initWithFrame:[UIScreen mainScreen].bounds];
 }
 
-
 - (void)viewDidLoad {
-    self.scrollViewDelegate.parentView = self.view;
     [self.scrollView setDelegate:self.scrollViewDelegate];
     [self.scrollView addSubview:self.imageView];
     
@@ -44,20 +44,16 @@
          self.imageView.image = self.modellController.image;
 
         [self.view startSpinner];
-        [self.view setBackgroundColor:[UIColor whiteColor]];
         [self.modellController.downloadQueues changeDownloadTaskToHighPriorityQueueFromURL:self.modellController.picture.imageURL];
-        
     }
 }
 
 - (void)viewWillLayoutSubviews {
     [self.scrollView setFrame:self.view.frame];
-
 }
 
 
 #pragma mark - Accessors
-
 - (UIImageView *)imageView {
     if (!_imageView) {
         _imageView = [[UIImageView alloc] init];
@@ -78,21 +74,19 @@
 
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
-        _scrollView = [self.scrollViewDelegate scrollviewFactory];
+        _scrollView = [PMOImageViewScrollViewFactory scrollviewFactoryWithParentView:self.view];
     }
     return _scrollView;
 }
 
-- (void)updateScrollViewToPictureFit
-{
+- (void)updateScrollViewToPictureFit {
     float minZoom = MIN(self.view.bounds.size.width / self.imageView.image.size.width, self.view.bounds.size.height / self.imageView.image.size.height);
     // Set back to self.scrollView.zoomScale=1.0; if they want to see the full image, in real size.
     self.scrollView.zoomScale=minZoom;
-    
 }
 
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+#pragma mark - Observer triggers
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     
     // Update the UI from the main Queue
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -102,13 +96,10 @@
         self.scrollView.zoomScale = 1.0;
         self.scrollView.minimumZoomScale = 0.02;
         self.scrollView.maximumZoomScale = 2.0;
-        
         self.imageView.frame = CGRectMake(0, 0, self.modellController.image.size.width, self.modellController.image.size.height);
         self.scrollView.frame = self.imageView.frame;
         self.scrollView.contentSize =  self.modellController.image.size;
-        
         [self updateScrollViewToPictureFit];
-
         [self.view setNeedsDisplay];
         [self.scrollView setNeedsDisplay];
         [self.imageView setNeedsDisplay];

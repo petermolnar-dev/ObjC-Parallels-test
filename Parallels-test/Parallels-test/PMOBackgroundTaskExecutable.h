@@ -9,6 +9,6 @@
 
 @protocol PMOBackgroundTaskExecutable <PMOExecutionNotifier>
 
--(void) processData:(id)data withOptions:(id)options;
+- (void) processData:(id)data withOptions:(id)options;
 
 @end

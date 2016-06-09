@@ -9,20 +9,20 @@
 #import "PMOImageTableViewController.h"
 #import "PMOImageTableViewDataSource.h"
 #import "PMOPictureStorageModellController.h"
-
 #import "PMOPictureJSONParserNotification.h"
 
 @interface PMOImageTableViewController()
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) PMOImageTableViewDataSource *dataSource;
 
 @end
 
 @implementation PMOImageTableViewController
+
 @dynamic view;
 
 #pragma mark - Accessors
-
 - (NSString *)JSONFileURLAsString {
     if (!_JSONFileURLAsString) {
         _JSONFileURLAsString = @"http://93.175.29.76/web/wwdc/items.json";
@@ -47,7 +47,6 @@
     self.dataSource = [[PMOImageTableViewDataSource alloc]
                        initWithStorageController:storageModelController URLForJSONFile:jsonFileURL baseURLStringForImages:self.baseImageURLAsString];
     self.tableView.dataSource = self.dataSource;
-    
 }
 
 
@@ -72,12 +71,11 @@
 }
 
 - (void)viewDidLoad {
-    // Start to fill up the datasource
     self.tableView.hidden = true;
     [self.view startSpinner];
 }
 
-#pragma mark - Notification actions
+#pragma mark - Observer triggers
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"storageController.countOfPictures"]) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -85,7 +83,6 @@
             self.tableView.hidden=false;
             [self.tableView reloadData];
         }];
-
     }
 }
 

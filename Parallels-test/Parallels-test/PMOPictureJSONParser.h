@@ -14,7 +14,6 @@
 // JSON parser with NSOperationQueue
 //
 
-
 @interface PMOPictureJSONParser : PMOOperationWithQueue <PMOBackgroundTaskExecutable>
 
 @end

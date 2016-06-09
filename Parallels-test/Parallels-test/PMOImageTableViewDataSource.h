@@ -13,9 +13,9 @@
 
 @interface PMOImageTableViewDataSource : NSObject <UITableViewDataSource>
 
-@property (strong, nonatomic) PMOPictureStorageModellController *storageController; // Injected from outside with the init
+@property (strong, nonatomic) PMOPictureStorageModellController *storageController;
 
--(instancetype)initWithStorageController:(PMOPictureStorageModellController *)storageController URLForJSONFile:(NSURL *)jsonFile baseURLStringForImages:(NSString *)baseURLStringForImages;
+- (instancetype)initWithStorageController:(PMOPictureStorageModellController *)storageController URLForJSONFile:(NSURL *)jsonFile baseURLStringForImages:(NSString *)baseURLStringForImages;
  // Designated initializer
 
 @end

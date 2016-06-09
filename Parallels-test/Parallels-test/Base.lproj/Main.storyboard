@@ -40,7 +40,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="572"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="109" id="qID-bL-1zC">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PictureCell" rowHeight="109" id="qID-bL-1zC">
                                         <rect key="frame" x="0.0" y="28" width="600" height="109"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qID-bL-1zC" id="U8C-eN-OiW">
@@ -71,7 +71,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="qJd-UA-5cO" kind="show" id="lRp-VS-C8u"/>
+                                            <segue destination="qJd-UA-5cO" kind="show" identifier="ShowImage" id="lRp-VS-C8u"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

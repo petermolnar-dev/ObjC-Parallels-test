@@ -14,7 +14,7 @@
 
 @implementation PMOPictureDownloader
 
--(void)notifyObserverWithProcessedData:(NSData *)data {
+- (void)notifyObserverWithProcessedData:(NSData *)data {
     NSDictionary *userInfo = @{@"data" : data};
     
     [[NSNotificationCenter defaultCenter] postNotificationName:PMOPictureDownloaderImageDidDownloaded

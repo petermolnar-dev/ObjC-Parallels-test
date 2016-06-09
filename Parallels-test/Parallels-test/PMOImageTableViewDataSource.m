@@ -8,19 +8,10 @@
 
 #import "PMOImageTableViewDataSource.h"
 
-@interface PMOImageTableViewDataSource()
-
-
--(UITableViewCell *)customCellFortableView:(UITableView *)tableView  cellForRowAtIndexPath:(NSIndexPath *)indexPath ;
-
-@end
-
-
-
 @implementation PMOImageTableViewDataSource
 
 #pragma mark - Init
--(instancetype)initWithStorageController:(PMOPictureStorageModellController *)storageController URLForJSONFile:(NSURL *)jsonFile baseURLStringForImages:(NSString *)baseURLStringForImages
+- (instancetype)initWithStorageController:(PMOPictureStorageModellController *)storageController URLForJSONFile:(NSURL *)jsonFile baseURLStringForImages:(NSString *)baseURLStringForImages
 {
     self = [super init];
     if (self && storageController) {
@@ -31,14 +22,13 @@
     return self;
 }
 
--(instancetype)init {
-    NSLog(@"Use initWithStorageController: storageController as Designated initializer");
+- (instancetype)init {
+    @throw [NSException exceptionWithName:@"Not initialized succesfully" reason:@"Use -initWithStorageController: storageController: URLForJSONFile: baseURLStringForImages: as Designated initializer" userInfo:nil];
     return nil;
 }
 
 #pragma mark - Helper functions
-
--(BOOL)isStorageControllerEmpty {
+- (BOOL)isStorageControllerEmpty {
     if ([self.storageController countOfPictures] == 0) {
         return true;
     } else {
@@ -46,7 +36,7 @@
     }
 }
 
--(UITableViewCell *)customCellFortableView:(UITableView *)tableView  cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
+- (UITableViewCell *)customCellFortableView:(UITableView *)tableView  cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PictureCell" forIndexPath:indexPath];
     PMOPictureModellController *controller = [self.storageController pictureModellAtIndex:indexPath.row];
     if (!cell) {
@@ -58,6 +48,7 @@
         cell.detailTextLabel.text = [controller.imageDescription stringByAppendingString:[controller.picture.imageURL absoluteString]];
     } else {
         cell.textLabel.text = @"";
+        cell.detailTextLabel.text = @"";
     
     }
     return cell;
@@ -65,7 +56,7 @@
 
 #pragma mark - Implementing the protocol
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([self isStorageControllerEmpty]) {
         return nil;
     } else {
@@ -74,7 +65,7 @@
     
 }
 
--(int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     if (![self isStorageControllerEmpty]) {
         return [self.storageController countOfPictures];
@@ -83,7 +74,7 @@
     }
 }
 
--(int)numberOfSectionsInTableView:(UITableView *)tableView {
+- (int)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
