@@ -9,12 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "PMOOperationWithQueue.h"
 #import "PMOBackgroundTaskExecutable.h"
+#import "PMOPictureJSONParserNotification.h"
 
 // JSON parser with NSOperationQueue
 //
 
-// String constant for the NSNotificationCenter notification
-static NSString *const PMOPictureJSONParsed = @"PMOPictureJSONParsed";
 
 @interface PMOPictureJSONParser : PMOOperationWithQueue <PMOBackgroundTaskExecutable>
 

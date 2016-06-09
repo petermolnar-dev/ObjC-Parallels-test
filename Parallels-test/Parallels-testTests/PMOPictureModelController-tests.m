@@ -7,30 +7,36 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "PMOPictureModelController.h"
+#import "PMOPictureModellControllerFactory.h"
+#import "PMOPictureModellController.h"
+
 
 @interface PMOPictureModelController_tests : XCTestCase
-@property (strong, nonatomic) PMOPictureModelController *modelController;
+@property (strong, nonatomic) PMOPictureModellController *modelController;
 @end
 
 @implementation PMOPictureModelController_tests
 
 - (void)setUp {
     [super setUp];
-    if (!_modelController) {
-        _modelController = [[PMOPictureModelController alloc] init];
-        self.modelController = _modelController;
-    }
     NSDictionary  *testPicture = @{ @"image" : @"testpicture.png",
                                     @"name" : @"TestPicture",
                                     @"description" : @"Local test picture"};
     
-    [_modelController createPictureFromDictionary:testPicture
-                          baseURLAsStringForImage:@"http://localhost"];
-    
+    if (!_modelController) {
+        _modelController = [PMOPictureModellControllerFactory modellControllerFromDictionary:testPicture baseURLAsStringForImage:@"http://localhost"] ;
+        self.modelController = _modelController;
+    }
+
+}
+
+- (void)tearDown {
+    [super tearDown];
+    _modelController = nil;
 }
 
 
+#pragma mark - Tests
 -(void)testPictureCreation {
     NSDictionary *referencePicture = @{@"imageTitle":@"TestPicture",
                                        @"imageDescription": @"Local test picture",

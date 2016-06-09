@@ -9,6 +9,7 @@
 #import "PMOPictureStorageModellController.h"
 #import "PMOPictureJSONParser.h"
 #import "PMODataDownloader.h"
+#import "PMOPictureModellControllerFactory.h"
 
 @interface PMOPictureStorageModellController()
 
@@ -18,9 +19,21 @@
 
 @implementation PMOPictureStorageModellController
 
--(void)setupFromJSONFileatURL:(NSURL *)url {
+#pragma mark - Accessors
+- (NSMutableArray *)pictures {
+    if (!_pictures) {
+        _pictures = [[NSMutableArray alloc] init];
+    }
+    
+    return _pictures;
+}
+
+
+#pragma mark - Public API
+-(void)setupFromJSONFileatURL:(NSURL *)url baseURLStringForImages:(NSString *)baseURLString {
     
     [self addObserversForDownloadData];
+    self.baseURLAsString = [PMOPictureModellControllerFactory updateURLAsStringWithTrailingHash:baseURLString];
     PMODataDownloader *downloader = [[PMODataDownloader alloc] init];
     [downloader downloadDataFromURL:url];
     
@@ -31,7 +44,7 @@
    return [NSArray arrayWithArray:self.pictures];
 }
 
-- (PMOPictureModelController *)pictureModelAtIndex:(NSUInteger)index {
+- (PMOPictureModellController *)pictureModellAtIndex:(NSUInteger)index {
     return [self.pictures objectAtIndex:index];
 }
 
@@ -39,6 +52,8 @@
     return [self.pictureList count];
 }
 
+
+#pragma mark - Observer functions
 - (void)addObserversForDownloadData {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveDownloadNotification:)
@@ -85,7 +100,14 @@
                                                   object:nil];
     // Make the count of the list KVO compliant
     [self willChangeValueForKey:@"countOfPictures"];
-    self.pictures = [notification.userInfo objectForKey:@"json"];
+    // TODO: Need to create real, controller objects from the json 
+    NSArray *pictureDetails = [notification.userInfo objectForKey:@"json"];
+    for (NSDictionary *currentPictureDetails in pictureDetails) {
+        PMOPictureModellController *currentController = [PMOPictureModellControllerFactory modellControllerFromDictionary:currentPictureDetails
+                                                                                              baseURLAsStringForImage:self.baseURLAsString];
+        [self.pictures addObject:currentController];
+    }
+    
     [self didChangeValueForKey:@"countOfPictures"];
 }
 

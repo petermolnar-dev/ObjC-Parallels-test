@@ -41,10 +41,7 @@
                                forKeyPath:@"picture.image"
                                   options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew
                                   context:nil ];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(didReceiveDownloadErrorNotification:) name:PMODataDownloaderError
-                                                   object:nil];
-        self.imageView.image = self.modellController.image;
+         self.imageView.image = self.modellController.image;
 
         [self.view startSpinner];
         [self.view setBackgroundColor:[UIColor whiteColor]];
@@ -118,13 +115,5 @@
     }];
     
 }
-
--(void)didReceiveDownloadErrorNotification:(NSNotification *)notification  {
-    NSError *error = [notification.userInfo objectForKey:@"error"];
-    [self.view displayErrorMessage:error];
-}
-
-
-
 
 @end

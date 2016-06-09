@@ -7,6 +7,7 @@
 //
 
 #import "PMOViewWithIndicator.h"
+#import "PMODataDownloadNotifications.h"
 
 @interface PMOViewWithIndicator()
 @property (weak, nonatomic)UIActivityIndicatorView *loadingActivity;
@@ -16,28 +17,36 @@
 
 @implementation PMOViewWithIndicator
 
--(instancetype)init {
+- (instancetype)init {
     self = [super init];
     
     if (self) {
         [self setBackgroundColor:[UIColor whiteColor]];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(didReceiveDownloadErrorNotification:) name:PMODataDownloaderError
+                                                   object:nil];
     }
     
     return self;
 }
 
--(void)startSpinner {
-    self.isSpinnerOn = true;
-    self.loadingActivity = [self addSpinnerToView:self];
-
-    [self setNeedsDisplay];
+#pragma mark - Spinner and ON/OFF
+- (void)startSpinner {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        self.isSpinnerOn = true;
+        self.loadingActivity = [self addSpinnerToView:self];
+        
+        [self setNeedsDisplay];
+    }];
 }
 
 -(void)stopSpinner {
-    [self.loadingActivity stopAnimating];
-    [self.loadingActivity removeFromSuperview];
-    self.isSpinnerOn = false;
-    [self setNeedsDisplay];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self.loadingActivity stopAnimating];
+        [self.loadingActivity removeFromSuperview];
+        self.isSpinnerOn = false;
+        [self setNeedsDisplay];
+    }];
 }
 
 - (UIActivityIndicatorView *)addSpinnerToView:(UIView *)parentView {
@@ -61,6 +70,7 @@
     return loadingActivity;
 }
 
+#pragma mark - Error message display
 - (void)displayErrorMessage:(NSError *)error {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self stopSpinner];
@@ -74,6 +84,12 @@
         
         [self addSubview:errorLabel];
     }];
+}
+
+#pragma mark - Notification actions
+- (void)didReceiveDownloadErrorNotification:(NSNotification *)notification  {
+    NSError *error = [notification.userInfo objectForKey:@"error"];
+    [self displayErrorMessage:error];
 }
 
 

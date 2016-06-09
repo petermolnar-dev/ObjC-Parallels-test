@@ -6,12 +6,12 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import "PMOPictureModelController.h"
+#import "PMOPictureModellController.h"
 #import "PMOPictureDownloaderWithQueues.h"
 #import "PMOThumbnailCreator.h"
 
 
-@implementation PMOPictureModelController
+@implementation PMOPictureModellController
 
 #pragma mark - Accessors
 
@@ -111,15 +111,7 @@
     NSLog(@"Image downlad failed: %@",[error localizedDescription]);
 }
 
-#pragma mark - Creation and dynamic image retrieving
-
-- (void)createPictureFromDictionary:(NSDictionary *)pictureDetails baseURLAsStringForImage:(NSString *)baseURLAsString {
-    
-    self.picture = [self setupPictureDetailsFromDictionary:pictureDetails
-                                   baseURLAsStringForImage:baseURLAsString];
-    
-}
-
+#pragma mark - Dynamic image retrieving
 - (void)requestDownloadOfThePictureImage {
 
     [self addDownloadObservers];
@@ -143,26 +135,6 @@
 }
 
 
-#pragma mark - Helper functions
-- (NSString *)updateURLAsStringWithTrailingHash:(NSString *)URLstring {
-    
-    // Check if the URL ends with slash (/) character.
-    if (![[URLstring substringFromIndex:[URLstring length]-1] isEqual:@"/"]) {
-        URLstring= [URLstring stringByAppendingString:@"/"];
-    }
-    return URLstring;
-}
-
-- (PMOPicture *)setupPictureDetailsFromDictionary:(NSDictionary *)pictureDetails  baseURLAsStringForImage:(NSString *)baseURLAsString {
-    
-    PMOPicture *picture = [[PMOPicture alloc] init];
-    [picture setImageDescription:[pictureDetails objectForKey:@"description"]];
-    [picture setImageFileName:[pictureDetails objectForKey:@"image"]];
-    [picture setImageTitle:[pictureDetails objectForKey:@"name"]];
-    [picture setImageURL:[NSURL URLWithString:[[self updateURLAsStringWithTrailingHash:baseURLAsString] stringByAppendingString:picture.imageFileName]]];
-    
-    return picture;
-}
 
 - (void)changePictureDownloadPriorityToHigh {
     [self.downloadQueues changeDownloadTaskToHighPriorityQueueFromURL:self.picture.imageURL];

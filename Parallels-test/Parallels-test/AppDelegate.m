@@ -12,13 +12,12 @@
 #import "AppDelegate.h"
 #import "PMODownloadTaskQueues.h"
 #import "PMOPictureStorageModellController.h"
-// Temporary only for testing
-#import "PMOImageViewController.h"
+#import "PMOPictureModellControllerFactory.h"
+#import "PMOImageTableViewController.h"
 
 @interface AppDelegate()
 
 @property (strong, nonatomic) PMODownloadTaskQueues *downloadQueues;
-@property (strong, nonatomic) PMOPictureModelController *modellController;
 
 @end
 
@@ -27,25 +26,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    // Setting up the initial values
-   self.downloadQueues =[[PMODownloadTaskQueues alloc] init];
-   // Only for testing
-    NSDictionary  *firstPicture = @{ @"image" : @"wwdc5.png",
-                                     @"name" : @"WWDC'05",
-                                     @"description" : @"Image for WWDC 2005"};
-    NSDictionary  *smallPicture = @{ @"image" : @"wwdc11.png",
-                                     @"name" : @"WWDC'05",
-                                     @"description" : @"Image for WWDC 2005"};
-
-    self.modellController = [[PMOPictureModelController alloc] init];
+    // Setting up the globals
+    self.downloadQueues =[[PMODownloadTaskQueues alloc] init];
+    NSString *JSONFileURLAsString = @"http://93.175.29.76/web/wwdc/items.json";
+    NSString *baseImageURLAsString = @"http://93.175.29.76/web/wwdc/";
     
-    self.modellController.downloadQueues = self.downloadQueues;
-//    [self.modellController createPictureFromDictionary:firstPicture baseURLAsStringForImage:@"http://93.175.29.76/web/wwdc/"];
-        [self.modellController createPictureFromDictionary:smallPicture baseURLAsStringForImage:@"http://demo.petermolnar.hu/web/wwdc"];
-
-    PMOImageViewController *vc = (PMOImageViewController *)self.window.rootViewController;
+    // handing over the globals to the rootViewController
+    PMOImageTableViewController *vc = (PMOImageTableViewController *)self.window.rootViewController;
     
-    vc.modellController = self.modellController;
+    vc.queues = self.downloadQueues;
+    vc.JSONFileURLAsString = JSONFileURLAsString;
+    vc.baseImageURLAsString = baseImageURLAsString;
     
     return YES;
 }

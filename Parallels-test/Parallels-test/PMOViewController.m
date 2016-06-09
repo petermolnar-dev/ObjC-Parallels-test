@@ -7,14 +7,14 @@
 //
 
 #import "PMOViewController.h"
-#import "PMOPictureModelController.h"
-#import "PMOPIctureStorageModellController.h"
+#import "PMOPictureModellControllerFactory.h"
+#import "PMOPictureStorageModellController.h"
 #import "PMODataDownloader.h"
 
 
 @interface PMOViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (strong, nonatomic) PMOPictureModelController *modelController;
+@property (strong, nonatomic) PMOPictureModellController *modelController;
 @property (strong, nonatomic) PMOPictureStorageModellController *storageController;
 
 -(void)didReceiveDownloadErrorNotification:(NSNotification *)notification ;
@@ -42,12 +42,15 @@
                                      @"name" : @"WWDC'05",
                                      @"description" : @"Image for WWDC 2005"};
 
-    [self.modelController setDownloadQueues:self.downloadQueues];
-
 //    [self.modelController createPictureFromDictionary:smallPicture baseURLAsStringForImage:@"http://i2.wp.com/petermolnar.hu/wp-content/uploads/2014/04/"];
+        self.modelController = [PMOPictureModellControllerFactory modellControllerFromDictionary:firstPicture
+                                                                         baseURLAsStringForImage:@"http://93.175.29.76/web/wwdc/"];
+                            
+                            
+     
+    [self.modelController setDownloadQueues:self.downloadQueues];
     
-    [self.modelController createPictureFromDictionary:firstPicture baseURLAsStringForImage:@"http://93.175.29.76/web/wwdc/"];
-    
+
     [self.modelController addObserver:self
                            forKeyPath:@"picture.image"
                               options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew
@@ -58,7 +61,7 @@
     
     NSURL *jsonURL = [NSURL URLWithString:@"http://localhost/items.json"];
     
-    [self.storageController setupFromJSONFileatURL:jsonURL];
+    [self.storageController setupFromJSONFileatURL:jsonURL baseURLStringForImages:@"http://localhost"];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self.view startSpinner];
     [self.view addSubview:self.imageView];
@@ -107,10 +110,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (PMOPictureModelController *)modelController {
+- (PMOPictureModellController *)modelController {
 
     if (!_modelController) {
-        _modelController = [[PMOPictureModelController alloc] init];
+        _modelController = [[PMOPictureModellController alloc] init];
 
     }
     

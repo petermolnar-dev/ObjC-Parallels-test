@@ -26,6 +26,8 @@
     _downloader = nil;
 }
 
+
+#pragma mark - Tests
 - (void)testDownloadCompleted {
     [self.downloader downloadDataFromURL:[NSURL URLWithString:@"http://93.175.29.76/web/wwdc/items.json"]];
     XCTestExpectation *expectation = [self expectationForNotification:PMODataDownloaderDidDownloadEnded

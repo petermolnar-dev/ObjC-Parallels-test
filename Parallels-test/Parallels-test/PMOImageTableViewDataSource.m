@@ -6,11 +6,10 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import "PMOTableViewDataSource.h"
+#import "PMOImageTableViewDataSource.h"
 
-@interface PMOTableViewDataSource()
+@interface PMOImageTableViewDataSource()
 
-@property (weak, nonatomic) PMOPictureStorageModellController *storageController; // Injected from outside with the init
 
 -(UITableViewCell *)customCellFortableView:(UITableView *)tableView  cellForRowAtIndexPath:(NSIndexPath *)indexPath ;
 
@@ -18,14 +17,15 @@
 
 
 
-@implementation PMOTableViewDataSource
+@implementation PMOImageTableViewDataSource
 
 #pragma mark - Init
--(instancetype)initWithStorageController:(PMOPictureStorageModellController *)storageController
+-(instancetype)initWithStorageController:(PMOPictureStorageModellController *)storageController URLForJSONFile:(NSURL *)jsonFile baseURLStringForImages:(NSString *)baseURLStringForImages
 {
     self = [super init];
     if (self && storageController) {
         _storageController = storageController;
+        [_storageController setupFromJSONFileatURL:jsonFile baseURLStringForImages:baseURLStringForImages];
     }
     
     return self;
@@ -40,7 +40,6 @@
 
 -(BOOL)isStorageControllerEmpty {
     if ([self.storageController countOfPictures] == 0) {
-        NSLog(@"Storage controller is empty");
         return true;
     } else {
         return false;
@@ -49,10 +48,18 @@
 
 -(UITableViewCell *)customCellFortableView:(UITableView *)tableView  cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PictureCell" forIndexPath:indexPath];
-    PMOPictureModelController *controller = [self.storageController pictureModelAtIndex:indexPath.row];
+    PMOPictureModellController *controller = [self.storageController pictureModellAtIndex:indexPath.row];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:@"PictureCell"];
+    }
+    if (controller) {
+        cell.textLabel.text = controller.imageTitle;
+        cell.detailTextLabel.text = [controller.imageDescription stringByAppendingString:[controller.picture.imageURL absoluteString]];
+    } else {
+        cell.textLabel.text = @"";
     
-    
-    cell.textLabel.text = controller.imageTitle;
+    }
     return cell;
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PMOPictureModelController.h"
+#import "PMOPictureModellController.h"
 
 // Controller for holding and manipulating the main set of Picture Modell Controllers
 //
@@ -15,9 +15,11 @@
 
 @property (unsafe_unretained, nonatomic, readonly) NSUInteger countOfPictures;
 @property (weak, nonatomic, readonly) NSArray *pictureList;
+@property (copy, nonatomic) NSString *baseURLAsString;
 
--(PMOPictureModelController *)pictureModelAtIndex:(NSUInteger)index;
--(void)setupFromJSONFileatURL:(NSURL *)url;
+-(PMOPictureModellController *)pictureModellAtIndex:(NSUInteger)index;
+-(void)setupFromJSONFileatURL:(NSURL *)url baseURLStringForImages:(NSString *)baseURLString;
+
 
 
 @end

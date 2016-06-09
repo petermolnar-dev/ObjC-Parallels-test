@@ -17,6 +17,19 @@
 
 @implementation PMODownloadTaskQueues_tests
 
+- (void)setUp {
+    [super setUp];
+    if (!_queues) {
+        _queues = [[PMODownloadTaskQueues alloc] init];
+    }
+}
+
+- (void)tearDown {
+    [super tearDown];
+    _queues = nil;
+}
+
+#pragma mark - Acessors
 -(PMODownloadTaskQueues *)queues {
     if (!_queues) {
         _queues = [[PMODownloadTaskQueues alloc] init];
@@ -24,7 +37,7 @@
     return _queues;
 }
 
-
+#pragma mark - Helper functions
 -(NSURLSessionTask *)newSmallDownloadTask {
     return [[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:@"http://i2.wp.com/petermolnar.hu/wp-content/uploads/2014/04/pm_cv-2015_preview.png"]];
 }
@@ -34,7 +47,7 @@
 }
 
 
-
+#pragma mark - Tests
 -(void)testAddTaskToNormalQueue {
     // Add a task1 to normal queue
     // - task1 is running

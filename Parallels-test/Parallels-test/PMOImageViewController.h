@@ -7,11 +7,11 @@
 //
 
 #import "PMOViewWithIndicator.h"
-#import "PMOPictureModelController.h"
+#import "PMOPictureModellController.h"
 
 @interface PMOImageViewController : UIViewController
 
-@property (weak, nonatomic) PMOPictureModelController *modellController;
+@property (weak, nonatomic) PMOPictureModellController *modellController;
 @property (strong, nonatomic) PMOViewWithIndicator *view;
 
 

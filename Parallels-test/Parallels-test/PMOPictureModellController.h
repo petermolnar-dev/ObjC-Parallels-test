@@ -12,9 +12,8 @@
 
 // Class to hold and manipulate the data modell of PMOPicture
 //
-@interface PMOPictureModelController : NSObject
+@interface PMOPictureModellController : NSObject
 
-@property (copy, nonatomic) NSString *baseURLAsString;
 @property (strong, nonatomic) PMOPicture *picture;
 @property (weak, nonatomic) PMODownloadTaskQueues *downloadQueues;
 @property (weak, nonatomic, readonly) UIImage *image;
@@ -23,9 +22,6 @@
 @property (copy, nonatomic, readonly) NSString *imageFileName;
 @property (copy, nonatomic, readonly) NSString *imageDescription;
 
-
-
-- (void)createPictureFromDictionary:(NSDictionary *)pictureDetails baseURLAsStringForImage:(NSString *)baseURLAsString;
 
 - (void)changePictureDownloadPriorityToHigh;
 - (void)changePictureDownloadPriorityToDefault;
