@@ -12,4 +12,6 @@
 
 @interface PMOPictureDownloader : PMODataDownloader
 
+@property (copy, nonatomic) NSString *pictureKey;
+
 @end

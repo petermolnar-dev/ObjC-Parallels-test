@@ -8,6 +8,9 @@
 
 #import "PMODataDownloader.h"
 
+@interface PMODataDownloader()
+- (NSDictionary *)userInforForErrorNotification:(NSError *)error;
+@end
 
 @implementation PMODataDownloader
 
@@ -53,9 +56,14 @@
                                                       userInfo:userInfo];
 }
 
+#pragma mark - Customizable for userInfo in case of error
+- (NSDictionary *)userInforForErrorNotification:(NSError *)error {
+    NSDictionary *userInfo = @{@"error" : error };
+    return userInfo;
+}
 
 - (void)notifyObserverWithError:(NSError *)error {
-    NSDictionary *userInfo = @{@"error" : error };
+    NSDictionary *userInfo = [self userInforForErrorNotification:error];
     [[NSNotificationCenter defaultCenter] postNotificationName:PMODataDownloaderError
                                                         object:self
                                                       userInfo:userInfo];

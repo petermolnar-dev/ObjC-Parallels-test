@@ -9,6 +9,7 @@
 #import "PMOPictureModellController.h"
 #import "PMOPictureDownloaderWithQueues.h"
 #import "PMOThumbnailCreator.h"
+#import "PMOThumbnailCreatorNotification.h"
 
 
 @implementation PMOPictureModellController
@@ -54,6 +55,16 @@
     }
 }
 
+- (NSString *)pictureKey {
+    if (self.picture) {
+        return self.picture.pictureKey;
+    } else {
+        return nil;
+    }
+}
+
+
+
 #pragma mark - observer helpers
 - (void)addDownloadObservers {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -63,7 +74,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveDownloadErrorNotification:) name:PMODataDownloaderError
                                                object:nil];
-  
+    
 }
 
 - (void)removeDownloadObservers {
@@ -74,45 +85,58 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:PMODataDownloaderError
                                                   object:nil];
-
+    
 }
 
 #pragma mark - Observer triggers
+- (BOOL)isNotificationForThePicture:(NSNotification *)notification {
+    NSString *notificationForPictureWithKey = [notification.userInfo valueForKey:@"pictureKey"];
+    return [notificationForPictureWithKey isEqualToString:self.pictureKey];
+}
+
 - (void)didReceiveDownloadNotification:(NSNotification *)notification {
     
-    [self removeDownloadObservers];
-    // Update the model with KVO compliant mode
-    [self.picture setValue:[UIImage imageWithData:[notification.userInfo valueForKey:@"data"]]
-                    forKey:@"image"];
-    [self requestThumbnailImageFromImage:self.picture.image];
+    if ([self isNotificationForThePicture:notification]) {
+        [self removeDownloadObservers];
+        // Update the model with KVO compliant mode
+        [self.picture setValue:[UIImage imageWithData:[notification.userInfo valueForKey:@"data"]]
+                        forKey:@"image"];
+        [self requestThumbnailImageFromImage:self.picture.image];
+    }
 }
 
 - (void)didReceiveImageTransformationNotification:(NSNotification *) notification {
     
-    // Update the model with KVO compliant mode
-    [self.picture setValue:[notification.userInfo valueForKey:@"image"]
-                    forKey:@"thumbnailImage"];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:PMOThumbnailImageGenerated
-                                                  object:nil];
-    
+    if ([self isNotificationForThePicture:notification]) {
+        // Update the model with KVO compliant mode
+        [self willChangeValueForKey:@"thumbnailImage"];
+        [self.picture setValue:[notification.userInfo valueForKey:@"image"]
+                        forKey:@"thumbnailImage"];
+        [self didChangeValueForKey:@"thumbnailImage"];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:PMOThumbnailImageGenerated
+                                                      object:nil];
+    }
 }
 
 - (void)didReceiveDownloadErrorNotification:(NSNotification *)notification {
-
-    [self removeDownloadObservers];
-    NSError *error = [notification.userInfo objectForKey:@"error"];
-    NSLog(@"Image downlad failed: %@",[error localizedDescription]);
+    
+    if ([self isNotificationForThePicture:notification])  {
+        [self removeDownloadObservers];
+        NSError *error = [notification.userInfo objectForKey:@"error"];
+        NSLog(@"Image downlad failed: %@",[error localizedDescription]);
+    }
 }
 
 #pragma mark - Dynamic image retrieving
 - (void)requestDownloadOfThePictureImage {
-
+    
     [self addDownloadObservers];
     PMOPictureDownloaderWithQueues *downloader = [[PMOPictureDownloaderWithQueues alloc] init];
     
-    [downloader setQueues:self.downloadQueues];
+    downloader.queues = self.downloadQueues;
+    downloader.pictureKey = self.pictureKey;
     [downloader downloadDataFromURL:self.picture.imageURL];
 }
 
@@ -123,8 +147,9 @@
                                                  name:PMOThumbnailImageGenerated
                                                object:nil];
     PMOThumbnailCreator *thumbnailCreator = [[PMOThumbnailCreator alloc] init];
-    thumbnailCreator.size = CGSizeMake(20.0, 20.0);
-    [thumbnailCreator processData:self.image withOptions:nil];
+    thumbnailCreator.size = CGSizeMake(88.0, 88.0);
+    NSDictionary *options = @{@"pictureKey" : self.pictureKey};
+    [thumbnailCreator processData:self.image withOptions:options];
     
     
 }

@@ -21,7 +21,7 @@
 @property (copy, nonatomic, readonly) NSString *imageTitle;
 @property (copy, nonatomic, readonly) NSString *imageFileName;
 @property (copy, nonatomic, readonly) NSString *imageDescription;
-
+@property (copy, nonatomic, readonly) NSString *pictureKey;
 
 - (void)changePictureDownloadPriorityToHigh;
 - (void)changePictureDownloadPriorityToDefault;

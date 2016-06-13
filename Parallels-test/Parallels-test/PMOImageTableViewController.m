@@ -63,16 +63,17 @@
     [super loadView];
     
     [self setupTableViewDataSource];
-    
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"PictureCell"];
-    
     [self setupObservers];
     
 }
 
 - (void)viewDidLoad {
+    UINib *nib = [UINib nibWithNibName:@"PMOPictureTableViewCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"PictureCell"];
+
     self.tableView.hidden = true;
     [self.view startSpinner];
+
 }
 
 #pragma mark - Observer triggers

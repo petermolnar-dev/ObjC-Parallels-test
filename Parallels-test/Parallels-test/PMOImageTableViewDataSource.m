@@ -7,6 +7,7 @@
 //
 
 #import "PMOImageTableViewDataSource.h"
+#import "PMOPictureTableViewCell.h"
 
 @implementation PMOImageTableViewDataSource
 
@@ -37,19 +38,22 @@
 }
 
 - (UITableViewCell *)customCellFortableView:(UITableView *)tableView  cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PictureCell" forIndexPath:indexPath];
+    PMOPictureTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PictureCell" forIndexPath:indexPath];
     PMOPictureModellController *controller = [self.storageController pictureModellAtIndex:indexPath.row];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:@"PictureCell"];
-    }
-    if (controller) {
-        cell.textLabel.text = controller.imageTitle;
-        cell.detailTextLabel.text = [controller.imageDescription stringByAppendingString:[controller.picture.imageURL absoluteString]];
-    } else {
-        cell.textLabel.text = @"";
-        cell.detailTextLabel.text = @"";
     
+    if (!cell) {
+        cell = [[PMOPictureTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                              reuseIdentifier:@"PictureCell"];
+    }
+    
+    if (controller) {
+        cell.controller = controller;
+        [controller addObserver:cell
+                     forKeyPath:@"thumbnailImage"
+                        options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
+        cell.titleLabel.text = controller.imageTitle;
+        cell.descriptionLabel.text = controller.imageDescription;
+        cell.thumbnailView.image = controller.thumbnailImage;
     }
     return cell;
 }
@@ -66,7 +70,7 @@
 }
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     if (![self isStorageControllerEmpty]) {
         return [self.storageController countOfPictures];
     } else {

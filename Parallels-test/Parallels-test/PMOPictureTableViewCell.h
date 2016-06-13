@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PMOViewWithIndicator.h"
+#import "PMOPictureModellController.h"
 
 @interface PMOPictureTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *thumbnailView;
+@property (weak, nonatomic) IBOutlet PMOViewWithIndicator *indicatorView;
+@property (weak, nonatomic) PMOPictureModellController *controller;
 
 @end

@@ -18,9 +18,9 @@
 		C778ED9D1CE5A69A0047CF87 /* PMOThumbnailCreator-tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C778ED9C1CE5A69A0047CF87 /* PMOThumbnailCreator-tests.m */; };
 		C778EDA11CE9D34A0047CF87 /* PMOOperationWithQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C778EDA01CE9D34A0047CF87 /* PMOOperationWithQueue.m */; };
 		C778EDA41CEA52BF0047CF87 /* PMOPictureStorageModellController-test.m in Sources */ = {isa = PBXBuildFile; fileRef = C778EDA31CEA52BF0047CF87 /* PMOPictureStorageModellController-test.m */; };
-		C77D22891D04C54A005952C2 /* PMOPictureModellControllerFactory.h in Sources */ = {isa = PBXBuildFile; fileRef = C7B84D3A1D04BCDF00534DDF /* PMOPictureModellControllerFactory.h */; };
-		C77D228D1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = C77D228B1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.h */; };
 		C77D228E1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D228C1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.m */; };
+		C77D22901D0A8A5D005952C2 /* PMOPictureTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C77D228F1D0A8A5D005952C2 /* PMOPictureTableViewCell.xib */; };
+		C77D22951D0A8C09005952C2 /* PMOPictureTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D22931D0A8C09005952C2 /* PMOPictureTableViewCell.m */; };
 		C79B7AF11CD074D400F6D64B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7AF01CD074D400F6D64B /* main.m */; };
 		C79B7AF41CD074D400F6D64B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7AF31CD074D400F6D64B /* AppDelegate.m */; };
 		C79B7AFA1CD074D400F6D64B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C79B7AF81CD074D400F6D64B /* Main.storyboard */; };
@@ -74,6 +74,10 @@
 		C77D228A1D09E936005952C2 /* PMOPictureJSONParserNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMOPictureJSONParserNotification.h; sourceTree = "<group>"; };
 		C77D228B1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOImageViewScrollViewFactory.h; sourceTree = "<group>"; };
 		C77D228C1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOImageViewScrollViewFactory.m; sourceTree = "<group>"; };
+		C77D228F1D0A8A5D005952C2 /* PMOPictureTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PMOPictureTableViewCell.xib; sourceTree = "<group>"; };
+		C77D22921D0A8C09005952C2 /* PMOPictureTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOPictureTableViewCell.h; sourceTree = "<group>"; };
+		C77D22931D0A8C09005952C2 /* PMOPictureTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOPictureTableViewCell.m; sourceTree = "<group>"; };
+		C77D22971D0D6419005952C2 /* PMOThumbnailCreatorNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMOThumbnailCreatorNotification.h; sourceTree = "<group>"; };
 		C79B7AEC1CD074D400F6D64B /* Parallels-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Parallels-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79B7AF01CD074D400F6D64B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C79B7AF21CD074D400F6D64B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -130,12 +134,21 @@
 		C778EDA21CE9FEBC0047CF87 /* Abstract Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C72ED27A1CF8610200AA3284 /* PMOViewWithIndicator.h */,
-				C72ED27B1CF8610200AA3284 /* PMOViewWithIndicator.m */,
 				C778ED9F1CE9D34A0047CF87 /* PMOOperationWithQueue.h */,
 				C778EDA01CE9D34A0047CF87 /* PMOOperationWithQueue.m */,
 			);
 			name = "Abstract Classes";
+			sourceTree = "<group>";
+		};
+		C77D22911D0A8BC5005952C2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C77D22921D0A8C09005952C2 /* PMOPictureTableViewCell.h */,
+				C77D22931D0A8C09005952C2 /* PMOPictureTableViewCell.m */,
+				C72ED27A1CF8610200AA3284 /* PMOViewWithIndicator.h */,
+				C72ED27B1CF8610200AA3284 /* PMOViewWithIndicator.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		C79B7AE31CD074D400F6D64B = {
@@ -159,6 +172,7 @@
 		C79B7AEE1CD074D400F6D64B /* Parallels-test */ = {
 			isa = PBXGroup;
 			children = (
+				C77D22911D0A8BC5005952C2 /* Views */,
 				C7B84D391D04BCC000534DDF /* Factories */,
 				C778EDA21CE9FEBC0047CF87 /* Abstract Classes */,
 				C7C4ACD11CE275F7004F515A /* Parsers */,
@@ -172,6 +186,7 @@
 				C79B7AF21CD074D400F6D64B /* AppDelegate.h */,
 				C79B7AF31CD074D400F6D64B /* AppDelegate.m */,
 				C79B7AF81CD074D400F6D64B /* Main.storyboard */,
+				C77D228F1D0A8A5D005952C2 /* PMOPictureTableViewCell.xib */,
 				C79B7AFD1CD074D400F6D64B /* LaunchScreen.storyboard */,
 				C79B7B001CD074D400F6D64B /* Info.plist */,
 				C71DC56A1CECC6C100EACB3D /* Assets.xcassets */,
@@ -243,6 +258,7 @@
 				C7C4ACC41CE06FCF004F515A /* PMOExecutionNotifier.h */,
 				C778ED9E1CE846590047CF87 /* PMOBackgroundTaskExecutable.h */,
 				C72ED27D1CFC990100AA3284 /* PMOViewIndicatorIncluded.h */,
+				C77D22971D0D6419005952C2 /* PMOThumbnailCreatorNotification.h */,
 			);
 			name = "Protocols and headers";
 			sourceTree = "<group>";
@@ -309,7 +325,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C77D228D1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +412,7 @@
 				C79B7AFF1CD074D400F6D64B /* LaunchScreen.storyboard in Resources */,
 				C71DC56B1CECC6C100EACB3D /* Assets.xcassets in Resources */,
 				C79B7AFA1CD074D400F6D64B /* Main.storyboard in Resources */,
+				C77D22901D0A8A5D005952C2 /* PMOPictureTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,7 +430,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C77D22891D04C54A005952C2 /* PMOPictureModellControllerFactory.h in Sources */,
 				C7C4ACD01CE2736E004F515A /* PMOPictureStorageModellController.m in Sources */,
 				C72ED2861CFE293400AA3284 /* PMOImageViewController.m in Sources */,
 				C72ED28C1D01DC8100AA3284 /* PMOImageTableViewController.m in Sources */,
@@ -429,6 +444,7 @@
 				C778EDA11CE9D34A0047CF87 /* PMOOperationWithQueue.m in Sources */,
 				C79B7B5B1CD29D2D00F6D64B /* PMOPictureDownloader.m in Sources */,
 				C7C4ACCA1CE1DADB004F515A /* PMOThumbnailCreator.m in Sources */,
+				C77D22951D0A8C09005952C2 /* PMOPictureTableViewCell.m in Sources */,
 				C79B7B211CD0760E00F6D64B /* PMODownloadTaskQueues.m in Sources */,
 				C72ED2831CFCC7DC00AA3284 /* PMOImageTableViewDataSource.m in Sources */,
 				C77D228E1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.m in Sources */,

@@ -9,5 +9,8 @@
 #ifndef PMOThumbnailCreatorNotification_h
 #define PMOThumbnailCreatorNotification_h
 
+// String constant for the NSNotificationCenter notification
+static NSString *const PMOThumbnailImageGenerated = @"PMOThumbnailImageGenerated";
+
 
 #endif /* PMOThumbnailCreatorNotification_h */

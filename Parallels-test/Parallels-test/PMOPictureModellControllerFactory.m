@@ -23,6 +23,9 @@
 + (PMOPicture *)setupPictureDetailsFromDictionary:(NSDictionary *)pictureDetails  baseURLAsStringForImage:(NSString *)baseURLAsString {
     
     PMOPicture *picture = [[PMOPicture alloc] init];
+    
+    NSUUID *uuid = [[NSUUID alloc] init];
+    [picture setPictureKey:[uuid UUIDString]];
     [picture setImageDescription:[pictureDetails objectForKey:@"description"]];
     [picture setImageFileName:[pictureDetails objectForKey:@"image"]];
     [picture setImageTitle:[pictureDetails objectForKey:@"name"]];

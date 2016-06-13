@@ -10,8 +10,7 @@
 #import "PMODataDownloadNotifications.h"
 
 @interface PMOViewWithIndicator()
-@property (weak, nonatomic)UIActivityIndicatorView *loadingActivity;
-@property (unsafe_unretained, nonatomic) BOOL isSpinnerOn;
+@property (strong, nonatomic)UIActivityIndicatorView *loadingActivity;
 
 @end
 
@@ -33,8 +32,12 @@
 #pragma mark - Spinner and ON/OFF
 - (void)startSpinner {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        self.isSpinnerOn = true;
+        if (!self.loadingActivity) {
         self.loadingActivity = [self addSpinnerToView:self];
+        } else {
+            self.loadingActivity.hidden = false;
+            [self.loadingActivity startAnimating];
+        }
         
         [self setNeedsDisplay];
     }];
@@ -43,8 +46,7 @@
 - (void)stopSpinner {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.loadingActivity stopAnimating];
-        [self.loadingActivity removeFromSuperview];
-        self.isSpinnerOn = false;
+        self.loadingActivity.hidden = true;
         [self setNeedsDisplay];
     }];
 }

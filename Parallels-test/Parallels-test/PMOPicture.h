@@ -18,6 +18,7 @@
 @property (copy,nonatomic) NSURL *imageURL;
 @property (strong,nonatomic) UIImage *image;
 @property (strong,nonatomic) UIImage *thumbnailImage;
+@property (copy, nonatomic) NSString *pictureKey;
 
 
 @end

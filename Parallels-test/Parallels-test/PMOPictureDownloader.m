@@ -15,7 +15,9 @@
 @implementation PMOPictureDownloader
 
 - (void)notifyObserverWithProcessedData:(NSData *)data {
-    NSDictionary *userInfo = @{@"data" : data};
+    NSDictionary *userInfo = @{@"data" : data,
+                               @"pictureKey" : self.pictureKey};
+    
     
     [[NSNotificationCenter defaultCenter] postNotificationName:PMOPictureDownloaderImageDidDownloaded
                                                         object:self
@@ -23,5 +25,16 @@
     
 }
 
+- (NSDictionary *)userInforForErrorNotification:(NSError *)error {
+    NSDictionary *userInfo;
+    if (self.pictureKey) {
+        userInfo = @{@"error" : error,
+                     @"pictureKey": self.pictureKey};
+    } else {
+        userInfo = @{@"error" : error};
+    }
+    
+    return userInfo;
+}
 
 @end

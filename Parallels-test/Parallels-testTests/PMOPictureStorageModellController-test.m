@@ -90,7 +90,6 @@
     XCTestExpectation *expectation = [ self keyValueObservingExpectationForObject:self.storage
                                                                           keyPath:@"countOfPictures"
                                                                           handler:^BOOL(id  _Nonnull observedObject, NSDictionary * _Nonnull change) {
-                                                                                  NSLog(@"******* ******* Checked item: %@",[self.storage pictureModellAtIndex:4].imageTitle );
                                                                               if (self.storage && [self arePictureModelControllersEqualController1:modellController Controller2:[self.storage pictureModellAtIndex:4]] ) {
                                                                                  
                                                                                   [expectation fulfill];

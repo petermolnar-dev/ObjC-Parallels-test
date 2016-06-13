@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Image View Controller-->
@@ -39,42 +38,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="109" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fxP-QT-qPY">
                                 <rect key="frame" x="0.0" y="28" width="600" height="572"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PictureCell" rowHeight="109" id="qID-bL-1zC">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="109"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qID-bL-1zC" id="U8C-eN-OiW">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="109"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rAq-Ed-JXf">
-                                                    <rect key="frame" x="8" y="0.0" width="101" height="101"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="101" id="XLm-za-fQu"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="Detail view" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WpP-gR-uoz">
-                                                    <rect key="frame" x="142" y="57" width="450" height="44"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="rAq-Ed-JXf" secondAttribute="bottom" constant="-0.5" id="AaP-nz-VN4"/>
-                                                <constraint firstItem="rAq-Ed-JXf" firstAttribute="top" secondItem="U8C-eN-OiW" secondAttribute="top" id="HKl-fb-JV4"/>
-                                                <constraint firstItem="rAq-Ed-JXf" firstAttribute="leading" secondItem="U8C-eN-OiW" secondAttribute="leadingMargin" id="ZNn-od-i62"/>
-                                                <constraint firstItem="WpP-gR-uoz" firstAttribute="top" secondItem="U8C-eN-OiW" secondAttribute="topMargin" constant="49" id="hBV-4j-Oh4"/>
-                                                <constraint firstItem="rAq-Ed-JXf" firstAttribute="bottom" secondItem="WpP-gR-uoz" secondAttribute="bottom" id="i8y-Rl-QmF"/>
-                                                <constraint firstItem="WpP-gR-uoz" firstAttribute="leading" secondItem="rAq-Ed-JXf" secondAttribute="trailing" constant="33" id="iXS-Q3-YGl"/>
-                                                <constraint firstItem="WpP-gR-uoz" firstAttribute="trailing" secondItem="U8C-eN-OiW" secondAttribute="trailingMargin" id="uTS-fx-4lw"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="qJd-UA-5cO" kind="show" identifier="ShowImage" id="lRp-VS-C8u"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -87,6 +50,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="fxP-QT-qPY" id="WgB-eQ-bci"/>
+                        <segue destination="qJd-UA-5cO" kind="show" identifier="ShowImage" id="oav-YL-u0V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

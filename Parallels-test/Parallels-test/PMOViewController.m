@@ -38,9 +38,9 @@
     NSDictionary  *firstPicture = @{ @"image" : @"wwdc5.png",
         @"name" : @"WWDC'05",
         @"description" : @"Image for WWDC 2005"};
-    NSDictionary  *smallPicture = @{ @"image" : @"pm_cv-2015_preview.png",
-                                     @"name" : @"WWDC'05",
-                                     @"description" : @"Image for WWDC 2005"};
+//    NSDictionary  *smallPicture = @{ @"image" : @"pm_cv-2015_preview.png",
+//                                     @"name" : @"WWDC'05",
+//                                     @"description" : @"Image for WWDC 2005"};
 
 //    [self.modelController createPictureFromDictionary:smallPicture baseURLAsStringForImage:@"http://i2.wp.com/petermolnar.hu/wp-content/uploads/2014/04/"];
         self.modelController = [PMOPictureModellControllerFactory modellControllerFromDictionary:firstPicture

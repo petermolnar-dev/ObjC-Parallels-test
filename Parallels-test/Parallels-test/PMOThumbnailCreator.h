@@ -13,8 +13,6 @@
 
 // Image resizer, using NSOperationQueue
 //
-// String constant for the NSNotificationCenter notification
-static NSString *const PMOThumbnailImageGenerated = @"PMOThumbnailImageGenerated";
 
 @interface PMOThumbnailCreator : PMOOperationWithQueue <PMOBackgroundTaskExecutable>
 

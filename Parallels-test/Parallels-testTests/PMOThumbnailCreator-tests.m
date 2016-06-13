@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "PMOThumbnailCreator.h"
+#import "PMOThumbnailCreatorNotification.h"
 
 @interface PMOThumbnailCreator_tests : XCTestCase
 @property (strong, nonatomic)PMOThumbnailCreator *thumbnailCreator;
@@ -31,7 +32,9 @@
 
 -(void)testresizeImageWithFixedValues20x20 {
     self.thumbnailCreator.size = CGSizeMake(20.0, 20.0);
-    [self.thumbnailCreator processData:[UIImage imageNamed:@"testpicture"] withOptions:nil];
+    NSUUID *uuid = [[NSUUID alloc] init];
+    NSDictionary *options = @{@"pictureKey" : [uuid UUIDString]};
+    [self.thumbnailCreator processData:[UIImage imageNamed:@"testpicture"] withOptions:options];
     XCTestExpectation *expectation = [self expectationForNotification:PMOThumbnailImageGenerated
                                                                object:self.thumbnailCreator
                                                               handler:^BOOL(NSNotification * _Nonnull notification) {
@@ -51,7 +54,9 @@
 
 -(void)testresizeImageWithFixedValues40x40 {
     self.thumbnailCreator.size = CGSizeMake(40.0, 40.0);
-    [self.thumbnailCreator processData:[UIImage imageNamed:@"testpicture"] withOptions:nil];
+    NSUUID *uuid = [[NSUUID alloc] init];
+    NSDictionary *options = @{@"pictureKey" : [uuid UUIDString]};
+    [self.thumbnailCreator processData:[UIImage imageNamed:@"testpicture"] withOptions:options];
     XCTestExpectation *expectation = [self expectationForNotification:PMOThumbnailImageGenerated
                                                                object:self.thumbnailCreator
                                                               handler:^BOOL(NSNotification * _Nonnull notification) {

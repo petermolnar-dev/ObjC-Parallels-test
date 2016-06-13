@@ -37,7 +37,7 @@
 
 
 #pragma mark - Tests
--(void)testPictureCreation {
+- (void)testPictureCreation {
     NSDictionary *referencePicture = @{@"imageTitle":@"TestPicture",
                                        @"imageDescription": @"Local test picture",
                                        @"imageFileName": @"testpicture.png",
@@ -54,7 +54,7 @@
     XCTAssertTrue([resultsFromPictureModel isEqual:expectedPictureProperties]);
 }
 
--(void)testPictureImageDownloadRequest {
+- (void)testPictureImageDownloadRequest {
     // Get the image with "dirty" way
     NSData *referenceImageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:@"http://localhost/testpicture.png"]];
     UIImage *referenceImage = [UIImage imageWithData:referenceImageData];
@@ -77,6 +77,11 @@
     UIImage *testImageFromURL = self.modelController.image;
     
     [self waitForExpectationsWithTimeout:5 handler:nil];
+}
+
+- (void)testKeyCreation {
+    BOOL isPictureKeyHasLength = [self.modelController.pictureKey length] > 0;
+    XCTAssertTrue(isPictureKeyHasLength);
 }
 
 @end
