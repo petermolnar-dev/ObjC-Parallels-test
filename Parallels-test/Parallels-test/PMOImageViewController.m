@@ -10,6 +10,8 @@
 #import "PMODataDownloader.h"
 #import "PMOImageViewScrollViewDelegate.h"
 #import "PMOImageViewScrollViewFactory.h"
+#import "PMOPictureModellController.h"
+#import "PMOPicture.h"
 
 @interface PMOImageViewController()
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -25,6 +27,7 @@
 #pragma mark - LifeCycle
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     [self.modellController addObserver:self
                             forKeyPath:@"picture.image"
                                options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew

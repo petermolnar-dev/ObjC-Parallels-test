@@ -6,8 +6,9 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "PMOViewIndicatorIncluded.h"
+
+@import UIKit;
 
 @interface PMOViewWithIndicator : UIView <PMOViewIndicatorIncluded>
 

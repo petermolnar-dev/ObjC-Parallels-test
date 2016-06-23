@@ -9,6 +9,7 @@
 #import "PMOViewWithIndicator.h"
 #import "PMODataDownloadNotifications.h"
 
+
 @interface PMOViewWithIndicator()
 @property (strong, nonatomic)UIActivityIndicatorView *loadingActivity;
 

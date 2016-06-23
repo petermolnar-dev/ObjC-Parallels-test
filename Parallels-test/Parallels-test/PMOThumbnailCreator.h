@@ -6,8 +6,9 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import UIKit;
+
 #import "PMOBackgroundTaskExecutable.h"
 #import "PMOOperationWithQueue.h"
 

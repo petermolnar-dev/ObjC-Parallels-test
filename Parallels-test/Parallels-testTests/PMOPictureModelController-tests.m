@@ -9,7 +9,8 @@
 #import <XCTest/XCTest.h>
 #import "PMOPictureModellControllerFactory.h"
 #import "PMOPictureModellController.h"
-
+#import "PMOPicture.h"
+#import "PMODownloadTaskQueues.h"
 
 @interface PMOPictureModelController_tests : XCTestCase
 @property (strong, nonatomic) PMOPictureModellController *modelController;

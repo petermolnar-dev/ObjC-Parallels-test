@@ -6,7 +6,8 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+
 #import "PMOExecutionNotifier.h"
 #import "PMODataDownloadNotifications.h"
 

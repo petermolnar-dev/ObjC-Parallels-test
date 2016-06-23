@@ -7,7 +7,7 @@
 //
 
 #import "PMOViewWithIndicator.h"
-#import "PMOPictureModellController.h"
+@class PMOPictureModellController;
 
 @interface PMOImageViewController : UIViewController
 

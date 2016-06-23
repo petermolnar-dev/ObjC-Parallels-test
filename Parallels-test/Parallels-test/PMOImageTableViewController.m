@@ -11,6 +11,7 @@
 #import "PMOPictureStorageModellController.h"
 #import "PMOPictureJSONParserNotification.h"
 #import "PMOImageViewController.h"
+#import "PMOViewWithIndicator.h"
 
 @interface PMOImageTableViewController()
 
@@ -71,6 +72,7 @@
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     UINib *nib = [UINib nibWithNibName:@"PMOPictureTableViewCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"PictureCell"];
 

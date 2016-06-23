@@ -6,7 +6,8 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
 #import "PMOOperationWithQueue.h"
 #import "PMOBackgroundTaskExecutable.h"
 #import "PMOPictureJSONParserNotification.h"

@@ -11,6 +11,7 @@
 #import "PMODataDownloader.h"
 #import "PMOPictureModellControllerFactory.h"
 #import "PMODownloadTaskQueues.h"
+#import "PMOPictureModellController.h"
 
 @interface PMOPictureStorageModellController()
 

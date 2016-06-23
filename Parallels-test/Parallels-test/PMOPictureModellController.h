@@ -6,9 +6,10 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "PMOPicture.h"
-#import "PMODownloadTaskQueues.h"
+@import Foundation;
+@import UIKit;
+@class PMOPicture;
+@class PMODownloadTaskQueues;
 
 // Class to hold and manipulate the data modell of PMOPicture
 //

@@ -6,9 +6,10 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "PMOViewWithIndicator.h"
-#import "PMOPictureModellController.h"
+@import UIKit;
+
+@class PMOViewWithIndicator;
+@class PMOPictureModellController;
 
 @interface PMOPictureTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

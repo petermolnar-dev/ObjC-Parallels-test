@@ -6,9 +6,10 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "PMOPictureModellController.h"
-#import "PMODownloadTaskQueues.h"
+@import Foundation;
+
+@class PMOPictureModellController;
+@class PMODownloadTaskQueues;
 
 @interface PMOPictureModellControllerFactory : NSObject
 

@@ -8,6 +8,7 @@
 
 #import "PMOImageTableViewDataSource.h"
 #import "PMOPictureTableViewCell.h"
+#import "PMOPictureModellController.h"
 
 @implementation PMOImageTableViewDataSource
 
@@ -69,7 +70,7 @@
     
 }
 
-- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (![self isStorageControllerEmpty]) {
         return [self.storageController countOfPictures];
@@ -78,7 +79,7 @@
     }
 }
 
-- (int)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 

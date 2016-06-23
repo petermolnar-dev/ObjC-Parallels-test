@@ -10,7 +10,8 @@
 #import "PMOPictureDownloaderWithQueues.h"
 #import "PMOThumbnailCreator.h"
 #import "PMOThumbnailCreatorNotification.h"
-
+#import "PMOPicture.h"
+#import "PMODownloadTaskQueues.h"
 
 @implementation PMOPictureModellController
 

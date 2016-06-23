@@ -6,10 +6,10 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "PMOPictureStorageModellController.h"
+@import Foundation;
 @import UIKit;
 
+#import "PMOPictureStorageModellController.h"
 
 @interface PMOImageTableViewDataSource : NSObject <UITableViewDataSource>
 

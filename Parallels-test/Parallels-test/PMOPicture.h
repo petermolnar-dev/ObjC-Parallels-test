@@ -5,10 +5,9 @@
 //  Created by Peter Molnar on 09/02/2016.
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
-#define kBaseURLForImages [NSString stringWithFormat:@"http://93.175.29.76/web/wwdc/"]
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import UIKit;
 
 
 @interface PMOPicture : NSObject

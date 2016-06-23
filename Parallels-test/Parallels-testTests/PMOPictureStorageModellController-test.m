@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "PMOPictureModellControllerFactory.h"
 #import "PMOPictureStorageModellController.h"
+#import "PMODownloadTaskQueues.h"
 
 @interface PMOPictureStorageModellController_test : XCTestCase
 

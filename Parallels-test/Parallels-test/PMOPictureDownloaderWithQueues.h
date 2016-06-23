@@ -7,7 +7,7 @@
 //
 
 #import "PMOPictureDownloader.h"
-#import "PMODownloadTaskQueues.h"
+@class PMODownloadTaskQueues;
 
 @interface PMOPictureDownloaderWithQueues : PMOPictureDownloader
 

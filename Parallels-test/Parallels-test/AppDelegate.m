@@ -15,10 +15,6 @@
 #import "PMOPictureModellControllerFactory.h"
 #import "PMOImageTableViewController.h"
 
-@interface AppDelegate()
-
-
-@end
 
 @implementation AppDelegate
 

@@ -7,6 +7,8 @@
 //
 
 #import "PMOPictureTableViewCell.h"
+#import "PMOViewWithIndicator.h"
+#import "PMOPictureModellController.h"
 
 @implementation PMOPictureTableViewCell
 

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 @import UIKit;
 
 @interface PMOImageViewScrollViewDelegate : NSObject <UIScrollViewDelegate>

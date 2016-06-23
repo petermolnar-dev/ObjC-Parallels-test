@@ -6,8 +6,9 @@
 //  Copyright © 2016 Peter Molnar. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "PMOPictureModellController.h"
+@import Foundation;
+
+@class PMOPictureModellController;
 
 // Controller for holding and manipulating the main set of Picture Modell Controllers
 //

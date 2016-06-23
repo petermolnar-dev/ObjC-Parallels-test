@@ -7,6 +7,9 @@
 //
 
 #import "PMOPictureModellControllerFactory.h"
+#import "PMOPictureModellController.h"
+#import "PMODownloadTaskQueues.h"
+#import "PMOPicture.h"
 
 @implementation PMOPictureModellControllerFactory
 
