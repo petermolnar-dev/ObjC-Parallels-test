@@ -13,6 +13,7 @@
 @interface PMOPictureStorageModellController_test : XCTestCase
 
 @property (strong, nonatomic) PMOPictureStorageModellController *storage;
+@property (strong, nonatomic) PMODownloadTaskQueues *queues;
 
 @end
 
@@ -30,6 +31,16 @@
     _storage = nil;
 }
 
+
+#pragma mark - Accessors
+
+- (PMODownloadTaskQueues *)queues {
+    if (!_queues) {
+        _queues = [[PMODownloadTaskQueues alloc] init];
+    }
+    
+    return _queues;
+}
 
 #pragma mark - Tests
 -(void)testSetupFromJSONFile {
@@ -85,7 +96,8 @@
         @"image" : @"wwdc9.png",
         @"name" : @"WWDC'09"
     };
-    PMOPictureModellController *modellController = [PMOPictureModellControllerFactory modellControllerFromDictionary:testItemDetails baseURLAsStringForImage:@"http://localhost"];
+    
+    PMOPictureModellController *modellController = [PMOPictureModellControllerFactory modellControllerFromDictionary:testItemDetails baseURLAsStringForImage:@"http://localhost" downloadQueues:self.queues];
 
     XCTestExpectation *expectation = [ self keyValueObservingExpectationForObject:self.storage
                                                                           keyPath:@"countOfPictures"

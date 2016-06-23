@@ -22,11 +22,8 @@
                                               [self notifyObserverWithProcessedData:data];
                                                   }
                                           }];
-    if (self.queues) {
         [self.queues addDownloadTaskToNormalPriorityQueue:downloadTask];
-    } else {
-        [downloadTask resume];
-    }
+
 }
 
 @end

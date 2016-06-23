@@ -99,8 +99,10 @@
     if ([self isNotificationForThePicture:notification]) {
         [self removeDownloadObservers];
         // Update the model with KVO compliant mode
+        [self willChangeValueForKey:@"picture.image"];
         [self.picture setValue:[UIImage imageWithData:[notification.userInfo valueForKey:@"data"]]
                         forKey:@"image"];
+        [self didChangeValueForKey:@"picture.image"];
         [self requestThumbnailImageFromImage:self.picture.image];
     }
 }
@@ -114,9 +116,6 @@
                         forKey:@"thumbnailImage"];
         [self didChangeValueForKey:@"thumbnailImage"];
         
-        [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                        name:PMOThumbnailImageGenerated
-                                                      object:nil];
     }
 }
 
@@ -135,7 +134,7 @@
     [self addDownloadObservers];
     PMOPictureDownloaderWithQueues *downloader = [[PMOPictureDownloaderWithQueues alloc] init];
     
-    downloader.queues = self.downloadQueues;
+    downloader.queues = self.queues;
     downloader.pictureKey = self.pictureKey;
     [downloader downloadDataFromURL:self.picture.imageURL];
 }
@@ -155,11 +154,17 @@
 }
 
 - (void)changePictureDownloadPriorityToHigh {
-    [self.downloadQueues changeDownloadTaskToHighPriorityQueueFromURL:self.picture.imageURL];
+    [self.queues changeDownloadTaskToHighPriorityQueueFromURL:self.picture.imageURL];
 }
 
 - (void)changePictureDownloadPriorityToDefault {
-    [self.downloadQueues changeDownloadTaskToNormalPriorityQueueFromURL:self.picture.imageURL];
+    [self.queues changeDownloadTaskToNormalPriorityQueueFromURL:self.picture.imageURL];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PMOThumbnailImageGenerated
+                                                  object:nil];
+
+}
 @end

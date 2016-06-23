@@ -18,4 +18,6 @@
 - (instancetype)initWithStorageController:(PMOPictureStorageModellController *)storageController URLForJSONFile:(NSURL *)jsonFile baseURLStringForImages:(NSString *)baseURLStringForImages;
  // Designated initializer
 
+- (PMOPictureModellController *)modellControllerAtIndex:(NSUInteger )index;
+
 @end

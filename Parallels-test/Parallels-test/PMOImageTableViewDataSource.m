@@ -50,7 +50,7 @@
         cell.controller = controller;
         [controller addObserver:cell
                      forKeyPath:@"thumbnailImage"
-                        options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:nil];
+                        options:NSKeyValueObservingOptionNew context:nil];
         cell.titleLabel.text = controller.imageTitle;
         cell.descriptionLabel.text = controller.imageDescription;
         cell.thumbnailView.image = controller.thumbnailImage;
@@ -80,6 +80,10 @@
 
 - (int)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
+}
+
+- (PMOPictureModellController *)modellControllerAtIndex:(NSUInteger )index {
+    return [self.storageController pictureModellAtIndex:index];
 }
 
 @end

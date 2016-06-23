@@ -11,7 +11,6 @@
 
 @interface PMOPictureDownloaderWithQueues : PMOPictureDownloader
 
-// queues should be injected from outside
-@property (weak, nonatomic) PMODownloadTaskQueues *queues;
+@property (weak, nonatomic) PMODownloadTaskQueues* queues;
 
 @end

@@ -12,7 +12,9 @@
 
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-        scrollView.contentSize = CGSizeMake(self.scrollDestinationView.frame.size.width * scrollView.zoomScale, self.scrollDestinationView.frame.size.height * scrollView.zoomScale);
+    
+    scrollView.contentSize = CGSizeMake(self.scrollDestinationView.frame.size.width * scrollView.zoomScale, self.scrollDestinationView.frame.size.height * scrollView.zoomScale);
+ 
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {

@@ -10,8 +10,8 @@
 
 @interface PMODownloadTaskQueues()
 
-@property (strong, nonatomic) NSMutableArray *normalPriorityQueue;
-@property (strong, nonatomic) NSMutableArray *highPriorityQueue;
+@property (strong, nonatomic) NSMutableDictionary *normalPriorityQueue;
+@property (strong, nonatomic) NSMutableDictionary *highPriorityQueue;
 
 @end
 
@@ -19,19 +19,19 @@
 
 #pragma mark - Accessors
 
-- (NSMutableArray *)normalPriorityQueue
+- (NSMutableDictionary *)normalPriorityQueue
 {
     if (!_normalPriorityQueue) {
-        _normalPriorityQueue = [[NSMutableArray alloc] init];
+        _normalPriorityQueue = [[NSMutableDictionary alloc] init];
     }
     
     return _normalPriorityQueue;
 }
 
-- (NSMutableArray *)highPriorityQueue {
+- (NSMutableDictionary *)highPriorityQueue {
     
     if (!_highPriorityQueue) {
-        _highPriorityQueue = [[NSMutableArray alloc] init];
+        _highPriorityQueue = [[NSMutableDictionary alloc] init];
     }
     
     return _highPriorityQueue;
@@ -50,7 +50,6 @@
 #pragma mark - Public interface implementation
 
 - (void)addDownloadTaskToNormalPriorityQueue:(NSURLSessionTask *)task {
-    
     NSURLSessionTask *exisitingTask = [self findTaskInAllQueues:task];
     if (exisitingTask) {
         task = exisitingTask;
@@ -60,14 +59,13 @@
     } else {
         [self addTask:task toQueue:self.normalPriorityQueue];
     }
-
+    
     if ([self isQueueCanBeStarted:self.normalPriorityQueue]) {
         [self resumeQueue:self.normalPriorityQueue];
     }
 }
 
 - (void)addDownloadTaskToHighPriorityQueue:(NSURLSessionTask *)task {
-    
     NSURLSessionTask *exisitingTask = [self findTaskInAllQueues:task];
     if (exisitingTask) {
         task = exisitingTask;
@@ -78,16 +76,17 @@
         [self addTask:task toQueue:self.highPriorityQueue];
         task.priority = NSURLSessionTaskPriorityHigh;
     }
-
+    
     [self suspendQueue:self.normalPriorityQueue];
     [self resumeQueue:self.highPriorityQueue];
-
+    
+    
 }
 
 
-- (void)removeDownloadTask:(NSURLSessionTask *)task fromQueue:(NSMutableArray *)queue {
+- (void)removeDownloadTask:(NSURLSessionTask *)task fromQueue:(NSMutableDictionary *)queue {
     
-    [queue removeObject:task];
+    [queue removeObjectForKey:task.currentRequest.URL];
     
 }
 
@@ -111,70 +110,57 @@
 }
 
 - (void)changeDownloadTaskToNormalPriorityQueueFromURL:(NSURL *)downloadURL {
-
+    
     NSURLSessionTask *foundTask = [self findTaskByURL:downloadURL inQueue:self.highPriorityQueue];
     if (foundTask) {
         [self addDownloadTaskToNormalPriorityQueue:foundTask];
     }
-
-}
-
-- (void)removeAllTasksFromHighPriorityQueue {
-    
-    [self suspendQueue:self.highPriorityQueue];
-    [self resetPrioritiesInQueue:self.highPriorityQueue];
-    [self moveAllTasksFromQueue:self.highPriorityQueue toQueue:self.normalPriorityQueue withPriority:NSURLSessionTaskPriorityDefault];
-    [self resumeQueue:self.normalPriorityQueue];
     
 }
 
 
-- (void)cleanQueues {
-    
-    [self cleanupTheQueue:self.normalPriorityQueue];
-    [self cleanupTheQueue:self.highPriorityQueue];
-    
-}
 
 #pragma mark - Private functions
 
 - (BOOL)isHighPriorityQueueEmpty {
-    [self cleanQueues];
+    BOOL result = true;
     if (self.highPriorityQueue.count == 0) {
-        return true;
+        return result;
     } else {
-        return false;
+        NSArray *keys = [self.highPriorityQueue  allKeys];
+        for (NSURL *currentTaskKey in keys) {
+            NSURLSessionTask *currentTask =[self.highPriorityQueue objectForKey:currentTaskKey];
+            if (currentTask.state == NSURLSessionTaskStateRunning || currentTask.state == NSURLSessionTaskStateSuspended) {
+                result = false;
+                return result;
+            }
+        }
     }
     
+    return result;
 }
 
-- (BOOL)isQueueCanBeStarted:(NSMutableArray *)queue {
-    if (([queue isEqual:self.normalPriorityQueue] && [self isHighPriorityQueueEmpty]) || [queue isEqual:self.highPriorityQueue]) {
+- (BOOL)isQueueCanBeStarted:(NSMutableDictionary *)queue {
+    if ( [queue isEqual:self.highPriorityQueue] || ([queue isEqual:self.normalPriorityQueue] && [self isHighPriorityQueueEmpty])) {
         return true;
     } else {
         return false;
     }
 }
 
-- (NSURLSessionTask *)addTask:(NSURLSessionTask *)task toQueue: (NSMutableArray *)queue {
-    [queue addObject:task];
+- (NSURLSessionTask *)addTask:(NSURLSessionTask *)task toQueue: (NSMutableDictionary *)queue {
+    queue[task.currentRequest.URL] = task;
     return task;
 }
 
 // Search for a task by URL in a given queue
-- (NSURLSessionTask *)findTaskByURL:(NSURL *)url inQueue:(NSMutableArray *)queue {
-    for (NSURLSessionTask *currentTask in queue) {
-        if ([currentTask.currentRequest.URL isEqual:url]) {
-            return currentTask;
-            break;
-        }
-    }
-    return nil;
+- (NSURLSessionTask *)findTaskByURL:(NSURL *)url inQueue:(NSMutableDictionary *)queue {
+    
+    return [queue objectForKey:url];
 }
 
 // Search for a task in a given queue
-- (NSURLSessionTask *)findTask:(NSURLSessionTask *)task inQueue:(NSMutableArray *)queue {
-    
+- (NSURLSessionTask *)findTask:(NSURLSessionTask *)task inQueue:(NSMutableDictionary *)queue {
     NSURLSessionTask *foundTaskByURL = [self findTaskByURL:task.currentRequest.URL inQueue:queue];
     if (foundTaskByURL) {
         return foundTaskByURL;
@@ -192,57 +178,50 @@
 
 #pragma mark - Queue operations
 
-- (void)suspendQueue:(NSMutableArray *)queue
+- (void)suspendQueue:(NSMutableDictionary *)queue
 {
-    [self cleanupTheQueue:queue];
-    for (NSURLSessionTask *currentTask in queue) {
-        [self suspendTask:currentTask];
+    NSArray *keys = [queue allKeys];
+    for (NSURL *currentTaskKey in keys) {
+        [self suspendTask:[queue objectForKey:currentTaskKey]];
     }
 }
 
-- (void)resumeQueue:(NSMutableArray *)queue {
-    [self cleanupTheQueue:queue];
+- (void)resumeQueue:(NSMutableDictionary *)queue {
     if ([self isQueueCanBeStarted:queue]) {
-        for (NSURLSessionTask *currentTask in queue) {
-            [self startTask:currentTask];
+        NSArray *keys = [queue allKeys];
+        for (NSURL *currentTaskKey in keys) {
+           [self startTask:[queue objectForKey:currentTaskKey]];
         }
     }
     
 }
 
-- (void)cancelQueue:(NSMutableArray *)queue {
-    for (NSURLSessionTask *currentTask in queue) {
-        [self cancelTask:currentTask];
-    }
-    [self cleanupTheQueue:queue];
-    
-}
-
-- (void)cleanupTheQueue:(NSMutableArray *)queue {
-    
-    for (NSURLSessionTask *task in queue) {
-        if (task.state == NSURLSessionTaskStateCompleted || task.state == NSURLSessionTaskStateCanceling) {
-            [self removeDownloadTask:task fromQueue:queue];
-        }
-    }
-}
-
-- (void)resetPrioritiesInQueue:(NSMutableArray *)queue {
-    
-    for (NSURLSessionTask *task in queue) {
-        task.priority = NSURLSessionTaskPriorityDefault;
+- (void)cancelQueue:(NSMutableDictionary *)queue {
+    NSArray *keys = [queue allKeys];
+    for (NSURL *currentTaskKey in keys) {
+        [self cancelTask:[queue objectForKey:currentTaskKey]];
     }
     
 }
 
-- (void)moveTask:(NSURLSessionTask *)task fromQueue:(NSMutableArray *)sourceQueue toQueue:(NSMutableArray *)destinationQueue withPRiority:(float)priority {
+
+
+- (void)resetPrioritiesInQueue:(NSMutableDictionary *)queue {
+    NSArray *keys = [queue allKeys];
+    for (NSURL *currentTaskKey in keys) {
+        [[queue objectForKey:currentTaskKey] setPriority:NSURLSessionTaskPriorityDefault];
+    }
+    
+}
+
+- (void)moveTask:(NSURLSessionTask *)task fromQueue:(NSMutableDictionary *)sourceQueue toQueue:(NSMutableDictionary *)destinationQueue withPRiority:(float)priority {
     
     [self suspendTask:task];
-    if ([destinationQueue indexOfObject:task] == NSNotFound) {
-        [destinationQueue addObject:task];
+    if (!destinationQueue[task.currentRequest.URL]) {
+        destinationQueue[task.currentRequest.URL] = task;
     }
-    if ([sourceQueue indexOfObject:task] != NSNotFound) {
-        [sourceQueue removeObject:task];
+    if (sourceQueue[task.currentRequest.URL]) {
+        [sourceQueue removeObjectForKey:task.currentRequest.URL];
     }
     [task setPriority:priority];
     if ([self isQueueCanBeStarted:destinationQueue]) {
@@ -252,15 +231,23 @@
 }
 
 
-- (void)moveAllTasksFromQueue:(NSMutableArray *)sourceQueue toQueue:(NSMutableArray *)destinationQueue withPriority:(float)priority {
+- (void)moveAllTasksFromQueue:(NSMutableDictionary *)sourceQueue toQueue:(NSMutableDictionary *)destinationQueue withPriority:(float)priority {
     
-    NSURLSessionTask *currTask = [sourceQueue firstObject];
+    NSArray *sourceTasks = [sourceQueue allValues];
+    NSURLSessionTask *currTask = [sourceTasks firstObject];
     while (currTask) {
         [self moveTask:currTask fromQueue:sourceQueue toQueue:destinationQueue withPRiority:priority];
-        currTask = [sourceQueue firstObject];
-  }    
+        currTask = [sourceTasks firstObject];
+    }
 }
 
+- (void)clearQueue:(NSMutableDictionary *)queue {
+    NSArray *keys = [queue allKeys];
+    for (NSURL *currentTaskKey in keys) {
+        [self cancelTask:[queue objectForKey:currentTaskKey]];
+    }
+    
+}
 
 
 #pragma mark - Task state manipulation
@@ -290,6 +277,16 @@
     [task cancel];
 }
 
+
+- (void)clearAllQueue {
+
+    [self clearQueue:self.normalPriorityQueue];
+    self.normalPriorityQueue = nil;
+    [self resetPrioritiesInQueue:self.highPriorityQueue];
+    [self clearQueue:self.highPriorityQueue];
+    self.highPriorityQueue = nil;
+    
+}
 
 
 @end

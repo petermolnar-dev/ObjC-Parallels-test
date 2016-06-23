@@ -19,10 +19,7 @@
 - (void)addDownloadTaskToHighPriorityQueue:(NSURLSessionTask *)task;
 - (void)changeDownloadTaskToHighPriorityQueueFromURL:(NSURL *)downloadURL;
 - (void)changeDownloadTaskToNormalPriorityQueueFromURL:(NSURL *)downloadURL;
-- (void)removeDownloadTaskFromAllQueues:(NSURLSessionTask *)task;
-- (void)removeAllTasksFromHighPriorityQueue;
 
-
-- (void)cleanQueues;
+- (void)clearAllQueue;
 
 @end

@@ -10,11 +10,13 @@
 #import "PMOImageTableViewDataSource.h"
 #import "PMOPictureStorageModellController.h"
 #import "PMOPictureJSONParserNotification.h"
+#import "PMOImageViewController.h"
 
 @interface PMOImageTableViewController()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) PMOImageTableViewDataSource *dataSource;
+@property (strong, nonatomic) PMOPictureModellController *selectedModellController;
 
 @end
 
@@ -64,6 +66,7 @@
     
     [self setupTableViewDataSource];
     [self setupObservers];
+    self.tableView.delegate = self;
     
 }
 
@@ -76,6 +79,16 @@
 
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
+}
+
 #pragma mark - Observer triggers
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"storageController.countOfPictures"]) {
@@ -84,6 +97,23 @@
             self.tableView.hidden=false;
             [self.tableView reloadData];
         }];
+    }
+}
+
+#pragma mark - TableView delegate
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.selectedModellController = [self.dataSource modellControllerAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"ShowImage" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"ShowImage"]) {
+        PMOImageViewController *destinationVC = segue.destinationViewController;
+        if (self.selectedModellController) {
+            destinationVC.modellController = self.selectedModellController;
+        }
     }
 }
 

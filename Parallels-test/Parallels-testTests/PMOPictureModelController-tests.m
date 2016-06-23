@@ -13,6 +13,7 @@
 
 @interface PMOPictureModelController_tests : XCTestCase
 @property (strong, nonatomic) PMOPictureModellController *modelController;
+@property (strong, nonatomic) PMODownloadTaskQueues *queues;
 @end
 
 @implementation PMOPictureModelController_tests
@@ -24,7 +25,8 @@
                                     @"description" : @"Local test picture"};
     
     if (!_modelController) {
-        _modelController = [PMOPictureModellControllerFactory modellControllerFromDictionary:testPicture baseURLAsStringForImage:@"http://localhost"] ;
+        _modelController = [PMOPictureModellControllerFactory modellControllerFromDictionary:testPicture baseURLAsStringForImage:@"http://localhost"
+                                                                              downloadQueues:self.queues] ;
         self.modelController = _modelController;
     }
 
@@ -35,6 +37,14 @@
     _modelController = nil;
 }
 
+
+- (PMODownloadTaskQueues *)queues {
+    if (!_queues) {
+        _queues = [[PMODownloadTaskQueues alloc] init];
+    }
+    
+    return _queues;
+}
 
 #pragma mark - Tests
 - (void)testPictureCreation {

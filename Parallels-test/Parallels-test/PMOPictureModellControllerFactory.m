@@ -35,13 +35,13 @@
 }
 
 #pragma mark - Factory main function
-+ (PMOPictureModellController *)modellControllerFromDictionary:(NSDictionary *)dictionary baseURLAsStringForImage:(NSString *)baseURLAsString {
++ (PMOPictureModellController *)modellControllerFromDictionary:(NSDictionary *)dictionary baseURLAsStringForImage:(NSString *)baseURLAsString downloadQueues:(PMODownloadTaskQueues *)queues {
     
     PMOPictureModellController *modellController = [[PMOPictureModellController alloc] init];
     
     modellController.picture = [self setupPictureDetailsFromDictionary:dictionary
-                                               baseURLAsStringForImage:baseURLAsString];
-    
+                                               baseURLAsStringForImage:baseURLAsString                                                             ];
+    modellController.queues = queues;
     return modellController;
 }
 

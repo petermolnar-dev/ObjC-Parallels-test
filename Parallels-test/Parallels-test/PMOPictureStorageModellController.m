@@ -10,10 +10,13 @@
 #import "PMOPictureJSONParser.h"
 #import "PMODataDownloader.h"
 #import "PMOPictureModellControllerFactory.h"
+#import "PMODownloadTaskQueues.h"
 
 @interface PMOPictureStorageModellController()
 
 @property (strong, nonatomic) NSMutableArray *pictures;
+@property (strong, nonatomic) PMODownloadTaskQueues *downloadQueues;
+
 
 @end
 
@@ -28,11 +31,19 @@
     return _pictures;
 }
 
+- (PMODownloadTaskQueues *)downloadQueues {
+    if (!_downloadQueues) {
+        _downloadQueues =[[PMODownloadTaskQueues alloc] init];
+    }
+    return _downloadQueues;
+}
 
 #pragma mark - Public API
 - (void)setupFromJSONFileatURL:(NSURL *)url baseURLStringForImages:(NSString *)baseURLString {
     
     [self addObserversForDownloadData];
+    // Setting up the globals
+
     self.baseURLAsString = [PMOPictureModellControllerFactory updateURLAsStringWithTrailingHash:baseURLString];
     PMODataDownloader *downloader = [[PMODataDownloader alloc] init];
     [downloader downloadDataFromURL:url];
@@ -104,7 +115,8 @@
     NSArray *pictureDetails = [notification.userInfo objectForKey:@"json"];
     for (NSDictionary *currentPictureDetails in pictureDetails) {
         PMOPictureModellController *currentController = [PMOPictureModellControllerFactory modellControllerFromDictionary:currentPictureDetails
-                                                                                              baseURLAsStringForImage:self.baseURLAsString];
+                                                                                              baseURLAsStringForImage:self.baseURLAsString
+                                                                                                            downloadQueues:self.downloadQueues];
         [self.pictures addObject:currentController];
     }
     [self didChangeValueForKey:@"countOfPictures"];

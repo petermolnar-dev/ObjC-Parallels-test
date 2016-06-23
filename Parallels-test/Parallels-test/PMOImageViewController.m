@@ -12,9 +12,8 @@
 #import "PMOImageViewScrollViewFactory.h"
 
 @interface PMOImageViewController()
-
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIImageView *imageView;
-@property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) PMOImageViewScrollViewDelegate *scrollViewDelegate;
 
 @end
@@ -24,43 +23,33 @@
 @dynamic view;
 
 #pragma mark - LifeCycle
-- (void)loadView {
-    [super loadView];
-    self.view = [[PMOViewWithIndicator alloc] initWithFrame:[UIScreen mainScreen].bounds];
-}
 
 - (void)viewDidLoad {
-    [self.scrollView setDelegate:self.scrollViewDelegate];
+    [self.modellController addObserver:self
+                            forKeyPath:@"picture.image"
+                               options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew
+                               context:nil ];
+    
     [self.scrollView addSubview:self.imageView];
+    [self.scrollView setDelegate:self.scrollViewDelegate];
+    [self.scrollViewDelegate setScrollDestinationView:self.imageView];
     
     if (self.modellController.picture.image) {
         // If image stored, then display it
         self.imageView.image = self.modellController.image;
+        [self setupScrollAndImageViews];
     } else {
-        [self.modellController addObserver:self
-                               forKeyPath:@"picture.image"
-                                  options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew
-                                  context:nil ];
-         self.imageView.image = self.modellController.image;
-
+       self.imageView.image = self.modellController.image;
         [self.view startSpinner];
-        [self.modellController.downloadQueues changeDownloadTaskToHighPriorityQueueFromURL:self.modellController.picture.imageURL];
+        [self.modellController changePictureDownloadPriorityToHigh];
     }
+
 }
 
-- (void)viewWillLayoutSubviews {
-    [self.scrollView setFrame:self.view.frame];
-}
+
 
 
 #pragma mark - Accessors
-- (UIImageView *)imageView {
-    if (!_imageView) {
-        _imageView = [[UIImageView alloc] init];
-    }
-    
-    return _imageView;
-}
 
 - (PMOImageViewScrollViewDelegate *)scrollViewDelegate {
     if (!_scrollViewDelegate) {
@@ -71,18 +60,33 @@
     return _scrollViewDelegate;
 }
 
-
-- (UIScrollView *)scrollView {
-    if (!_scrollView) {
-        _scrollView = [PMOImageViewScrollViewFactory scrollviewFactoryWithParentView:self.view];
-    }
-    return _scrollView;
+- (UIImageView *)imageView {
+    
+    if (!_imageView) _imageView = [[UIImageView alloc] init];
+    return _imageView;
 }
+
+
 
 - (void)updateScrollViewToPictureFit {
     float minZoom = MIN(self.view.bounds.size.width / self.imageView.image.size.width, self.view.bounds.size.height / self.imageView.image.size.height);
-    // Set back to self.scrollView.zoomScale=1.0; if they want to see the full image, in real size.
     self.scrollView.zoomScale=minZoom;
+}
+
+#pragma mark - Update helpers
+
+- (void)setupScrollAndImageViews {
+    self.scrollView.zoomScale = 1.0;
+    self.scrollView.minimumZoomScale = 0.02;
+    self.scrollView.maximumZoomScale = 2.0;
+    self.imageView.frame = CGRectMake(0, 0, self.modellController.image.size.width, self.modellController.image.size.height);
+    self.scrollView.frame = self.imageView.frame;
+    self.scrollView.contentSize = self.imageView.image ? self.imageView.image.size : CGSizeZero;
+    [self updateScrollViewToPictureFit];
+    [self.view setNeedsDisplay];
+    [self.scrollView setNeedsDisplay];
+    [self.imageView setNeedsDisplay];
+    
 }
 
 #pragma mark - Observer triggers
@@ -92,19 +96,14 @@
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         self.imageView.image = self.modellController.image;
         [self.view stopSpinner];
-        [self.modellController.downloadQueues changeDownloadTaskToNormalPriorityQueueFromURL:self.modellController.picture.imageURL];
-        self.scrollView.zoomScale = 1.0;
-        self.scrollView.minimumZoomScale = 0.02;
-        self.scrollView.maximumZoomScale = 2.0;
-        self.imageView.frame = CGRectMake(0, 0, self.modellController.image.size.width, self.modellController.image.size.height);
-        self.scrollView.frame = self.imageView.frame;
-        self.scrollView.contentSize =  self.modellController.image.size;
-        [self updateScrollViewToPictureFit];
-        [self.view setNeedsDisplay];
-        [self.scrollView setNeedsDisplay];
-        [self.imageView setNeedsDisplay];
+        [self.modellController changePictureDownloadPriorityToDefault];
+        [self setupScrollAndImageViews];
     }];
     
+}
+
+-(void)dealloc {
+    [self.modellController removeObserver:self          forKeyPath:@"picture.image" ];
 }
 
 @end

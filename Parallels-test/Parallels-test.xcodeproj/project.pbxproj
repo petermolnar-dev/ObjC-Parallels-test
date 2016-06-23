@@ -23,13 +23,12 @@
 		C77D22951D0A8C09005952C2 /* PMOPictureTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C77D22931D0A8C09005952C2 /* PMOPictureTableViewCell.m */; };
 		C79B7AF11CD074D400F6D64B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7AF01CD074D400F6D64B /* main.m */; };
 		C79B7AF41CD074D400F6D64B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7AF31CD074D400F6D64B /* AppDelegate.m */; };
-		C79B7AFA1CD074D400F6D64B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C79B7AF81CD074D400F6D64B /* Main.storyboard */; };
+		C79B7AFA1CD074D400F6D64B /* Main.iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C79B7AF81CD074D400F6D64B /* Main.iPhone.storyboard */; };
 		C79B7AFF1CD074D400F6D64B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C79B7AFD1CD074D400F6D64B /* LaunchScreen.storyboard */; };
 		C79B7B1A1CD0758A00F6D64B /* PMOPicture.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B191CD0758A00F6D64B /* PMOPicture.m */; };
 		C79B7B211CD0760E00F6D64B /* PMODownloadTaskQueues.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B201CD0760E00F6D64B /* PMODownloadTaskQueues.m */; };
 		C79B7B581CD297DA00F6D64B /* PMOPictureModellController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B571CD297DA00F6D64B /* PMOPictureModellController.m */; };
 		C79B7B5B1CD29D2D00F6D64B /* PMOPictureDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B5A1CD29D2D00F6D64B /* PMOPictureDownloader.m */; };
-		C79B7B5E1CD2AAD200F6D64B /* PMOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C79B7B5D1CD2AAD200F6D64B /* PMOViewController.m */; };
 		C7B84D3C1D04BCDF00534DDF /* PMOPictureModellControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B84D3B1D04BCDF00534DDF /* PMOPictureModellControllerFactory.m */; };
 		C7C4ACBF1CDCF76D004F515A /* PMODataDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACBE1CDCF76D004F515A /* PMODataDownloader.m */; };
 		C7C4ACC21CE06D26004F515A /* PMOPictureDownloaderWithQueues.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C4ACC11CE06D26004F515A /* PMOPictureDownloaderWithQueues.m */; };
@@ -82,7 +81,7 @@
 		C79B7AF01CD074D400F6D64B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C79B7AF21CD074D400F6D64B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C79B7AF31CD074D400F6D64B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C79B7AF91CD074D400F6D64B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C79B7AF91CD074D400F6D64B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.iPhone.storyboard; sourceTree = "<group>"; };
 		C79B7AFE1CD074D400F6D64B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C79B7B001CD074D400F6D64B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C79B7B051CD074D400F6D64B /* Parallels-testTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Parallels-testTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,8 +94,6 @@
 		C79B7B571CD297DA00F6D64B /* PMOPictureModellController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOPictureModellController.m; sourceTree = "<group>"; };
 		C79B7B591CD29D2D00F6D64B /* PMOPictureDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOPictureDownloader.h; sourceTree = "<group>"; };
 		C79B7B5A1CD29D2D00F6D64B /* PMOPictureDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOPictureDownloader.m; sourceTree = "<group>"; };
-		C79B7B5C1CD2AAD200F6D64B /* PMOViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOViewController.h; sourceTree = "<group>"; };
-		C79B7B5D1CD2AAD200F6D64B /* PMOViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOViewController.m; sourceTree = "<group>"; };
 		C7B84D3A1D04BCDF00534DDF /* PMOPictureModellControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOPictureModellControllerFactory.h; sourceTree = "<group>"; };
 		C7B84D3B1D04BCDF00534DDF /* PMOPictureModellControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOPictureModellControllerFactory.m; sourceTree = "<group>"; };
 		C7C4ACBD1CDCF76D004F515A /* PMODataDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMODataDownloader.h; sourceTree = "<group>"; };
@@ -185,7 +182,7 @@
 				C79B7B151CD0750E00F6D64B /* ViewControllers */,
 				C79B7AF21CD074D400F6D64B /* AppDelegate.h */,
 				C79B7AF31CD074D400F6D64B /* AppDelegate.m */,
-				C79B7AF81CD074D400F6D64B /* Main.storyboard */,
+				C79B7AF81CD074D400F6D64B /* Main.iPhone.storyboard */,
 				C77D228F1D0A8A5D005952C2 /* PMOPictureTableViewCell.xib */,
 				C79B7AFD1CD074D400F6D64B /* LaunchScreen.storyboard */,
 				C79B7B001CD074D400F6D64B /* Info.plist */,
@@ -228,8 +225,6 @@
 		C79B7B151CD0750E00F6D64B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C79B7B5C1CD2AAD200F6D64B /* PMOViewController.h */,
-				C79B7B5D1CD2AAD200F6D64B /* PMOViewController.m */,
 				C72ED2841CFE293400AA3284 /* PMOImageViewController.h */,
 				C72ED2851CFE293400AA3284 /* PMOImageViewController.m */,
 				C72ED28A1D01DC8100AA3284 /* PMOImageTableViewController.h */,
@@ -411,7 +406,7 @@
 			files = (
 				C79B7AFF1CD074D400F6D64B /* LaunchScreen.storyboard in Resources */,
 				C71DC56B1CECC6C100EACB3D /* Assets.xcassets in Resources */,
-				C79B7AFA1CD074D400F6D64B /* Main.storyboard in Resources */,
+				C79B7AFA1CD074D400F6D64B /* Main.iPhone.storyboard in Resources */,
 				C77D22901D0A8A5D005952C2 /* PMOPictureTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,7 +430,6 @@
 				C72ED28C1D01DC8100AA3284 /* PMOImageTableViewController.m in Sources */,
 				C72ED27C1CF8610200AA3284 /* PMOViewWithIndicator.m in Sources */,
 				C79B7B1A1CD0758A00F6D64B /* PMOPicture.m in Sources */,
-				C79B7B5E1CD2AAD200F6D64B /* PMOViewController.m in Sources */,
 				C79B7AF41CD074D400F6D64B /* AppDelegate.m in Sources */,
 				C7C4ACD41CE2761D004F515A /* PMOPictureJSONParser.m in Sources */,
 				C7C4ACBF1CDCF76D004F515A /* PMODataDownloader.m in Sources */,
@@ -477,12 +471,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C79B7AF81CD074D400F6D64B /* Main.storyboard */ = {
+		C79B7AF81CD074D400F6D64B /* Main.iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C79B7AF91CD074D400F6D64B /* Base */,
 			);
-			name = Main.storyboard;
+			name = Main.iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 		C79B7AFD1CD074D400F6D64B /* LaunchScreen.storyboard */ = {

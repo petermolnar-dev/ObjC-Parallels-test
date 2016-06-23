@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "PMOPictureModellController.h"
+#import "PMODownloadTaskQueues.h"
 
 @interface PMOPictureModellControllerFactory : NSObject
 
-+ (PMOPictureModellController *)modellControllerFromDictionary:(NSDictionary *)dictionary baseURLAsStringForImage:(NSString *)baseURLAsString;
++ (PMOPictureModellController *)modellControllerFromDictionary:(NSDictionary *)dictionary baseURLAsStringForImage:(NSString *)baseURLAsString downloadQueues:(PMODownloadTaskQueues *)queues;
 + (NSString *)updateURLAsStringWithTrailingHash:(NSString *)URLstring;
 
 @end

@@ -15,13 +15,13 @@
 @interface PMOPictureModellController : NSObject
 
 @property (strong, nonatomic) PMOPicture *picture;
-@property (weak, nonatomic) PMODownloadTaskQueues *downloadQueues;
 @property (weak, nonatomic, readonly) UIImage *image;
 @property (weak, nonatomic, readonly) UIImage *thumbnailImage;
 @property (copy, nonatomic, readonly) NSString *imageTitle;
 @property (copy, nonatomic, readonly) NSString *imageFileName;
 @property (copy, nonatomic, readonly) NSString *imageDescription;
 @property (copy, nonatomic, readonly) NSString *pictureKey;
+@property (weak, nonatomic) PMODownloadTaskQueues *queues;
 
 - (void)changePictureDownloadPriorityToHigh;
 - (void)changePictureDownloadPriorityToDefault;

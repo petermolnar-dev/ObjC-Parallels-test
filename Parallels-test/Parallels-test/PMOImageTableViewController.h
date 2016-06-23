@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "PMOViewWithIndicator.h"
-#import "PMODownloadTaskQueues.h"
 
-@interface PMOImageTableViewController : UIViewController
+
+@interface PMOImageTableViewController : UIViewController <UITableViewDelegate>
 
 @property (strong, nonatomic) PMOViewWithIndicator *view;
 @property (copy, nonatomic) NSString *JSONFileURLAsString;
 @property (copy, nonatomic) NSString *baseImageURLAsString;
-@property (weak, nonatomic) PMODownloadTaskQueues *queues;
+
 
 @end

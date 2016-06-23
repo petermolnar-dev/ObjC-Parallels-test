@@ -7,17 +7,16 @@
 //
 
 #define kDataBaseURLAsString @"http://93.175.29.76/web/wwdc/"
+#define kDataBaseURLAsStringLocalTests @"http://localhost/web/wwdc/"
 #define kJSONURLAsString [kDataBaseURLAsString stringByAppendingString:@"items.json"]
 
 #import "AppDelegate.h"
-#import "PMODownloadTaskQueues.h"
 #import "PMOPictureStorageModellController.h"
 #import "PMOPictureModellControllerFactory.h"
 #import "PMOImageTableViewController.h"
 
 @interface AppDelegate()
 
-@property (strong, nonatomic) PMODownloadTaskQueues *downloadQueues;
 
 @end
 
@@ -26,13 +25,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    // Setting up the globals
-    self.downloadQueues =[[PMODownloadTaskQueues alloc] init];
     
     // handing over the globals to the rootViewController
-    PMOImageTableViewController *vc = (PMOImageTableViewController *)self.window.rootViewController;
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    PMOImageTableViewController *vc = (PMOImageTableViewController *)navigationController.topViewController;
     
-    vc.queues = self.downloadQueues;
     vc.JSONFileURLAsString = kJSONURLAsString;
     vc.baseImageURLAsString = kDataBaseURLAsString;
     
