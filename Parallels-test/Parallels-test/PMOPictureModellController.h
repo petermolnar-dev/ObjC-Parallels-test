@@ -8,7 +8,8 @@
 
 @import Foundation;
 @import UIKit;
-@class PMOPicture;
+#import "PMOPicture.h"
+
 @class PMODownloadTaskQueues;
 
 // Class to hold and manipulate the data modell of PMOPicture

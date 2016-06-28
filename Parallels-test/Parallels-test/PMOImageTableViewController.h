@@ -10,7 +10,7 @@
 #import "PMOViewWithIndicator.h"
 
 
-@interface PMOImageTableViewController : UIViewController <UITableViewDelegate>
+@interface PMOImageTableViewController : UIViewController
 
 @property (strong, nonatomic) PMOViewWithIndicator *view;
 @property (copy, nonatomic) NSString *JSONFileURLAsString;

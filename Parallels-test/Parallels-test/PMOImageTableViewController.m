@@ -12,12 +12,15 @@
 #import "PMOPictureJSONParserNotification.h"
 #import "PMOImageViewController.h"
 #import "PMOViewWithIndicator.h"
+#import "PMOImageTableViewDelegate.h"
+#import "PMOSettingsURLs.h"
 
 @interface PMOImageTableViewController()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) PMOImageTableViewDataSource *dataSource;
 @property (strong, nonatomic) PMOPictureModellController *selectedModellController;
+@property (strong, nonatomic) PMOImageTableViewDelegate *tableDelegate;
 
 @end
 
@@ -28,7 +31,7 @@
 #pragma mark - Accessors
 - (NSString *)JSONFileURLAsString {
     if (!_JSONFileURLAsString) {
-        _JSONFileURLAsString = @"http://93.175.29.76/web/wwdc/items.json";
+        _JSONFileURLAsString = kJSONURLAsString;
     }
     
     return _JSONFileURLAsString;
@@ -36,7 +39,7 @@
 
 - (NSString *)baseImageURLAsString {
     if (!_baseImageURLAsString) {
-        _baseImageURLAsString = @"http://93.175.29.76/web/wwdc/";
+        _baseImageURLAsString = kDataBaseURLAsString;
     }
     
     return _baseImageURLAsString;
@@ -53,11 +56,12 @@
 }
 
 
-- (void)setupObservers {    
-    [self.dataSource addObserver:self
-                      forKeyPath:@"storageController.countOfPictures"
-                         options:NSKeyValueObservingOptionNew
-                         context:nil];
+- (void)setupTableViewDelegate {
+    
+    self.tableDelegate = [[PMOImageTableViewDelegate alloc] init];
+    self.tableDelegate.tableViewController = self;
+    self.tableDelegate.dataSource = self.dataSource;
+    self.tableView.delegate = self.tableDelegate;
 }
 
 
@@ -66,8 +70,9 @@
     [super loadView];
     
     [self setupTableViewDataSource];
+    [self setupTableViewDelegate];
     [self setupObservers];
-    self.tableView.delegate = self;
+;
     
 }
 
@@ -91,7 +96,15 @@
     [super viewWillDisappear:animated];
 }
 
-#pragma mark - Observer triggers
+#pragma mark - Observers and triggers
+- (void)setupObservers {
+    [self.dataSource addObserver:self
+                      forKeyPath:@"storageController.countOfPictures"
+                         options:NSKeyValueObservingOptionNew
+                         context:nil];
+}
+
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"storageController.countOfPictures"]) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -102,21 +115,11 @@
     }
 }
 
-#pragma mark - TableView delegate
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.selectedModellController = [self.dataSource modellControllerAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"ShowImage" sender:self];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    [self.tableDelegate prepareForSegue:segue sender:sender];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    if ([segue.identifier isEqualToString:@"ShowImage"]) {
-        PMOImageViewController *destinationVC = segue.destinationViewController;
-        if (self.selectedModellController) {
-            destinationVC.modellController = self.selectedModellController;
-        }
-    }
-}
+
+
 
 @end

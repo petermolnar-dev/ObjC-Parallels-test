@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="FUJ-6v-bKh">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="D9n-Z3-U5D">
+            <objects>
+                <navigationController id="zfR-rW-GM2" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Gk-dg-Gcf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="b8h-p3-cwk" kind="relationship" relationship="rootViewController" id="6sL-oG-TcI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GcD-SE-he2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="141" y="164"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="NJz-3D-f7J">
+            <objects>
+                <splitViewController id="FUJ-6v-bKh" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="zfR-rW-GM2" kind="relationship" relationship="masterViewController" id="AsB-kC-bbl"/>
+                        <segue destination="UTA-tE-CWU" kind="relationship" relationship="detailViewController" id="0Sm-LV-26l"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sfh-Tb-EAY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-679" y="495"/>
+        </scene>
+        <!--Image Table View Controller-->
+        <scene sceneID="Q1N-dz-d82">
+            <objects>
+                <viewController id="b8h-p3-cwk" customClass="PMOImageTableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7Fz-f4-PPE"/>
+                        <viewControllerLayoutGuide type="bottom" id="cpb-fF-hih"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KJ3-Bc-Zov" customClass="PMOViewWithIndicator">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="109" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Rdu-M7-Agu">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Rdu-M7-Agu" firstAttribute="top" secondItem="7Fz-f4-PPE" secondAttribute="bottom" id="H4B-9w-qjQ"/>
+                            <constraint firstAttribute="trailing" secondItem="Rdu-M7-Agu" secondAttribute="trailing" id="W3Z-KV-cWR"/>
+                            <constraint firstItem="Rdu-M7-Agu" firstAttribute="leading" secondItem="KJ3-Bc-Zov" secondAttribute="leading" id="dAr-tU-rt0"/>
+                            <constraint firstItem="Rdu-M7-Agu" firstAttribute="bottom" secondItem="cpb-fF-hih" secondAttribute="top" id="seC-oq-wWT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="5Ph-1S-MZx"/>
+                    <connections>
+                        <outlet property="tableView" destination="Rdu-M7-Agu" id="zQo-53-0YD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rqD-qg-Bi4" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="895" y="164"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="bcM-dh-6ZH">
+            <objects>
+                <viewController modalTransitionStyle="flipHorizontal" id="XlY-ff-7DL" customClass="PMOImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jYX-PQ-nl0"/>
+                        <viewControllerLayoutGuide type="bottom" id="Syf-QH-tMg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9zf-wp-cfP" customClass="PMOViewWithIndicator">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" minimumZoomScale="0.019999999552965164" maximumZoomScale="2" translatesAutoresizingMaskIntoConstraints="NO" id="Kyq-W7-NJS">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Kyq-W7-NJS" secondAttribute="trailing" id="Ex5-Hb-OqK"/>
+                            <constraint firstItem="Kyq-W7-NJS" firstAttribute="top" secondItem="jYX-PQ-nl0" secondAttribute="bottom" id="I34-UG-x7P"/>
+                            <constraint firstItem="Kyq-W7-NJS" firstAttribute="bottom" secondItem="Syf-QH-tMg" secondAttribute="top" id="XyT-ub-Mt6"/>
+                            <constraint firstItem="Kyq-W7-NJS" firstAttribute="leading" secondItem="9zf-wp-cfP" secondAttribute="leading" id="f9c-sl-pnh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="9YD-dh-Fbp"/>
+                    <connections>
+                        <outlet property="scrollView" destination="Kyq-W7-NJS" id="JVx-Ji-wYF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MK2-3m-kU3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="902" y="825"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="DAv-8d-Rcc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UTA-tE-CWU" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ewi-6M-N2t">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="XlY-ff-7DL" kind="relationship" relationship="rootViewController" id="ySD-qm-p8P"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q6O-fN-3T9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="141" y="825"/>
+        </scene>
+    </scenes>
+</document>

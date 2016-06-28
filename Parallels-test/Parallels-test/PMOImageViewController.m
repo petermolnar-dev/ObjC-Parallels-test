@@ -13,7 +13,7 @@
 #import "PMOPictureModellController.h"
 #import "PMOPicture.h"
 
-@interface PMOImageViewController()
+@interface PMOImageViewController() <UISplitViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) PMOImageViewScrollViewDelegate *scrollViewDelegate;
@@ -36,20 +36,21 @@
     [self.scrollView addSubview:self.imageView];
     [self.scrollView setDelegate:self.scrollViewDelegate];
     [self.scrollViewDelegate setScrollDestinationView:self.imageView];
-    
+    [self setupImage];
+}
+
+
+- (void)setupImage {
     if (self.modellController.picture.image) {
         // If image stored, then display it
         self.imageView.image = self.modellController.image;
         [self setupScrollAndImageViews];
     } else {
-       self.imageView.image = self.modellController.image;
+        self.imageView.image = self.modellController.image;
         [self.view startSpinner];
         [self.modellController changePictureDownloadPriorityToHigh];
     }
-
 }
-
-
 
 
 #pragma mark - Accessors
@@ -69,16 +70,22 @@
     return _imageView;
 }
 
+- (void)setModellController:(PMOPictureModellController *)modellController {
+    _modellController = modellController;
+    [self setupImage];
+    
+}
 
+#pragma mark - Update helpers
 
 - (void)updateScrollViewToPictureFit {
     float minZoom = MIN(self.view.bounds.size.width / self.imageView.image.size.width, self.view.bounds.size.height / self.imageView.image.size.height);
     self.scrollView.zoomScale=minZoom;
 }
 
-#pragma mark - Update helpers
-
 - (void)setupScrollAndImageViews {
+    [self.view stopSpinner];
+
     self.scrollView.zoomScale = 1.0;
     self.scrollView.minimumZoomScale = 0.02;
     self.scrollView.maximumZoomScale = 2.0;
@@ -98,13 +105,44 @@
     // Update the UI from the main Queue
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         self.imageView.image = self.modellController.image;
-        [self.view stopSpinner];
         [self.modellController changePictureDownloadPriorityToDefault];
         [self setupScrollAndImageViews];
     }];
     
 }
 
+#pragma mark - SplitViewController setup
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryHidden)
+    {
+        [self showBackButtonOnSplitViewController];
+    }
+}
+
+-(void)showBackButtonOnSplitViewController
+{
+    UIBarButtonItem *barButtonItem = self.splitViewController.displayModeButtonItem;
+    barButtonItem.title = @"Show List";
+    self.navigationItem.leftBarButtonItem = barButtonItem;
+    
+}
+
+- (void)awakeFromNib
+{
+    self.splitViewController.delegate = self;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+    willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode {
+    
+    if (displayMode == UISplitViewControllerDisplayModePrimaryHidden) {
+        [self showBackButtonOnSplitViewController];
+    }
+}
+
+#pragma mark - Dealloc cleanup
 -(void)dealloc {
     [self.modellController removeObserver:self          forKeyPath:@"picture.image" ];
 }

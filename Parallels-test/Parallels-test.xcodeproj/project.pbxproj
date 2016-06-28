@@ -13,6 +13,9 @@
 		C72ED2861CFE293400AA3284 /* PMOImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C72ED2851CFE293400AA3284 /* PMOImageViewController.m */; };
 		C72ED2891CFF34B400AA3284 /* PMOImageViewScrollViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C72ED2881CFF34B400AA3284 /* PMOImageViewScrollViewDelegate.m */; };
 		C72ED28C1D01DC8100AA3284 /* PMOImageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C72ED28B1D01DC8100AA3284 /* PMOImageTableViewController.m */; };
+		C766516E1D1D027500211612 /* Main.iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C766516D1D1D027500211612 /* Main.iPad.storyboard */; };
+		C76651711D1D02C400211612 /* PMOImageTableViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C766516F1D1D02C400211612 /* PMOImageTableViewDelegate.h */; };
+		C76651721D1D02C400211612 /* PMOImageTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C76651701D1D02C400211612 /* PMOImageTableViewDelegate.m */; };
 		C778ED991CE5A1340047CF87 /* PMOPictureModelController-tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C778ED981CE5A1340047CF87 /* PMOPictureModelController-tests.m */; };
 		C778ED9B1CE5A3A10047CF87 /* PMODownloadTaskQueues-tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C778ED9A1CE5A3A10047CF87 /* PMODownloadTaskQueues-tests.m */; };
 		C778ED9D1CE5A69A0047CF87 /* PMOThumbnailCreator-tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C778ED9C1CE5A69A0047CF87 /* PMOThumbnailCreator-tests.m */; };
@@ -63,6 +66,10 @@
 		C72ED2881CFF34B400AA3284 /* PMOImageViewScrollViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOImageViewScrollViewDelegate.m; sourceTree = "<group>"; };
 		C72ED28A1D01DC8100AA3284 /* PMOImageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOImageTableViewController.h; sourceTree = "<group>"; };
 		C72ED28B1D01DC8100AA3284 /* PMOImageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOImageTableViewController.m; sourceTree = "<group>"; };
+		C766516D1D1D027500211612 /* Main.iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.iPad.storyboard; sourceTree = "<group>"; };
+		C766516F1D1D02C400211612 /* PMOImageTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMOImageTableViewDelegate.h; sourceTree = "<group>"; };
+		C76651701D1D02C400211612 /* PMOImageTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOImageTableViewDelegate.m; sourceTree = "<group>"; };
+		C76651731D1F262F00211612 /* PMOSettingsURLs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMOSettingsURLs.h; sourceTree = "<group>"; };
 		C778ED981CE5A1340047CF87 /* PMOPictureModelController-tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PMOPictureModelController-tests.m"; sourceTree = "<group>"; };
 		C778ED9A1CE5A3A10047CF87 /* PMODownloadTaskQueues-tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PMODownloadTaskQueues-tests.m"; sourceTree = "<group>"; };
 		C778ED9C1CE5A69A0047CF87 /* PMOThumbnailCreator-tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PMOThumbnailCreator-tests.m"; sourceTree = "<group>"; };
@@ -128,6 +135,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C766516C1D1D023F00211612 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C766516D1D1D027500211612 /* Main.iPad.storyboard */,
+				C79B7AF81CD074D400F6D64B /* Main.iPhone.storyboard */,
+				C77D228F1D0A8A5D005952C2 /* PMOPictureTableViewCell.xib */,
+				C79B7AFD1CD074D400F6D64B /* LaunchScreen.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		C778EDA21CE9FEBC0047CF87 /* Abstract Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +187,7 @@
 		C79B7AEE1CD074D400F6D64B /* Parallels-test */ = {
 			isa = PBXGroup;
 			children = (
+				C766516C1D1D023F00211612 /* UI */,
 				C77D22911D0A8BC5005952C2 /* Views */,
 				C7B84D391D04BCC000534DDF /* Factories */,
 				C778EDA21CE9FEBC0047CF87 /* Abstract Classes */,
@@ -182,9 +201,6 @@
 				C79B7B151CD0750E00F6D64B /* ViewControllers */,
 				C79B7AF21CD074D400F6D64B /* AppDelegate.h */,
 				C79B7AF31CD074D400F6D64B /* AppDelegate.m */,
-				C79B7AF81CD074D400F6D64B /* Main.iPhone.storyboard */,
-				C77D228F1D0A8A5D005952C2 /* PMOPictureTableViewCell.xib */,
-				C79B7AFD1CD074D400F6D64B /* LaunchScreen.storyboard */,
 				C79B7B001CD074D400F6D64B /* Info.plist */,
 				C71DC56A1CECC6C100EACB3D /* Assets.xcassets */,
 				C79B7AEF1CD074D400F6D64B /* Supporting Files */,
@@ -236,6 +252,8 @@
 		C79B7B161CD0756500F6D64B /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
+				C766516F1D1D02C400211612 /* PMOImageTableViewDelegate.h */,
+				C76651701D1D02C400211612 /* PMOImageTableViewDelegate.m */,
 				C72ED2871CFF34B400AA3284 /* PMOImageViewScrollViewDelegate.h */,
 				C72ED2881CFF34B400AA3284 /* PMOImageViewScrollViewDelegate.m */,
 				C72ED2811CFCC7DC00AA3284 /* PMOImageTableViewDataSource.h */,
@@ -254,6 +272,7 @@
 				C778ED9E1CE846590047CF87 /* PMOBackgroundTaskExecutable.h */,
 				C72ED27D1CFC990100AA3284 /* PMOViewIndicatorIncluded.h */,
 				C77D22971D0D6419005952C2 /* PMOThumbnailCreatorNotification.h */,
+				C76651731D1F262F00211612 /* PMOSettingsURLs.h */,
 			);
 			name = "Protocols and headers";
 			sourceTree = "<group>";
@@ -320,6 +339,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C76651711D1D02C400211612 /* PMOImageTableViewDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +428,7 @@
 				C71DC56B1CECC6C100EACB3D /* Assets.xcassets in Resources */,
 				C79B7AFA1CD074D400F6D64B /* Main.iPhone.storyboard in Resources */,
 				C77D22901D0A8A5D005952C2 /* PMOPictureTableViewCell.xib in Resources */,
+				C766516E1D1D027500211612 /* Main.iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +461,7 @@
 				C7C4ACCA1CE1DADB004F515A /* PMOThumbnailCreator.m in Sources */,
 				C77D22951D0A8C09005952C2 /* PMOPictureTableViewCell.m in Sources */,
 				C79B7B211CD0760E00F6D64B /* PMODownloadTaskQueues.m in Sources */,
+				C76651721D1D02C400211612 /* PMOImageTableViewDelegate.m in Sources */,
 				C72ED2831CFCC7DC00AA3284 /* PMOImageTableViewDataSource.m in Sources */,
 				C77D228E1D0A0B08005952C2 /* PMOImageViewScrollViewFactory.m in Sources */,
 				C7C4ACC21CE06D26004F515A /* PMOPictureDownloaderWithQueues.m in Sources */,

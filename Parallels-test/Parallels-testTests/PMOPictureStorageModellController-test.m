@@ -10,6 +10,8 @@
 #import "PMOPictureModellControllerFactory.h"
 #import "PMOPictureStorageModellController.h"
 #import "PMODownloadTaskQueues.h"
+#import "PMOPicture.h"
+#import "PMOPictureModellController.h"
 
 @interface PMOPictureStorageModellController_test : XCTestCase
 
