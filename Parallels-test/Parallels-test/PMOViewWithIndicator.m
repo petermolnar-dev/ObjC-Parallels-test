@@ -12,7 +12,7 @@
 
 @interface PMOViewWithIndicator()
 @property (strong, nonatomic)UIActivityIndicatorView *loadingActivity;
-
+@property (strong, nonatomic)UILabel *displayLabel;
 @end
 
 @implementation PMOViewWithIndicator
@@ -34,7 +34,7 @@
 - (void)startSpinner {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         if (!self.loadingActivity) {
-        self.loadingActivity = [self addSpinnerToView:self];
+            self.loadingActivity = [self addSpinnerToView:self];
         } else {
             self.loadingActivity.hidden = false;
             [self.loadingActivity startAnimating];
@@ -73,20 +73,40 @@
     return loadingActivity;
 }
 
-#pragma mark - Error message display
-- (void)displayErrorMessage:(NSError *)error {
+#pragma mark - Helpers
+
+- (void)displayMessage:(NSString *)message {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self stopSpinner];
         
-        UILabel *errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
-        errorLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
-        errorLabel.center = self.center;
-        errorLabel.textAlignment = NSTextAlignmentCenter;
+        UILabel *displayLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+        displayLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin;
+        displayLabel.center = self.center;
+        displayLabel.textAlignment = NSTextAlignmentCenter;
         
-        errorLabel.text = [error localizedDescription];
-        
-        [self addSubview:errorLabel];
+        displayLabel.text = message;
+        self.displayLabel = displayLabel;
+        [self addSubview:self.displayLabel];
     }];
+    
+}
+
+
+#pragma mark - Error message display
+- (void)displayErrorMessage:(NSError *)error {
+    [self displayMessage:[error localizedDescription]];
+}
+
+#pragma mark - Display an initial message
+- (void)displayInitialMessage:(NSString *)initialMessage {
+    [self displayMessage:initialMessage];
+    
+}
+
+- (void)hideMessageLabel {
+    if (self.displayLabel) {
+        [self.displayLabel removeFromSuperview];
+    }
 }
 
 #pragma mark - Notification actions
@@ -95,5 +115,8 @@
     [self displayErrorMessage:error];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

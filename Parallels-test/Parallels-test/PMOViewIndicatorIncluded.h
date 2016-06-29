@@ -16,5 +16,7 @@
 
 - (UIActivityIndicatorView *)addSpinnerToView:(UIView *)parentView;
 - (void)displayErrorMessage:(NSError *)error;
+- (void)displayInitialMessage:(NSString *)initialMessage;
+- (void)hideMessageLabel;
 
 @end

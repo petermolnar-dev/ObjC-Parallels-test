@@ -72,7 +72,10 @@
 
 - (void)setModellController:(PMOPictureModellController *)modellController {
     _modellController = modellController;
-    [self setupImage];
+    if (_modellController) {
+        [self.view hideMessageLabel];
+        [self setupImage];
+    }
     
 }
 
@@ -85,7 +88,7 @@
 
 - (void)setupScrollAndImageViews {
     [self.view stopSpinner];
-
+    
     self.scrollView.zoomScale = 1.0;
     self.scrollView.minimumZoomScale = 0.02;
     self.scrollView.maximumZoomScale = 2.0;
@@ -118,6 +121,9 @@
     if (self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryHidden)
     {
         [self showBackButtonOnSplitViewController];
+    }
+    if (self.splitViewController && !self.modellController) {
+        [self.view displayInitialMessage:@"Select a picture from the list."];
     }
 }
 
