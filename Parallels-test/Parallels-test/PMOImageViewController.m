@@ -28,10 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.modellController addObserver:self
-                            forKeyPath:@"picture.image"
-                               options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew
-                               context:nil ];
     
     [self.scrollView addSubview:self.imageView];
     [self.scrollView setDelegate:self.scrollViewDelegate];
@@ -70,9 +66,39 @@
     return _imageView;
 }
 
+- (void)removePictureImageObserverFromController:(PMOPictureModellController *)modellController {
+    [modellController removeObserver:self
+                          forKeyPath:@"picture.image" ];
+    
+}
+
+- (void)changePreviousModellControllerOnSplitView {
+    if (self.splitViewController.viewControllers[1]) { // Check if we are on iPad/iPhone 6Plus
+        if (_modellController) {
+            // If there _modelcontroller is not nil, probably it might be
+            // observed by this class
+            @try {
+                [self removePictureImageObserverFromController:_modellController];
+            }
+            @catch(id anException){
+                //do nothing, obviously it wasn't attached because an exception was thrown
+            }
+            [_modellController changePictureDownloadPriorityToDefault];
+        }
+    }
+    
+}
+
 - (void)setModellController:(PMOPictureModellController *)modellController {
+    
+    [self changePreviousModellControllerOnSplitView];
+    
     _modellController = modellController;
     if (_modellController) {
+        [self.modellController addObserver:self
+                                forKeyPath:@"picture.image"
+                                   options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew
+                                   context:nil ];
         [self.view hideMessageLabel];
         [self setupImage];
     }
@@ -150,7 +176,8 @@
 
 #pragma mark - Dealloc cleanup
 -(void)dealloc {
-    [self.modellController removeObserver:self          forKeyPath:@"picture.image" ];
+    [self removePictureImageObserverFromController:self.modellController];
+    
 }
 
 @end

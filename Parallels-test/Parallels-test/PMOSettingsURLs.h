@@ -9,8 +9,8 @@
 #ifndef PMOSettingsURLs_h
 #define PMOSettingsURLs_h
 
-#define kDataBaseURLAsStringOrig @"http://93.175.29.76/web/wwdc/"
-#define kDataBaseURLAsString @"http://localhost/web/wwdc/"
+#define kDataBaseURLAsString @"http://93.175.29.76/web/wwdc/"
+#define kDataBaseURLAsStringTest @"http://localhost/web/wwdc/"
 #define kJSONURLAsString [kDataBaseURLAsString stringByAppendingString:@"items.json"]
 
 
