@@ -30,7 +30,6 @@
     if ([detail isKindOfClass:[UINavigationController class]]) {
         detail = [((UINavigationController *)detail).viewControllers firstObject];
     }
-    // last check if it is a PMOPictureViewController?
     if ([detail isKindOfClass:[PMOImageViewController class]]) {
         [self preparePictureViewController:detail toShowPicture:self.selectedModellController];
     } else {
@@ -40,7 +39,6 @@
 
 #pragma mark - Segue and navigation
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
     
     if ([segue.identifier isEqualToString:@"ShowImage"]) {
         PMOImageViewController *destinationVC = segue.destinationViewController;
@@ -53,7 +51,7 @@
 
 -(void)preparePictureViewController:(PMOImageViewController *)pvc toShowPicture:(PMOPictureModellController *)picturemodellController {
     pvc.modellController = picturemodellController;
-    //    [pvc setTitle:[picture.imageTitle stringByAppendingString:[@" - " stringByAppendingString:picture.imageDescription]]];
+    [pvc setTitle:[picturemodellController.imageTitle stringByAppendingString:[@" - " stringByAppendingString:picturemodellController.imageDescription]]];
     
 }
 

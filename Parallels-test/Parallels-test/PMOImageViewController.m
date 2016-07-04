@@ -25,6 +25,10 @@
 @dynamic view;
 
 #pragma mark - LifeCycle
+- (void)awakeFromNib
+{
+    self.splitViewController.delegate = self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -161,10 +165,6 @@
     
 }
 
-- (void)awakeFromNib
-{
-    self.splitViewController.delegate = self;
-}
 
 - (void)splitViewController:(UISplitViewController *)svc
     willChangeToDisplayMode:(UISplitViewControllerDisplayMode)displayMode {
