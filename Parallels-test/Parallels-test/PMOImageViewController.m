@@ -13,7 +13,7 @@
 #import "PMOPicture.h"
 
 @interface PMOImageViewController() <UISplitViewControllerDelegate>
-@property (weak, nonatomic) IBOutlet UIScrollViewt *scrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) PMOImageViewScrollViewDelegate *scrollViewDelegate;
 
