@@ -14,7 +14,7 @@
 @implementation PMOPictureModellControllerFactory
 
 #pragma mark - Helper functions
-+ (NSString *)updateURLAsStringWithTrailingHash:(NSString *)URLstring {
++ (NSString *)updateURLAsStringWithTrailingSlash:(NSString *)URLstring {
     
     // Check if the URL ends with slash (/) character.
     if (![[URLstring substringFromIndex:[URLstring length]-1] isEqual:@"/"]) {
@@ -32,7 +32,7 @@
     [picture setImageDescription:[pictureDetails objectForKey:@"description"]];
     [picture setImageFileName:[pictureDetails objectForKey:@"image"]];
     [picture setImageTitle:[pictureDetails objectForKey:@"name"]];
-    [picture setImageURL:[NSURL URLWithString:[[self updateURLAsStringWithTrailingHash:baseURLAsString] stringByAppendingString:picture.imageFileName]]];
+    [picture setImageURL:[NSURL URLWithString:[[self updateURLAsStringWithTrailingSlash:baseURLAsString] stringByAppendingString:picture.imageFileName]]];
     
     return picture;
 }

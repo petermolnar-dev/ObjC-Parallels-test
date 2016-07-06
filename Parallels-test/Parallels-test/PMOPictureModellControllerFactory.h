@@ -14,6 +14,6 @@
 @interface PMOPictureModellControllerFactory : NSObject
 
 + (PMOPictureModellController *)modellControllerFromDictionary:(NSDictionary *)dictionary baseURLAsStringForImage:(NSString *)baseURLAsString downloadQueues:(PMODownloadTaskQueues *)queues;
-+ (NSString *)updateURLAsStringWithTrailingHash:(NSString *)URLstring;
++ (NSString *)updateURLAsStringWithTrailingSlash:(NSString *)URLstring;
 
 @end

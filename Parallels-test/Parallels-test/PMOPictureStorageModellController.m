@@ -45,7 +45,7 @@
     [self addObserversForDownloadData];
     // Setting up the globals
 
-    self.baseURLAsString = [PMOPictureModellControllerFactory updateURLAsStringWithTrailingHash:baseURLString];
+    self.baseURLAsString = [PMOPictureModellControllerFactory updateURLAsStringWithTrailingSlash:baseURLString];
     PMODataDownloader *downloader = [[PMODataDownloader alloc] init];
     [downloader downloadDataFromURL:url];
     

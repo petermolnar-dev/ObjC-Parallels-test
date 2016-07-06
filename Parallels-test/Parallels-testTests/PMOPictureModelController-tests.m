@@ -85,7 +85,7 @@
                                                                             }
                                                                         }];
     // Triggering the KVO event
-    UIImage *testImageFromURL = self.modelController.image;
+    if (self.modelController.image) {};
     
     [self waitForExpectationsWithTimeout:5 handler:nil];
 }
