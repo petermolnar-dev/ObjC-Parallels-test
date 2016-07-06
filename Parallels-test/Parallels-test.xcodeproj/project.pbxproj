@@ -17,6 +17,7 @@
 		C76651711D1D02C400211612 /* PMOImageTableViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C766516F1D1D02C400211612 /* PMOImageTableViewDelegate.h */; };
 		C76651721D1D02C400211612 /* PMOImageTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C76651701D1D02C400211612 /* PMOImageTableViewDelegate.m */; };
 		C76651751D2C0ADB00211612 /* PMOPictureModellControllerFactory-tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C76651741D2C0ADB00211612 /* PMOPictureModellControllerFactory-tests.m */; };
+		C76651771D2D1A9200211612 /* PMOImageTableViewDataSource-tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C76651761D2D1A9200211612 /* PMOImageTableViewDataSource-tests.m */; };
 		C778ED991CE5A1340047CF87 /* PMOPictureModelController-tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C778ED981CE5A1340047CF87 /* PMOPictureModelController-tests.m */; };
 		C778ED9B1CE5A3A10047CF87 /* PMODownloadTaskQueues-tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C778ED9A1CE5A3A10047CF87 /* PMODownloadTaskQueues-tests.m */; };
 		C778ED9D1CE5A69A0047CF87 /* PMOThumbnailCreator-tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C778ED9C1CE5A69A0047CF87 /* PMOThumbnailCreator-tests.m */; };
@@ -71,6 +72,7 @@
 		C76651701D1D02C400211612 /* PMOImageTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMOImageTableViewDelegate.m; sourceTree = "<group>"; };
 		C76651731D1F262F00211612 /* PMOSettingsURLs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PMOSettingsURLs.h; sourceTree = "<group>"; };
 		C76651741D2C0ADB00211612 /* PMOPictureModellControllerFactory-tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PMOPictureModellControllerFactory-tests.m"; sourceTree = "<group>"; };
+		C76651761D2D1A9200211612 /* PMOImageTableViewDataSource-tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PMOImageTableViewDataSource-tests.m"; sourceTree = "<group>"; };
 		C778ED981CE5A1340047CF87 /* PMOPictureModelController-tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PMOPictureModelController-tests.m"; sourceTree = "<group>"; };
 		C778ED9A1CE5A3A10047CF87 /* PMODownloadTaskQueues-tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PMODownloadTaskQueues-tests.m"; sourceTree = "<group>"; };
 		C778ED9C1CE5A69A0047CF87 /* PMOThumbnailCreator-tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PMOThumbnailCreator-tests.m"; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 		C79B7B081CD074D400F6D64B /* Parallels-testTests */ = {
 			isa = PBXGroup;
 			children = (
+				C76651761D2D1A9200211612 /* PMOImageTableViewDataSource-tests.m */,
 				C76651741D2C0ADB00211612 /* PMOPictureModellControllerFactory-tests.m */,
 				C778ED9C1CE5A69A0047CF87 /* PMOThumbnailCreator-tests.m */,
 				C778EDA31CEA52BF0047CF87 /* PMOPictureStorageModellController-test.m */,
@@ -475,6 +478,7 @@
 				C76651751D2C0ADB00211612 /* PMOPictureModellControllerFactory-tests.m in Sources */,
 				C778EDA41CEA52BF0047CF87 /* PMOPictureStorageModellController-test.m in Sources */,
 				C7C4ACC61CE0B387004F515A /* PMODataDownloaderTest.m in Sources */,
+				C76651771D2D1A9200211612 /* PMOImageTableViewDataSource-tests.m in Sources */,
 				C778ED9D1CE5A69A0047CF87 /* PMOThumbnailCreator-tests.m in Sources */,
 				C778ED9B1CE5A3A10047CF87 /* PMODownloadTaskQueues-tests.m in Sources */,
 			);
